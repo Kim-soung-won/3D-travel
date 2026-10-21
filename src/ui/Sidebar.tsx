@@ -1,7 +1,8 @@
 // 패널: 지구 화면이면 도시 단위 경유지, 도시 화면이면 그 도시의 세부 경유지를 다룬다.
 // 지우기는 확인 창 대신 즉시 실행하고 되돌리기를 준다.
-import type { Dispatch } from 'react';
-import { formatKm } from '../geo/geo';
+import { useEffect, useRef, type Dispatch } from 'react';
+import { PLACES_NOTICE, type CityOption } from '../data/places';
+import { distanceKm, formatKm } from '../geo/geo';
 import { CITY_MODES, formatDuration, GLOBE_MODES } from '../geo/modes';
 import type { LegState } from '../hooks/useLegs';
 import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } from '../state/route';
@@ -82,7 +83,75 @@ function NightsStepper({ waypoint, days, onChange }: { waypoint: Waypoint; days:
   );
 }
 
-export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) => void; status?: string; onShare: () => void }) {
+/** 인구를 "980만" 식으로 */
+function formatPop(n: number): string {
+  if (n >= 1e8) return `${(n / 1e8).toFixed(1).replace(/\.0$/, '')}억`;
+  if (n >= 1e4) return `${Math.round(n / 1e4).toLocaleString('ko-KR')}만`;
+  return n.toLocaleString('ko-KR');
+}
+
+export interface CountryPanel {
+  name: string;
+  /** 불러오는 중이면 null */
+  cities: CityOption[] | null;
+}
+
+/** 지구본에서 고른 나라의 주요 도시. 누르면 경유지 끝에 넣는다. 지구본의 점과 마우스 올림을 함께 보인다 */
+function CountryPicker({ country, waypoints, hovered, onHover, onAdd, onClose }: {
+  country: CountryPanel; waypoints: Waypoint[]; hovered: number | null; onHover: (i: number | null) => void; onAdd: (c: CityOption) => void; onClose: () => void;
+}) {
+  const rows = useRef(new Map<number, HTMLButtonElement>());
+  useEffect(() => {
+    if (hovered !== null) rows.current.get(hovered)?.scrollIntoView({ block: 'nearest' });
+  }, [hovered]);
+  const inTrip = (c: CityOption) => waypoints.some((w) => distanceKm(w, c) < 15);
+  const { cities } = country;
+  return (
+    <section className="country" aria-label={`${country.name}의 도시`}>
+      <div className="country-head">
+        <h2>{country.name}</h2>
+        {cities && cities.length > 0 && <span className="country-count">도시 {cities.length}곳</span>}
+        <button type="button" className="icon-btn" aria-label="나라 선택 닫기" onClick={onClose}>×</button>
+      </div>
+      {cities === null ? (
+        <p className="reason">도시 목록을 불러오는 중…</p>
+      ) : cities.length === 0 ? (
+        <p className="reason">이 지역은 도시 데이터가 없습니다. 다른 나라를 고르세요.</p>
+      ) : (
+        <ul className="country-cities" onMouseLeave={() => onHover(null)}>
+          {cities.map((c, i) => (
+            <li key={`${c.name}-${i}`}>
+              <button
+                type="button"
+                ref={(el) => {
+                  if (el) rows.current.set(i, el);
+                  else rows.current.delete(i);
+                }}
+                className={hovered === i ? 'is-hovered' : undefined}
+                onClick={() => onAdd(c)}
+                onMouseEnter={() => onHover(i)}
+                onFocus={() => onHover(i)}
+                aria-label={`${c.name} 경유지에 추가`}
+              >
+                <span className="guide-name">{c.name}</span>
+                {c.capital && <span className="capital">수도</span>}
+                <span className="city-en">{c.en !== c.name ? c.en : ''}</span>
+                <span className="city-meta">{inTrip(c) ? '일정에 있음 · ' : ''}인구 {formatPop(c.pop)}</span>
+                <span className="city-add" aria-hidden="true">+ 추가</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
+      <p className="country-notice">{PLACES_NOTICE}</p>
+    </section>
+  );
+}
+
+export function GlobeSidebar(props: CommonProps & {
+  onEnterCity: (id: string) => void; status?: string; onShare: () => void;
+  country: CountryPanel | null; hoveredCity: number | null; onHoverCity: (i: number | null) => void; onAddCity: (c: CityOption) => void; onCloseCountry: () => void;
+}) {
   const { route, dispatch } = props;
   const list = route.waypoints;
   const days = cityDays(list);
@@ -95,11 +164,14 @@ export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) =>
           </h1>
           <button type="button" className="btn share-btn" onClick={props.onShare}>공유</button>
         </div>
-        <p className="hint">지구본을 클릭해 도시를 추가하세요. 도시마다 묵을 밤 수를, 구간마다 이동 수단을 고르고, 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
+        <p className="hint">지구본에서 나라를 누른 뒤 도시를 고르세요. 도시마다 묵을 밤 수를, 구간마다 이동 수단을 고르고, 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
       </header>
+      {props.country && (
+        <CountryPicker country={props.country} waypoints={list} hovered={props.hoveredCity} onHover={props.onHoverCity} onAdd={props.onAddCity} onClose={props.onCloseCountry} />
+      )}
       {list.length === 0 ? (
         <div className="empty">
-          <p>아직 경유지가 없습니다.</p>
+          <p>아직 경유지가 없습니다. 지구본에서 나라를 눌러 시작하세요.</p>
           <button type="button" className="btn" onClick={() => dispatch({ type: 'load', label: '예시 경로를 불러옴', waypoints: sampleWaypoints() })}>
             예시 경로 불러오기
           </button>

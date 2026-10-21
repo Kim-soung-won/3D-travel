@@ -10,8 +10,11 @@ import { easeMotion, isAttending, type Attention } from './attention';
 
 const AUTO_ROTATE_SPEED = 0.35;
 
+/** 카메라를 보낼 곳. radius(라디안)가 있으면 그만한 땅이 화면에 들어오게 다가간다 */
+export type Focus = LatLon & { radius?: number };
+
 interface CameraRigProps {
-  focus: LatLon | null;
+  focus: Focus | null;
   onFocusDone: () => void;
   follow: boolean;
   followRef: MutableRefObject<Vector3>;
@@ -19,6 +22,12 @@ interface CameraRigProps {
   closeRef?: MutableRefObject<string | null>;
   idle: boolean;
   attention: MutableRefObject<Attention>;
+}
+
+/** 반경 r(라디안)인 땅이 화면 좁은 쪽의 45%쯤 차는 카메라 거리. 주변 나라도 보이게 너무 다가가지 않고, 지구 전체(fit)보다 멀어지지 않는다 */
+function viewDistance(r: number, camera: PerspectiveCamera, fit: number): number {
+  const half = Math.tan((camera.fov * Math.PI) / 360) * Math.min(1, camera.aspect) * 0.45;
+  return Math.min(fit, Math.max(1.8, Math.cos(r) + Math.sin(Math.min(r, Math.PI / 2)) / half));
 }
 
 export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idle, attention }: CameraRigProps) {
@@ -80,7 +89,7 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idl
       desired.copy(followRef.current).normalize().multiplyScalar(Math.max(fit * 0.85, Math.min(distance, fit * 1.05)));
       camera.position.lerp(desired, k * 0.6);
     } else if (focus && !interacting.current) {
-      latLonToVector3(focus, Math.max(fit * 0.7, Math.min(distance, fit * 1.05)), desired);
+      latLonToVector3(focus, focus.radius === undefined ? Math.max(fit * 0.7, Math.min(distance, fit * 1.05)) : viewDistance(focus.radius, camera as PerspectiveCamera, fit), desired);
       camera.position.lerp(desired, k);
       if (camera.position.distanceTo(desired) < 0.01) onFocusDone();
     }

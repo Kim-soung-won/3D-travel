@@ -1,5 +1,5 @@
 // Natural Earth 1:110m(world-atlas, 퍼블릭 도메인)으로 대륙 텍스처를 그리고, 좌표가 속한 나라를 찾는다.
-import { geoContains, geoEquirectangular, geoGraticule10, geoPath } from 'd3-geo';
+import { geoArea, geoCentroid, geoContains, geoDistance, geoEquirectangular, geoGraticule10, geoPath } from 'd3-geo';
 import type { Feature, FeatureCollection, Geometry, MultiPolygon, Polygon } from 'geojson';
 import { feature, mesh } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
@@ -86,9 +86,48 @@ const KOREAN_NAMES: Record<string, string> = {
   'South Africa': '남아프리카공화국', Kenya: '케냐', Australia: '오스트레일리아', 'New Zealand': '뉴질랜드', Greenland: '그린란드',
 };
 
-/** 좌표가 속한 나라 이름. 바다면 null */
-export function countryAt({ lat, lon }: LatLon): string | null {
-  const hit = countries.features.find((f) => geoContains(f, [lon, lat]));
-  if (!hit) return null;
-  return KOREAN_NAMES[hit.properties.name] ?? hit.properties.name;
+/** 좌표가 속한 나라의 키(world-atlas 영어 이름). 바다면 null */
+export function countryKeyAt({ lat, lon }: LatLon): string | null {
+  return countries.features.find((f) => geoContains(f, [lon, lat]))?.properties.name ?? null;
+}
+
+/** 나라 키의 한국어 이름. 짧게 부르는 이름(중국, 미국)을 먼저 쓰고, 없으면 도시 데이터의 이름(fallback) */
+export function countryName(key: string, fallback?: string): string {
+  return KOREAN_NAMES[key] ?? fallback ?? key;
+}
+
+export function countryFeature(key: string): Feature<Polygon | MultiPolygon, { name: string }> | null {
+  return countries.features.find((f) => f.properties.name === key) ?? null;
+}
+
+/** 카메라를 보낼 나라 중심과 반경(라디안, 중심에서 가장 먼 국경까지). 해외 영토에 끌려가지 않게 가장 넓은 땅덩이를 쓴다 */
+export function countryCenter(key: string): (LatLon & { radius: number }) | null {
+  const f = countryFeature(key);
+  if (!f) return null;
+  const parts: Polygon[] = f.geometry.type === 'Polygon' ? [f.geometry] : f.geometry.coordinates.map((coordinates) => ({ type: 'Polygon', coordinates }));
+  const main = parts.reduce((a, b) => (geoArea(b) > geoArea(a) ? b : a));
+  const c = geoCentroid(main);
+  const radius = Math.max(...main.coordinates[0].map((p) => geoDistance(c, p as [number, number])));
+  return { lat: c[1], lon: c[0], radius };
+}
+
+/** 고른 나라만 칠한 투명 텍스처(지구 텍스처와 같은 등장방형). 지구 위에 겹쳐 그린다 */
+export function drawCountryOverlay(key: string, width = 2048): HTMLCanvasElement {
+  const height = width / 2;
+  const canvas = document.createElement('canvas');
+  canvas.width = width;
+  canvas.height = height;
+  const f = countryFeature(key);
+  if (!f) return canvas;
+  const ctx = canvas.getContext('2d')!;
+  const path = geoPath(geoEquirectangular().scale(width / (2 * Math.PI)).translate([width / 2, height / 2]), ctx);
+  ctx.beginPath();
+  path(f);
+  ctx.fillStyle = 'rgba(242, 169, 59, 0.55)';
+  ctx.fill();
+  ctx.strokeStyle = '#b8421f';
+  ctx.lineWidth = width / 1024;
+  ctx.lineJoin = 'round';
+  ctx.stroke();
+  return canvas;
 }

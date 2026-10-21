@@ -1,13 +1,15 @@
 import { Canvas, useFrame, type ThreeEvent } from '@react-three/fiber';
 import { useMemo, useRef, type MutableRefObject } from 'react';
 import { Mesh, Vector3 } from 'three';
+import type { CityOption } from '../data/places';
 import { greatCircleArc, latLonToVector3, vector3ToLatLon, type LatLon } from '../geo/geo';
 import type { LegState } from '../hooks/useLegs';
 import type { Waypoint } from '../state/route';
 import { Arcs, type Leg3D } from './Arcs';
 import { AttentionTracker, createAttention, type Attention } from './attention';
-import { CameraRig } from './CameraRig';
+import { CameraRig, type Focus } from './CameraRig';
 import { Clouds } from './Clouds';
+import { CountryLayer } from './Country';
 import { Earth } from './Earth';
 import { PinLabels, Pins } from './Pins';
 import { cityDays, nightsOf } from '../state/itinerary';
@@ -17,9 +19,16 @@ interface SceneProps {
   waypoints: Waypoint[];
   legs: LegState[];
   selectedId: string | null;
-  focus: LatLon | null;
+  focus: Focus | null;
   playing: boolean;
+  /** 지구본을 누른 곳. 나라를 고르는 데 쓴다 */
   onPick: (p: LatLon) => void;
+  /** 고른 나라(world-atlas 이름)와 그 나라의 주요 도시 */
+  country: string | null;
+  countryCities: CityOption[];
+  hoveredCity: number | null;
+  onAddCity: (c: CityOption) => void;
+  onHoverCity: (i: number | null) => void;
   onSelect: (id: string) => void;
   onFocusDone: () => void;
   onProgress: (t: number) => void;
@@ -86,6 +95,13 @@ export function Scene(props: SceneProps) {
         <Earth ref={earthRef} onPick={pick} />
         <Clouds attention={attention} />
         <Arcs legs={legs3d} />
+        <CountryLayer
+          countryKey={playing ? null : props.country}
+          cities={props.countryCities}
+          hovered={props.hoveredCity}
+          onAddCity={props.onAddCity}
+          onHoverCity={props.onHoverCity}
+        />
         <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={props.onSelect} labels={labels} hiddenRef={stayRef} />
         <Traveler
           legs={legs3d}

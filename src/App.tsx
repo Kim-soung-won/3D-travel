@@ -2,8 +2,10 @@
 import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
 import type { LatLon } from './geo/geo';
 import { reverseGeocode } from './geo/geocode';
-import { countryAt } from './geo/world';
+import { countryCenter, countryKeyAt, countryName } from './geo/world';
+import { loadCountryCities, type CityOption, type CountryCities } from './data/places';
 import { useLegs } from './hooks/useLegs';
+import type { Focus } from './scene/CameraRig';
 import { Scene } from './scene/Scene';
 import { codeFromHash, decodeTrip } from './share/codec';
 import { TripFormatError } from './share/format';
@@ -29,10 +31,14 @@ export function App() {
   const [view, setView] = useState<View>({ kind: 'globe' });
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [citySelectedId, setCitySelectedId] = useState<string | null>(null);
-  const [focus, setFocus] = useState<LatLon | null>(null);
+  const [focus, setFocus] = useState<Focus | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [tripStatus, setTripStatus] = useState('');
+  // 지구본에서 고른 나라(world-atlas 이름)와 그 나라의 도시 목록
+  const [country, setCountry] = useState<string | null>(null);
+  const [loadedCountry, setLoadedCountry] = useState<{ key: string; data: CountryCities } | null>(null);
+  const [hoveredCity, setHoveredCity] = useState<number | null>(null);
 
   // 로딩 화면
   const [curtain, setCurtain] = useState<Curtain>('hidden');
@@ -73,6 +79,7 @@ export function App() {
   const enterCity = (id: string) => {
     const w = route.waypoints.find((x) => x.id === id);
     if (!w) return;
+    setCountry(null);
     setCitySelectedId(null);
     transition({ kind: 'city', id }, w.name, '거리와 길을 불러오는 중…');
   };
@@ -99,21 +106,36 @@ export function App() {
     [route.waypoints],
   );
 
-  // 이름은 먼저 오프라인(나라 이름)으로 붙이고, 역지오코딩 결과가 오면 사용자가 고치지 않은 경우에만 바꾼다
-  const provisional = useRef(new Map<string, string>());
-  const pickGlobe = useCallback(
-    (p: LatLon) => {
+  // 지구본에서는 나라를 고르고, 그 나라의 도시 목록(패널·지구본 점)에서 도시를 넣는다. 바다를 누르면 고른 나라를 푼다
+  const pickGlobe = useCallback((p: LatLon) => {
+    const key = countryKeyAt(p);
+    setHoveredCity(null);
+    setCountry(key);
+    const center = key && countryCenter(key);
+    if (center) setFocus(center);
+  }, []);
+  useEffect(() => {
+    if (!country) return;
+    let alive = true;
+    loadCountryCities(country).then((data) => alive && setLoadedCountry({ key: country, data }));
+    return () => {
+      alive = false;
+    };
+  }, [country]);
+  const countryInfo = country
+    ? { name: countryName(country, loadedCountry?.key === country ? loadedCountry.data.ko : undefined), cities: loadedCountry?.key === country ? loadedCountry.data.cities : null }
+    : null;
+  const addCity = useCallback(
+    (c: CityOption) => {
       const id = newId();
-      const name = countryAt(p) ?? '바다 위 지점';
-      provisional.current.set(id, name);
-      dispatch({ type: 'add', waypoint: { id, name, ...p, mode: 'plane', nights: 1, stops: [] } });
+      dispatch({ type: 'add', waypoint: { id, name: c.name, area: countryInfo?.name, lat: c.lat, lon: c.lon, mode: 'plane', nights: 1, stops: [] } });
       setSelectedId(id);
-      reverseGeocode(p, 10).then((r) => {
-        if (r && provisional.current.get(id) !== undefined) dispatch({ type: 'update', id, patch: { name: r.name, area: r.area } });
-      });
     },
-    [dispatch],
+    [dispatch, countryInfo?.name],
   );
+
+  // 도시 화면의 세부 경유지 이름은 먼저 임시로 붙이고, 역지오코딩 결과가 오면 사용자가 고치지 않은 경우에만 바꾼다
+  const provisional = useRef(new Map<string, string>());
   const pickCity = useCallback(
     (p: LatLon) => {
       if (!city) return;
@@ -177,7 +199,11 @@ export function App() {
   );
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPlaying(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return;
+      setPlaying(false);
+      setCountry(null);
+    };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, []);
@@ -189,6 +215,7 @@ export function App() {
     progress,
     onTogglePlay: () => {
       setFocus(null);
+      setCountry(null);
       setProgress(0);
       setTripStatus('');
       setPlaying((p) => !p);
@@ -206,6 +233,11 @@ export function App() {
             focus={focus}
             playing={playing}
             onPick={pickGlobe}
+            country={country}
+            countryCities={countryInfo?.cities ?? []}
+            hoveredCity={hoveredCity}
+            onAddCity={addCity}
+            onHoverCity={setHoveredCity}
             onSelect={selectGlobe}
             onFocusDone={() => setFocus(null)}
             onProgress={setProgress}
@@ -235,7 +267,8 @@ export function App() {
         )}
       </div>
       {view.kind === 'globe' || !city ? (
-        <GlobeSidebar {...common} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity} />
+        <GlobeSidebar {...common} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity}
+          country={countryInfo} hoveredCity={hoveredCity} onHoverCity={setHoveredCity} onAddCity={addCity} onCloseCountry={() => setCountry(null)} />
       ) : (
         <CitySidebar {...common} legs={cityLegs} city={city} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
       )}

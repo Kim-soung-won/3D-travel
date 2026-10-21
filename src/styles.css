@@ -189,3 +189,22 @@ body { background: var(--bg); overflow: hidden; }
 .incoming-list li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
 .incoming-name { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .incoming-meta { flex: none; color: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }
+
+/* 지구본에서 고른 나라의 도시 목록 */
+.country { display: flex; flex-direction: column; gap: 6px; padding: 10px; border: 1px solid var(--line); border-radius: 12px; background: #fff; flex: none; }
+.country-head { display: flex; align-items: center; gap: 8px; }
+.country-head h2 { margin: 0; font-size: 16px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.country-count { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+.country-head .icon-btn { margin-left: auto; flex: none; }
+.country-cities { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 2px; max-height: 260px; overflow-y: auto; }
+.country-cities button {
+  width: 100%; text-align: left; display: grid; grid-template-columns: auto auto 1fr auto; grid-template-rows: auto auto; align-items: baseline; gap: 0 6px;
+  padding: 6px 8px; border: 1px solid transparent; border-radius: 8px; background: none; font: inherit; color: var(--ink); cursor: pointer;
+}
+.country-cities button:hover, .country-cities button:focus-visible, .country-cities button.is-hovered { border-color: var(--line); background: #fff8ea; }
+.country-cities .guide-name { grid-column: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.country-cities .capital { grid-column: 2; font-size: 11px; font-weight: 700; color: var(--accent-ink); border: 1px solid currentColor; border-radius: 999px; padding: 0 6px; white-space: nowrap; }
+.country-cities .city-en { grid-column: 3; font-size: 12px; color: var(--ink-3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.country-cities .city-add { grid-column: 4; grid-row: 1 / 3; align-self: center; font-size: 12px; font-weight: 700; color: var(--accent-ink); white-space: nowrap; }
+.country-cities .city-meta { grid-column: 1 / 4; grid-row: 2; font-size: 12px; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.country-notice { margin: 0; font-size: 11px; color: var(--ink-3); }
