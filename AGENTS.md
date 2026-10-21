@@ -25,3 +25,8 @@
   - `npm test`와 `npm run build`가 통과해야 한다.
   - 화면이 바뀌었으면 넓은 폭(1440)과 좁은 폭(390)에서 직접 열어 본다.
 - **외부 API:** 키를 코드에 넣지 않는다. 공개 서버(OpenFreeMap, OSRM, Nominatim)는 요청 간격과 캐시를 지킨다. 주소 조회는 1초에 한 번 이하다.
+- **개발 이력·계획:** 의미 있는 변경을 마치면 함께 갱신한다. 형식은 [docs/history/README.md](docs/history/README.md)에 있다.
+  - 상세: `docs/history/details/YYYY-MM-DD-NN-<주제>.md`
+  - 일자별 요약: 그날 파일에 한 줄 추가하고 상세로 링크한다.
+  - 계획: [docs/plan/ROADMAP.md](docs/plan/ROADMAP.md)에서 항목 상태를 옮긴다.
+  - 사용자가 고른 것은 "사용자 결정"에 적는다. 아직 정하지 않은 것은 ROADMAP "결정 필요"에 두고 결론 내지 않는다.

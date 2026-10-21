@@ -2,13 +2,46 @@
 
 여행 경로를 작은 지구본 위에 그리는 웹 앱입니다. 지구본에서는 도시를 찍어 나라 사이 경로를 잇고, 도시에 들어가면 실제 지도 위에서 정류장·명소 사이를 버스·지하철·도보·자동차로 잇습니다. 지구본의 그림체는 [Messenger](https://messenger.abeto.co/)처럼 툰 셰이딩과 외곽선을 쓴 "작은 세계"입니다.
 
-## 실행
+![지구본 화면: 서울·부산·도쿄를 잇는 경로](docs/screenshots/globe.png)
+
+## 스크린샷
+
+| 도시 화면: 추천 루트와 지하철 경로 | 도시 화면: 장소 검색 |
+| --- | --- |
+| ![부산 추천 루트. 1호선·2호선을 갈아타는 지하철 구간이 보인다](docs/screenshots/city-route.png) | ![검색어 "야경"으로 찾은 부산의 장소들](docs/screenshots/city-search.png) |
+
+<img src="docs/screenshots/mobile.png" alt="좁은 화면: 지구본 아래로 패널이 내려간다" width="280">
+
+## 실행 방법
+
+### 준비물
+- Node.js 20.19 이상 또는 22.12 이상 (Vite 7 요구 사항)
+- 인터넷 연결: 도시 지도·도로 경로·주소 조회가 공개 서버를 씁니다. API 키는 필요 없습니다. 연결이 없으면 도로 경로는 직선으로 대신 그리고 이유를 표시합니다.
+
+### 처음 실행
 
 ```bash
+git clone https://github.com/Kim-soung-won/3D-travel.git
+cd 3D-travel
 npm install
-npm run dev        # http://localhost:5173
-npm test           # 지리 계산·경로 상태 테스트
-npm run build      # 타입 검사 + 빌드
+npm run dev
+```
+
+터미널에 나온 주소(기본 http://localhost:5173)를 브라우저로 엽니다.
+
+### 써 보기
+1. 왼쪽 패널의 **[예시 경로 불러오기]** 를 누릅니다. 서울 → 부산 → 도쿄 → 샌프란시스코 → 로스앤젤레스 → 파리 경로가 그려집니다.
+2. **[▶ 여행 재생]** 으로 경로를 따라가 봅니다. Esc로 멈춥니다.
+3. 부산의 **[도시 안 경로 짜기 →]** 를 누르면 도시 지도로 바뀝니다.
+4. **추천 루트**에서 [불러오기]를 누르거나, 검색창에 "야경", "시장"처럼 입력해 장소를 추가합니다. 경유지가 3곳 이상이면 **[순서 최적화]** 를 쓸 수 있습니다.
+5. 지구본을 직접 클릭하면 그 지점이 경유지로 추가됩니다.
+
+### 그 밖의 명령
+
+```bash
+npm test           # 단위 테스트 (지리 계산, 경로 상태, 지하철 경로, 사전 데이터 검사)
+npm run build      # 타입 검사 + 배포용 빌드 (dist/)
+npm run preview    # 빌드 결과를 로컬에서 확인
 ```
 
 ## 기능 (v0.2)
@@ -56,6 +89,10 @@ npm run build      # 타입 검사 + 빌드
 - 도시 지도: MapLibre GL 5 + [OpenFreeMap](https://openfreemap.org/)(OpenStreetMap 데이터)
 - 도로 경로: FOSSGIS OSRM(`routing.openstreetmap.de`), 주소 조회: Nominatim
 - 키가 필요한 서비스는 쓰지 않습니다. 다만 위 공개 서버들은 시제품 용도로만 쓰고, 실제 서비스로 내려면 자체 서버나 유료 서비스로 바꿔야 합니다.
+
+## 개발 이력·계획
+- [계획 (ROADMAP)](docs/plan/ROADMAP.md): 결정할 것, 다음 후보, 알려진 문제
+- [개발 이력](docs/history/README.md): 일자별 요약과 작업별 상세
 
 ## 사전 데이터 (AI 생성)
 
