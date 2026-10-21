@@ -82,16 +82,19 @@ function NightsStepper({ waypoint, days, onChange }: { waypoint: Waypoint; days:
   );
 }
 
-export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) => void; status?: string }) {
+export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) => void; status?: string; onShare: () => void }) {
   const { route, dispatch } = props;
   const list = route.waypoints;
   const days = cityDays(list);
   return (
     <aside className="panel" aria-label="여행 경로">
       <header className="panel-head">
-        <h1>
-          여행 지구본{list.length > 0 && <span className="trip-badge">{formatTrip(totalNights(list))}</span>}
-        </h1>
+        <div className="panel-title">
+          <h1>
+            여행 지구본{list.length > 0 && <span className="trip-badge">{formatTrip(totalNights(list))}</span>}
+          </h1>
+          <button type="button" className="btn share-btn" onClick={props.onShare}>공유</button>
+        </div>
         <p className="hint">지구본을 클릭해 도시를 추가하세요. 도시마다 묵을 밤 수를, 구간마다 이동 수단을 고르고, 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
       </header>
       {list.length === 0 ? (

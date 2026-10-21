@@ -5,7 +5,11 @@ import { reverseGeocode } from './geo/geocode';
 import { countryAt } from './geo/world';
 import { useLegs } from './hooks/useLegs';
 import { Scene } from './scene/Scene';
-import { newId, useRoute, type Stop } from './state/route';
+import { codeFromHash, decodeTrip } from './share/codec';
+import { TripFormatError } from './share/format';
+import { loadSaved, saveTrip } from './share/storage';
+import { newId, useRoute, type Stop, type Waypoint } from './state/route';
+import { IncomingDialog, readTripFile, ShareDialog, type Incoming } from './ui/ShareDialog';
 import { LoadingScreen, type Curtain } from './ui/LoadingScreen';
 import { CitySidebar, GlobeSidebar } from './ui/Sidebar';
 
@@ -17,7 +21,11 @@ const FADE_MS = 350;
 const MIN_COVER_MS = 500;
 
 export function App() {
-  const [route, dispatch] = useRoute();
+  // 같은 브라우저에 저장해 둔 일정으로 시작한다
+  const [initialTrip] = useState(loadSaved);
+  const [route, dispatch] = useRoute(initialTrip);
+  const [shareOpen, setShareOpen] = useState(false);
+  const [incoming, setIncoming] = useState<Incoming | null>(null);
   const [view, setView] = useState<View>({ kind: 'globe' });
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const [citySelectedId, setCitySelectedId] = useState<string | null>(null);
@@ -130,6 +138,44 @@ export function App() {
     [dispatch],
   );
 
+  // 일정이 바뀌면 잠시 뒤 브라우저에 저장한다
+  useEffect(() => {
+    const id = window.setTimeout(() => saveTrip(route.waypoints), 300);
+    return () => window.clearTimeout(id);
+  }, [route.waypoints]);
+
+  // 공유 링크(#trip=...)로 열리면 받은 일정 미리보기를 띄운다. 주소의 일정 부분은 바로 지운다
+  useEffect(() => {
+    const take = () => {
+      const code = codeFromHash(location.hash);
+      if (!code) return;
+      history.replaceState(null, '', `${location.pathname}${location.search}`);
+      decodeTrip(code)
+        .then((waypoints) => setIncoming({ source: '링크', waypoints }))
+        .catch((e) => setIncoming({ source: '링크', error: e instanceof TripFormatError ? e.message : '링크를 읽지 못했습니다' }));
+    };
+    take();
+    window.addEventListener('hashchange', take);
+    return () => window.removeEventListener('hashchange', take);
+  }, []);
+
+  const importFile = useCallback((file: File) => {
+    setShareOpen(false);
+    readTripFile(file)
+      .then((waypoints) => setIncoming({ source: '파일', waypoints }))
+      .catch((e) => setIncoming({ source: '파일', error: e instanceof TripFormatError ? e.message : '파일을 읽지 못했습니다' }));
+  }, []);
+
+  const acceptIncoming = useCallback(
+    (waypoints: Waypoint[]) => {
+      setPlaying(false);
+      setSelectedId(null);
+      dispatch({ type: 'load', label: '공유받은 일정을 불러옴', waypoints });
+      setIncoming(null);
+    },
+    [dispatch],
+  );
+
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setPlaying(false);
     window.addEventListener('keydown', onKey);
@@ -189,7 +235,7 @@ export function App() {
         )}
       </div>
       {view.kind === 'globe' || !city ? (
-        <GlobeSidebar {...common} status={tripStatus} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity} />
+        <GlobeSidebar {...common} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity} />
       ) : (
         <CitySidebar {...common} legs={cityLegs} city={city} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
       )}
@@ -201,6 +247,10 @@ export function App() {
         onRetry={city ? () => enterCity(city.id) : undefined}
         onBack={backToGlobe}
       />
+      {shareOpen && <ShareDialog waypoints={route.waypoints} onClose={() => setShareOpen(false)} onImportFile={importFile} />}
+      {incoming && (
+        <IncomingDialog incoming={incoming} hasOwnTrip={route.waypoints.length > 0} onImport={acceptIncoming} onClose={() => setIncoming(null)} />
+      )}
     </div>
   );
 }

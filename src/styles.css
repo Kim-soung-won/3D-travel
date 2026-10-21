@@ -167,3 +167,25 @@ body { background: var(--bg); overflow: hidden; }
 .nights-value { min-width: 34px; text-align: center; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
 .nights-days { color: var(--ink-3); font-variant-numeric: tabular-nums; }
 .trip-status { margin: 0; font-size: 13px; font-weight: 700; color: var(--ink); }
+
+/* 공유 */
+.panel-title { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.panel-title h1 { min-width: 0; }
+.share-btn { flex: none; padding: 6px 14px; }
+.modal { border: 0; padding: 0; border-radius: 16px; background: #fffcf4; color: var(--ink); width: min(520px, calc(100vw - 32px)); max-height: calc(100vh - 32px); box-shadow: 0 6px 0 #2f4b4f, 0 20px 50px rgba(0, 0, 0, 0.25); border: 2px solid #2f4b4f; }
+.modal::backdrop { background: rgba(31, 52, 55, 0.45); }
+.modal-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px; }
+.modal-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.modal-head h2 { margin: 0; font-size: 19px; }
+.share-section { display: flex; flex-direction: column; gap: 8px; }
+.share-section h3 { margin: 0; font-size: 14px; }
+.share-note { margin: 0; font-size: 13px; line-height: 1.5; color: var(--ink-2); }
+.share-warn { margin: 0; font-size: 13px; line-height: 1.5; color: var(--accent-ink); }
+.share-row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.share-link { flex: 1; min-width: 0; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font: inherit; font-size: 13px; color: var(--ink-2); }
+.share-card { width: 160px; aspect-ratio: 4 / 5; border-radius: 10px; border: 1px solid var(--line); }
+.incoming-sum { margin: 0; font-size: 15px; }
+.incoming-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 4px; max-height: 40vh; overflow-y: auto; }
+.incoming-list li { display: flex; justify-content: space-between; gap: 12px; font-size: 14px; }
+.incoming-name { font-weight: 700; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.incoming-meta { flex: none; color: var(--ink-2); font-size: 13px; font-variant-numeric: tabular-nums; }

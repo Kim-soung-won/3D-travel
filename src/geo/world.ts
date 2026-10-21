@@ -11,8 +11,8 @@ const countriesTopology = countriesTopo as unknown as Topology;
 const landTopology = landTopo as unknown as Topology;
 
 const countries = feature(countriesTopology, countriesTopology.objects.countries) as FeatureCollection<Polygon | MultiPolygon, { name: string }>;
-const land = feature(landTopology, landTopology.objects.land) as Feature<Geometry>;
-const borders = mesh(countriesTopology, countriesTopology.objects.countries as never, (a, b) => a !== b);
+export const land = feature(landTopology, landTopology.objects.land) as Feature<Geometry>;
+export const borders = mesh(countriesTopology, countriesTopology.objects.countries as never, (a, b) => a !== b);
 
 export const PALETTE = {
   ocean: '#6fb8b6',
