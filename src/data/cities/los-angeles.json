@@ -1,0 +1,157 @@
+{
+  "id": "los-angeles",
+  "name": "로스앤젤레스",
+  "country": "미국",
+  "center": { "lat": 34.0500, "lon": -118.3500 },
+  "bbox": [-118.5900, 33.9100, -118.2100, 34.1900],
+  "source": "AI 생성 데이터 (Claude, 2026-10-21) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "metro-b",
+      "name": "B 라인 (레드)",
+      "color": "#E3131B",
+      "stations": [
+        { "name": "유니언 스테이션", "lat": 34.0560, "lon": -118.2340 },
+        { "name": "시빅 센터/그랜드 파크", "lat": 34.0549, "lon": -118.2462 },
+        { "name": "퍼싱 스퀘어", "lat": 34.0493, "lon": -118.2510 },
+        { "name": "7번가/메트로 센터", "lat": 34.0486, "lon": -118.2588 },
+        { "name": "웨스트레이크/맥아더 파크", "lat": 34.0569, "lon": -118.2755 },
+        { "name": "윌셔/버몬트", "lat": 34.0627, "lon": -118.2904 },
+        { "name": "버몬트/베벌리", "lat": 34.0764, "lon": -118.2917 },
+        { "name": "버몬트/산타모니카", "lat": 34.0901, "lon": -118.2917 },
+        { "name": "버몬트/선셋", "lat": 34.0980, "lon": -118.2916 },
+        { "name": "할리우드/웨스턴", "lat": 34.1017, "lon": -118.3082 },
+        { "name": "할리우드/바인", "lat": 34.1016, "lon": -118.3253 },
+        { "name": "할리우드/하이랜드", "lat": 34.1016, "lon": -118.3384 },
+        { "name": "유니버설 시티/스튜디오 시티", "lat": 34.1393, "lon": -118.3627 },
+        { "name": "노스 할리우드", "lat": 34.1686, "lon": -118.3767 }
+      ]
+    },
+    {
+      "id": "metro-d",
+      "name": "D 라인 (퍼플)",
+      "color": "#A05DA5",
+      "stations": [
+        { "name": "유니언 스테이션", "lat": 34.0560, "lon": -118.2340 },
+        { "name": "시빅 센터/그랜드 파크", "lat": 34.0549, "lon": -118.2462 },
+        { "name": "퍼싱 스퀘어", "lat": 34.0493, "lon": -118.2510 },
+        { "name": "7번가/메트로 센터", "lat": 34.0486, "lon": -118.2588 },
+        { "name": "웨스트레이크/맥아더 파크", "lat": 34.0569, "lon": -118.2755 },
+        { "name": "윌셔/버몬트", "lat": 34.0627, "lon": -118.2904 },
+        { "name": "윌셔/노르망디", "lat": 34.0617, "lon": -118.3009 },
+        { "name": "윌셔/웨스턴", "lat": 34.0620, "lon": -118.3090 }
+      ]
+    },
+    {
+      "id": "metro-e",
+      "name": "E 라인 (엑스포)",
+      "color": "#FDB913",
+      "stations": [
+        { "name": "7번가/메트로 센터", "lat": 34.0486, "lon": -118.2588 },
+        { "name": "피코", "lat": 34.0410, "lon": -118.2665 },
+        { "name": "LATTC/오르토 인스티튜트", "lat": 34.0291, "lon": -118.2737 },
+        { "name": "엑스포 파크/USC", "lat": 34.0182, "lon": -118.2856 },
+        { "name": "엑스포/버몬트", "lat": 34.0182, "lon": -118.2918 },
+        { "name": "엑스포/웨스턴", "lat": 34.0183, "lon": -118.3089 },
+        { "name": "엑스포/크렌쇼", "lat": 34.0225, "lon": -118.3352 },
+        { "name": "팜데일", "lat": 34.0238, "lon": -118.3462 },
+        { "name": "엑스포/라 브레아", "lat": 34.0247, "lon": -118.3550 },
+        { "name": "라 시에네가/제퍼슨", "lat": 34.0263, "lon": -118.3721 },
+        { "name": "컬버 시티", "lat": 34.0279, "lon": -118.3888 },
+        { "name": "팜스", "lat": 34.0293, "lon": -118.4040 },
+        { "name": "웨스트우드/랜초 파크", "lat": 34.0368, "lon": -118.4245 },
+        { "name": "엑스포/세풀베다", "lat": 34.0354, "lon": -118.4339 },
+        { "name": "엑스포/번디", "lat": 34.0317, "lon": -118.4530 },
+        { "name": "26번가/버거모트", "lat": 34.0281, "lon": -118.4689 },
+        { "name": "17번가/SMC", "lat": 34.0232, "lon": -118.4805 },
+        { "name": "다운타운 산타모니카", "lat": 34.0141, "lon": -118.4914 }
+      ]
+    },
+    {
+      "id": "metro-a",
+      "name": "A 라인 (블루)",
+      "color": "#0072BC",
+      "stations": [
+        { "name": "유니언 스테이션", "lat": 34.0560, "lon": -118.2340 },
+        { "name": "리틀 도쿄/아츠 디스트릭트", "lat": 34.0501, "lon": -118.2378 },
+        { "name": "히스토릭 브로드웨이", "lat": 34.0517, "lon": -118.2442 },
+        { "name": "그랜드 애비뉴 아츠/벙커 힐", "lat": 34.0556, "lon": -118.2497 },
+        { "name": "7번가/메트로 센터", "lat": 34.0486, "lon": -118.2588 },
+        { "name": "피코", "lat": 34.0410, "lon": -118.2665 },
+        { "name": "그랜드/LATTC", "lat": 34.0330, "lon": -118.2690 },
+        { "name": "산 페드로 스트리트", "lat": 34.0268, "lon": -118.2556 },
+        { "name": "워싱턴", "lat": 34.0197, "lon": -118.2432 },
+        { "name": "버넌", "lat": 34.0030, "lon": -118.2432 },
+        { "name": "슬로슨", "lat": 33.9886, "lon": -118.2432 },
+        { "name": "플로렌스", "lat": 33.9739, "lon": -118.2432 },
+        { "name": "파이어스톤", "lat": 33.9597, "lon": -118.2432 },
+        { "name": "103번가/와츠 타워", "lat": 33.9425, "lon": -118.2432 },
+        { "name": "윌로브룩/로자 파크스", "lat": 33.9282, "lon": -118.2378 }
+      ]
+    }
+  ],
+  "places": [
+    { "id": "griffith-observatory", "name": "그리피스 천문대", "lat": 34.1184, "lon": -118.3004, "category": "night", "stayMin": 90, "tags": ["그리피스 천문대", "천문대", "야경", "Griffith Observatory", "Griffith Park"], "summary": "LA 분지와 할리우드 사인을 한눈에 내려다보는 언덕 위 천문대로, 해 질 녘과 야경 명소다." },
+    { "id": "hollywood-sign-view", "name": "할리우드 사인 전망 (레이크 할리우드 파크)", "lat": 34.1270, "lon": -118.3220, "category": "sight", "stayMin": 40, "tags": ["할리우드 사인", "전망", "Hollywood Sign", "Lake Hollywood Park"], "summary": "할리우드 사인을 가까이 정면에서 볼 수 있는 주택가 언덕의 작은 공원이다." },
+    { "id": "walk-of-fame", "name": "할리우드 명예의 거리", "lat": 34.1016, "lon": -118.3267, "category": "sight", "stayMin": 60, "tags": ["명예의 거리", "할리우드 대로", "Hollywood Walk of Fame", "Hollywood Boulevard"], "summary": "할리우드 대로 보도에 스타들의 이름이 새겨진 별 동판이 이어지는 거리다." },
+    { "id": "tcl-chinese-theatre", "name": "TCL 차이니즈 시어터", "lat": 34.1022, "lon": -118.3409, "category": "culture", "stayMin": 40, "tags": ["차이니즈 시어터", "핸드프린팅", "TCL Chinese Theatre", "Grauman's Chinese Theatre"], "summary": "스타들의 손·발 도장이 찍힌 앞마당으로 유명한 할리우드의 상징적인 극장이다." },
+    { "id": "universal-studios", "name": "유니버설 스튜디오 할리우드", "lat": 34.1381, "lon": -118.3534, "category": "sight", "stayMin": 420, "tags": ["유니버설 스튜디오", "테마파크", "Universal Studios Hollywood", "Studio Tour"], "summary": "실제 촬영장을 도는 스튜디오 투어와 영화 테마 놀이기구가 있는 테마파크다." },
+    { "id": "santa-monica-pier", "name": "산타모니카 피어", "lat": 34.0092, "lon": -118.4976, "category": "sight", "stayMin": 90, "tags": ["산타모니카", "부두", "루트 66 종점", "Santa Monica Pier", "Pacific Park"], "summary": "관람차가 있는 놀이공원과 루트 66 종점 표지판이 있는 바닷가 부두다." },
+    { "id": "venice-beach", "name": "베니스 비치", "lat": 33.9850, "lon": -118.4725, "category": "nature", "stayMin": 90, "tags": ["베니스 비치", "보드워크", "머슬 비치", "Venice Beach", "Venice Boardwalk"], "summary": "거리 공연과 스케이트파크, 머슬 비치가 늘어선 자유로운 분위기의 해변 산책로다." },
+    { "id": "venice-canals", "name": "베니스 운하", "lat": 33.9848, "lon": -118.4660, "category": "nature", "stayMin": 40, "tags": ["베니스 운하", "운하 산책", "Venice Canals"], "summary": "작은 다리와 예쁜 주택이 이어지는 조용한 운하 산책길이다." },
+    { "id": "abbot-kinney", "name": "애벗 키니 대로", "lat": 33.9907, "lon": -118.4646, "category": "shopping", "stayMin": 60, "tags": ["애벗 키니", "편집숍", "카페", "Abbot Kinney Boulevard"], "summary": "개성 있는 부티크와 카페, 레스토랑이 모인 베니스의 감각적인 거리다." },
+    { "id": "getty-center", "name": "게티 센터", "lat": 34.0780, "lon": -118.4741, "category": "culture", "stayMin": 180, "tags": ["게티 센터", "게티 미술관", "Getty Center", "The Getty"], "summary": "언덕 위 하얀 건축과 정원, 서양 미술 소장품을 무료로 볼 수 있는 미술관이다." },
+    { "id": "getty-villa", "name": "게티 빌라", "lat": 34.0459, "lon": -118.5648, "category": "culture", "stayMin": 120, "tags": ["게티 빌라", "고대 미술", "Getty Villa", "Malibu"], "summary": "로마 시대 별장을 재현한 건물에 그리스·로마 고대 미술을 전시하는 바닷가 미술관이다." },
+    { "id": "lacma", "name": "LACMA (로스앤젤레스 카운티 미술관)", "lat": 34.0639, "lon": -118.3592, "category": "culture", "stayMin": 120, "tags": ["LACMA", "어반 라이트", "가로등", "Los Angeles County Museum of Art", "Urban Light"], "summary": "가로등 설치작품 '어반 라이트'로 유명한 미 서부 최대 규모의 미술관이다." },
+    { "id": "la-brea-tar-pits", "name": "라 브레아 타르 피츠", "lat": 34.0638, "lon": -118.3554, "category": "nature", "stayMin": 60, "tags": ["타르 피츠", "화석", "La Brea Tar Pits"], "summary": "지금도 천연 아스팔트가 솟는 연못과 빙하기 화석 박물관이 있는 공원이다." },
+    { "id": "the-grove", "name": "더 그로브 & 오리지널 파머스 마켓", "lat": 34.0722, "lon": -118.3576, "category": "shopping", "stayMin": 90, "tags": ["더 그로브", "파머스 마켓", "The Grove", "Original Farmers Market"], "summary": "트램이 다니는 야외 쇼핑몰과 오래된 파머스 마켓 푸드 스탠드가 붙어 있다." },
+    { "id": "rodeo-drive", "name": "로데오 드라이브", "lat": 34.0696, "lon": -118.4053, "category": "shopping", "stayMin": 60, "tags": ["로데오 드라이브", "베벌리힐스", "명품 거리", "Rodeo Drive", "Beverly Hills"], "summary": "베벌리힐스의 명품 부티크가 늘어선 세계적인 쇼핑 거리다." },
+    { "id": "sunset-strip", "name": "선셋 스트립", "lat": 34.0900, "lon": -118.3850, "category": "night", "stayMin": 90, "tags": ["선셋 스트립", "웨스트 할리우드", "라이브 클럽", "Sunset Strip", "West Hollywood"], "summary": "전설적인 라이브 클럽과 바, 루프톱이 이어지는 웨스트 할리우드의 밤거리다." },
+    { "id": "the-broad", "name": "더 브로드", "lat": 34.0544, "lon": -118.2506, "category": "culture", "stayMin": 90, "tags": ["더 브로드", "현대미술", "인피니티 미러 룸", "The Broad"], "summary": "벌집 같은 외관의 현대미술관으로 쿠사마 야요이의 '인피니티 미러 룸'이 인기다." },
+    { "id": "disney-concert-hall", "name": "월트 디즈니 콘서트홀", "lat": 34.0553, "lon": -118.2498, "category": "culture", "stayMin": 45, "tags": ["디즈니 콘서트홀", "프랭크 게리", "LA 필하모닉", "Walt Disney Concert Hall"], "summary": "프랭크 게리가 설계한 곡선의 스테인리스 외관이 인상적인 LA 필하모닉의 공연장이다." },
+    { "id": "grand-central-market", "name": "그랜드 센트럴 마켓", "lat": 34.0508, "lon": -118.2490, "category": "food", "stayMin": 60, "tags": ["그랜드 센트럴 마켓", "푸드홀", "에그슬럿", "Grand Central Market", "Eggslut"], "summary": "1917년 문을 연 다운타운의 푸드홀로 다양한 음식 노점이 모여 있다." },
+    { "id": "the-last-bookstore", "name": "더 라스트 북스토어", "lat": 34.0477, "lon": -118.2495, "category": "culture", "stayMin": 40, "tags": ["라스트 북스토어", "서점", "책 터널", "The Last Bookstore"], "summary": "책으로 만든 터널과 아치로 유명한 대형 중고 서점이다." },
+    { "id": "olvera-street", "name": "올베라 스트리트", "lat": 34.0574, "lon": -118.2378, "category": "food", "stayMin": 45, "tags": ["올베라 스트리트", "엘 푸에블로", "멕시코 시장", "Olvera Street", "El Pueblo"], "summary": "LA 발상지에 자리한 멕시코풍 골목 시장으로 타코와 기념품 노점이 늘어서 있다." },
+    { "id": "little-tokyo", "name": "리틀 도쿄", "lat": 34.0496, "lon": -118.2400, "category": "food", "stayMin": 60, "tags": ["리틀 도쿄", "일본인 거리", "라멘", "Little Tokyo"], "summary": "라멘집과 디저트 가게, 일본계 미국인 박물관이 있는 일본인 거리다." },
+    { "id": "koreatown", "name": "코리아타운", "lat": 34.0618, "lon": -118.3005, "category": "food", "stayMin": 90, "tags": ["코리아타운", "K타운", "한식", "고깃집", "Koreatown", "K-Town"], "summary": "늦게까지 여는 한식당과 노래방, 카페가 밀집한 미국 최대 한인 타운이다." },
+    { "id": "la-live", "name": "LA 라이브 & 크립토닷컴 아레나", "lat": 34.0430, "lon": -118.2673, "category": "night", "stayMin": 90, "tags": ["LA 라이브", "크립토닷컴 아레나", "레이커스", "L.A. LIVE", "Crypto.com Arena"], "summary": "레이커스 홈구장과 공연장, 레스토랑이 모인 다운타운 엔터테인먼트 단지다." }
+  ],
+  "routes": [
+    {
+      "id": "la-first-day",
+      "title": "할리우드에서 바다까지, 첫 LA 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": ["hollywood-sign-view", "griffith-observatory", "walk-of-fame", "tcl-chinese-theatre", "rodeo-drive", "santa-monica-pier"],
+      "modes": ["car", "car", "walk", "car", "car"],
+      "summary": "할리우드 사인과 천문대 전망을 본 뒤 명예의 거리를 걷고, 베벌리힐스를 거쳐 산타모니카에서 노을로 마무리한다."
+    },
+    {
+      "id": "la-beach-day",
+      "title": "게티 센터와 서쪽 해변",
+      "theme": "바다",
+      "length": "day",
+      "placeIds": ["getty-center", "santa-monica-pier", "venice-beach", "venice-canals", "abbot-kinney"],
+      "modes": ["car", "car", "walk", "walk"],
+      "summary": "오전엔 게티 센터에서 미술과 전망을 즐기고, 오후엔 산타모니카에서 베니스까지 바닷가를 따라 내려간다."
+    },
+    {
+      "id": "la-downtown-half",
+      "title": "다운타운 걷기 반나절",
+      "theme": "다운타운",
+      "length": "half",
+      "placeIds": ["olvera-street", "little-tokyo", "grand-central-market", "the-last-bookstore", "the-broad", "disney-concert-hall"],
+      "modes": ["subway", "walk", "walk", "walk", "walk"],
+      "summary": "LA 발상지 올베라 스트리트에서 메트로 A 라인으로 리틀 도쿄로 넘어가, 푸드홀·서점·미술관·콘서트홀을 걸어서 잇는다."
+    },
+    {
+      "id": "la-night",
+      "title": "어반 라이트에서 천문대 야경까지",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": ["lacma", "the-grove", "sunset-strip", "griffith-observatory"],
+      "modes": ["walk", "car", "car"],
+      "summary": "해 질 무렵 LACMA의 어반 라이트를 보고 더 그로브에서 저녁을 먹은 뒤, 선셋 스트립을 지나 그리피스 천문대에서 야경을 본다."
+    }
+  ]
+}

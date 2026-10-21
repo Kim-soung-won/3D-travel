@@ -1,0 +1,1027 @@
+{
+  "id": "paris",
+  "name": "파리",
+  "country": "프랑스",
+  "center": {
+    "lat": 48.8566,
+    "lon": 2.3522
+  },
+  "bbox": [
+    2.228,
+    48.8085,
+    2.4501,
+    48.9075
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-21) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "m1",
+      "name": "1호선 (M1)",
+      "color": "#FFCD00",
+      "stations": [
+        {
+          "name": "라 데팡스",
+          "lat": 48.8919,
+          "lon": 2.238
+        },
+        {
+          "name": "에스플라나드 드 라 데팡스",
+          "lat": 48.8884,
+          "lon": 2.25
+        },
+        {
+          "name": "퐁 드 뇌이",
+          "lat": 48.8855,
+          "lon": 2.2585
+        },
+        {
+          "name": "레 사블롱",
+          "lat": 48.8812,
+          "lon": 2.2719
+        },
+        {
+          "name": "포르트 마요",
+          "lat": 48.8781,
+          "lon": 2.2825
+        },
+        {
+          "name": "아르장틴",
+          "lat": 48.8757,
+          "lon": 2.2894
+        },
+        {
+          "name": "샤를 드 골–에투알",
+          "lat": 48.8738,
+          "lon": 2.295
+        },
+        {
+          "name": "조르주 상크",
+          "lat": 48.872,
+          "lon": 2.3006
+        },
+        {
+          "name": "프랭클린 D. 루스벨트",
+          "lat": 48.869,
+          "lon": 2.3096
+        },
+        {
+          "name": "샹젤리제–클레망소",
+          "lat": 48.8676,
+          "lon": 2.314
+        },
+        {
+          "name": "콩코르드",
+          "lat": 48.8656,
+          "lon": 2.3212
+        },
+        {
+          "name": "튈르리",
+          "lat": 48.8645,
+          "lon": 2.3297
+        },
+        {
+          "name": "팔레 루아얄–뮈제 뒤 루브르",
+          "lat": 48.8625,
+          "lon": 2.3364
+        },
+        {
+          "name": "루브르–리볼리",
+          "lat": 48.8608,
+          "lon": 2.3409
+        },
+        {
+          "name": "샤틀레",
+          "lat": 48.8583,
+          "lon": 2.3475
+        },
+        {
+          "name": "오텔 드 빌",
+          "lat": 48.8574,
+          "lon": 2.3518
+        },
+        {
+          "name": "생폴",
+          "lat": 48.8552,
+          "lon": 2.3608
+        },
+        {
+          "name": "바스티유",
+          "lat": 48.8531,
+          "lon": 2.3691
+        },
+        {
+          "name": "리옹역",
+          "lat": 48.8448,
+          "lon": 2.3735
+        },
+        {
+          "name": "뢰이–디드로",
+          "lat": 48.8472,
+          "lon": 2.3866
+        },
+        {
+          "name": "나시옹",
+          "lat": 48.8483,
+          "lon": 2.3959
+        },
+        {
+          "name": "포르트 드 뱅센",
+          "lat": 48.847,
+          "lon": 2.4108
+        },
+        {
+          "name": "생망데",
+          "lat": 48.8463,
+          "lon": 2.4189
+        },
+        {
+          "name": "베로",
+          "lat": 48.8454,
+          "lon": 2.4283
+        },
+        {
+          "name": "샤토 드 뱅센",
+          "lat": 48.8443,
+          "lon": 2.4401
+        }
+      ]
+    },
+    {
+      "id": "m4",
+      "name": "4호선 (M4)",
+      "color": "#C04191",
+      "stations": [
+        {
+          "name": "포르트 드 클리냥쿠르",
+          "lat": 48.8975,
+          "lon": 2.3445
+        },
+        {
+          "name": "생플롱",
+          "lat": 48.8941,
+          "lon": 2.3477
+        },
+        {
+          "name": "마르카데–푸아소니에르",
+          "lat": 48.8913,
+          "lon": 2.3497
+        },
+        {
+          "name": "샤토 루주",
+          "lat": 48.8871,
+          "lon": 2.3496
+        },
+        {
+          "name": "바르베스–로슈슈아르",
+          "lat": 48.8838,
+          "lon": 2.3497
+        },
+        {
+          "name": "북역",
+          "lat": 48.8797,
+          "lon": 2.3553
+        },
+        {
+          "name": "동역",
+          "lat": 48.8761,
+          "lon": 2.3583
+        },
+        {
+          "name": "샤토 도",
+          "lat": 48.8724,
+          "lon": 2.3561
+        },
+        {
+          "name": "스트라스부르–생드니",
+          "lat": 48.8696,
+          "lon": 2.354
+        },
+        {
+          "name": "레오뮈르–세바스토폴",
+          "lat": 48.8663,
+          "lon": 2.3525
+        },
+        {
+          "name": "에티엔 마르셀",
+          "lat": 48.8637,
+          "lon": 2.3489
+        },
+        {
+          "name": "레 알",
+          "lat": 48.8625,
+          "lon": 2.3461
+        },
+        {
+          "name": "샤틀레",
+          "lat": 48.8583,
+          "lon": 2.3475
+        },
+        {
+          "name": "시테",
+          "lat": 48.855,
+          "lon": 2.3471
+        },
+        {
+          "name": "생미셸",
+          "lat": 48.8536,
+          "lon": 2.344
+        },
+        {
+          "name": "오데옹",
+          "lat": 48.852,
+          "lon": 2.3388
+        },
+        {
+          "name": "생제르맹데프레",
+          "lat": 48.8539,
+          "lon": 2.3336
+        },
+        {
+          "name": "생쉴피스",
+          "lat": 48.8512,
+          "lon": 2.3307
+        },
+        {
+          "name": "생플라시드",
+          "lat": 48.847,
+          "lon": 2.3271
+        },
+        {
+          "name": "몽파르나스–비앵브뉘",
+          "lat": 48.8433,
+          "lon": 2.324
+        },
+        {
+          "name": "바뱅",
+          "lat": 48.842,
+          "lon": 2.3289
+        },
+        {
+          "name": "라스파유",
+          "lat": 48.839,
+          "lon": 2.3305
+        },
+        {
+          "name": "당페르–로슈로",
+          "lat": 48.8337,
+          "lon": 2.3324
+        },
+        {
+          "name": "무통–뒤베르네",
+          "lat": 48.8314,
+          "lon": 2.3299
+        },
+        {
+          "name": "알레지아",
+          "lat": 48.8282,
+          "lon": 2.3268
+        },
+        {
+          "name": "포르트 도를레앙",
+          "lat": 48.8234,
+          "lon": 2.3253
+        },
+        {
+          "name": "메리 드 몽루주",
+          "lat": 48.8185,
+          "lon": 2.3196
+        }
+      ]
+    },
+    {
+      "id": "m6",
+      "name": "6호선 (M6)",
+      "color": "#6ECA97",
+      "stations": [
+        {
+          "name": "샤를 드 골–에투알",
+          "lat": 48.8738,
+          "lon": 2.295
+        },
+        {
+          "name": "클레베르",
+          "lat": 48.8714,
+          "lon": 2.2931
+        },
+        {
+          "name": "부아시에르",
+          "lat": 48.8669,
+          "lon": 2.29
+        },
+        {
+          "name": "트로카데로",
+          "lat": 48.8632,
+          "lon": 2.2875
+        },
+        {
+          "name": "파시",
+          "lat": 48.8576,
+          "lon": 2.2858
+        },
+        {
+          "name": "비르아켐",
+          "lat": 48.8539,
+          "lon": 2.2893
+        },
+        {
+          "name": "뒤플렉스",
+          "lat": 48.8504,
+          "lon": 2.2934
+        },
+        {
+          "name": "라 모트피케–그르넬",
+          "lat": 48.8496,
+          "lon": 2.2985
+        },
+        {
+          "name": "캉브론",
+          "lat": 48.8475,
+          "lon": 2.3029
+        },
+        {
+          "name": "세브르–르쿠르브",
+          "lat": 48.8456,
+          "lon": 2.3095
+        },
+        {
+          "name": "파스퇴르",
+          "lat": 48.8425,
+          "lon": 2.3129
+        },
+        {
+          "name": "몽파르나스–비앵브뉘",
+          "lat": 48.8433,
+          "lon": 2.324
+        },
+        {
+          "name": "에드가 키네",
+          "lat": 48.841,
+          "lon": 2.3254
+        },
+        {
+          "name": "라스파유",
+          "lat": 48.839,
+          "lon": 2.3305
+        },
+        {
+          "name": "당페르–로슈로",
+          "lat": 48.8337,
+          "lon": 2.3324
+        },
+        {
+          "name": "생자크",
+          "lat": 48.8329,
+          "lon": 2.3371
+        },
+        {
+          "name": "글라시에르",
+          "lat": 48.8311,
+          "lon": 2.3434
+        },
+        {
+          "name": "코르비자르",
+          "lat": 48.8297,
+          "lon": 2.3505
+        },
+        {
+          "name": "플라스 디탈리",
+          "lat": 48.831,
+          "lon": 2.3557
+        },
+        {
+          "name": "나시오날",
+          "lat": 48.8333,
+          "lon": 2.3627
+        },
+        {
+          "name": "슈발레레",
+          "lat": 48.835,
+          "lon": 2.3683
+        },
+        {
+          "name": "케 드 라 가르",
+          "lat": 48.837,
+          "lon": 2.373
+        },
+        {
+          "name": "베르시",
+          "lat": 48.8401,
+          "lon": 2.3794
+        },
+        {
+          "name": "뒤고미에",
+          "lat": 48.839,
+          "lon": 2.3896
+        },
+        {
+          "name": "도메닐",
+          "lat": 48.8396,
+          "lon": 2.3959
+        },
+        {
+          "name": "벨에르",
+          "lat": 48.8414,
+          "lon": 2.4007
+        },
+        {
+          "name": "픽퓌스",
+          "lat": 48.8451,
+          "lon": 2.4012
+        },
+        {
+          "name": "나시옹",
+          "lat": 48.8483,
+          "lon": 2.3959
+        }
+      ]
+    },
+    {
+      "id": "m14",
+      "name": "14호선 (M14)",
+      "color": "#62259D",
+      "stations": [
+        {
+          "name": "포르트 드 클리시",
+          "lat": 48.8946,
+          "lon": 2.3133
+        },
+        {
+          "name": "퐁 카르디네",
+          "lat": 48.8885,
+          "lon": 2.315
+        },
+        {
+          "name": "생라자르",
+          "lat": 48.8754,
+          "lon": 2.3255
+        },
+        {
+          "name": "마들렌",
+          "lat": 48.87,
+          "lon": 2.3245
+        },
+        {
+          "name": "피라미드",
+          "lat": 48.8657,
+          "lon": 2.3346
+        },
+        {
+          "name": "샤틀레",
+          "lat": 48.8583,
+          "lon": 2.3475
+        },
+        {
+          "name": "리옹역",
+          "lat": 48.8448,
+          "lon": 2.3735
+        },
+        {
+          "name": "베르시",
+          "lat": 48.8401,
+          "lon": 2.3794
+        },
+        {
+          "name": "쿠르 생테밀리옹",
+          "lat": 48.8333,
+          "lon": 2.3866
+        },
+        {
+          "name": "비블리오테크 프랑수아 미테랑",
+          "lat": 48.8299,
+          "lon": 2.3762
+        },
+        {
+          "name": "올랭피아드",
+          "lat": 48.827,
+          "lon": 2.367
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "eiffel",
+      "name": "에펠탑",
+      "lat": 48.8584,
+      "lon": 2.2945,
+      "category": "sight",
+      "stayMin": 120,
+      "tags": [
+        "에펠탑",
+        "Tour Eiffel",
+        "Eiffel Tower",
+        "전망대"
+      ],
+      "summary": "1889년 만국박람회 때 세워진 파리의 상징 철탑으로, 꼭대기 전망대에서 시내가 한눈에 보인다."
+    },
+    {
+      "id": "trocadero",
+      "name": "트로카데로 광장",
+      "lat": 48.862,
+      "lon": 2.2876,
+      "category": "sight",
+      "stayMin": 30,
+      "tags": [
+        "트로카데로",
+        "Trocadéro",
+        "Palais de Chaillot",
+        "샤요궁",
+        "에펠탑 뷰"
+      ],
+      "summary": "샤요궁 테라스에서 센강 건너 에펠탑을 정면으로 볼 수 있는 대표 사진 명소."
+    },
+    {
+      "id": "champ-de-mars",
+      "name": "샹드마르스 공원",
+      "lat": 48.8556,
+      "lon": 2.2986,
+      "category": "nature",
+      "stayMin": 45,
+      "tags": [
+        "샹드마르스",
+        "Champ de Mars",
+        "공원",
+        "피크닉"
+      ],
+      "summary": "에펠탑 아래 길게 펼쳐진 잔디 공원으로, 피크닉과 야간 조명 감상에 좋다."
+    },
+    {
+      "id": "louvre",
+      "name": "루브르 박물관",
+      "lat": 48.8606,
+      "lon": 2.3376,
+      "category": "culture",
+      "stayMin": 180,
+      "tags": [
+        "루브르",
+        "Musée du Louvre",
+        "Louvre",
+        "모나리자",
+        "유리 피라미드"
+      ],
+      "summary": "모나리자·밀로의 비너스를 소장한 세계 최대급 미술관, 유리 피라미드 입구로 유명하다."
+    },
+    {
+      "id": "tuileries",
+      "name": "튈르리 정원",
+      "lat": 48.8635,
+      "lon": 2.3275,
+      "category": "nature",
+      "stayMin": 40,
+      "tags": [
+        "튈르리",
+        "Jardin des Tuileries",
+        "정원"
+      ],
+      "summary": "루브르와 콩코르드 광장 사이의 고전 프랑스식 정원."
+    },
+    {
+      "id": "orangerie",
+      "name": "오랑주리 미술관",
+      "lat": 48.8638,
+      "lon": 2.3227,
+      "category": "culture",
+      "stayMin": 75,
+      "tags": [
+        "오랑주리",
+        "Musée de l'Orangerie",
+        "모네",
+        "수련"
+      ],
+      "summary": "모네의 대형 연작 「수련」을 타원형 전시실에서 감상하는 작은 미술관."
+    },
+    {
+      "id": "orsay",
+      "name": "오르세 미술관",
+      "lat": 48.86,
+      "lon": 2.3266,
+      "category": "culture",
+      "stayMin": 150,
+      "tags": [
+        "오르세",
+        "Musée d'Orsay",
+        "인상파",
+        "고흐",
+        "기차역"
+      ],
+      "summary": "옛 기차역을 개조한 미술관으로 인상파·후기 인상파 걸작이 모여 있다."
+    },
+    {
+      "id": "notre-dame",
+      "name": "노트르담 대성당",
+      "lat": 48.853,
+      "lon": 2.3499,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "노트르담",
+        "Notre-Dame de Paris",
+        "성당",
+        "시테섬"
+      ],
+      "summary": "시테섬의 고딕 대성당으로, 2019년 화재 뒤 복원을 마치고 2024년 말 다시 문을 열었다."
+    },
+    {
+      "id": "sainte-chapelle",
+      "name": "생트샤펠",
+      "lat": 48.8554,
+      "lon": 2.345,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "생트샤펠",
+        "Sainte-Chapelle",
+        "스테인드글라스"
+      ],
+      "summary": "벽 전체를 채운 13세기 스테인드글라스가 압도적인 왕실 예배당."
+    },
+    {
+      "id": "pont-neuf",
+      "name": "퐁뇌프",
+      "lat": 48.857,
+      "lon": 2.3413,
+      "category": "sight",
+      "stayMin": 20,
+      "tags": [
+        "퐁뇌프",
+        "Pont Neuf",
+        "다리",
+        "센강"
+      ],
+      "summary": "이름과 달리 파리에서 가장 오래된 석조 다리로, 시테섬 서쪽 끝을 가로지른다."
+    },
+    {
+      "id": "montmartre",
+      "name": "몽마르트르·사크레쾨르 대성당",
+      "lat": 48.8867,
+      "lon": 2.3431,
+      "category": "sight",
+      "stayMin": 90,
+      "tags": [
+        "몽마르트르",
+        "사크레쾨르",
+        "Sacré-Cœur",
+        "Montmartre",
+        "언덕"
+      ],
+      "summary": "파리 북쪽 언덕 위 하얀 대성당과 계단에서 시내 전망이 펼쳐진다."
+    },
+    {
+      "id": "place-du-tertre",
+      "name": "테르트르 광장",
+      "lat": 48.8865,
+      "lon": 2.3408,
+      "category": "culture",
+      "stayMin": 40,
+      "tags": [
+        "테르트르",
+        "Place du Tertre",
+        "화가",
+        "몽마르트르"
+      ],
+      "summary": "거리 화가들이 초상화를 그려 주는 몽마르트르의 작은 광장."
+    },
+    {
+      "id": "arc-de-triomphe",
+      "name": "개선문",
+      "lat": 48.8738,
+      "lon": 2.295,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "개선문",
+        "Arc de Triomphe",
+        "에투알",
+        "전망"
+      ],
+      "summary": "나폴레옹이 세운 개선문으로, 옥상에 오르면 12갈래 방사형 대로가 내려다보인다."
+    },
+    {
+      "id": "champs-elysees",
+      "name": "샹젤리제 거리",
+      "lat": 48.8698,
+      "lon": 2.3076,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "샹젤리제",
+        "Champs-Élysées",
+        "쇼핑",
+        "거리"
+      ],
+      "summary": "개선문에서 콩코르드 광장까지 이어지는 파리의 대표 대로."
+    },
+    {
+      "id": "concorde",
+      "name": "콩코르드 광장",
+      "lat": 48.8656,
+      "lon": 2.3212,
+      "category": "sight",
+      "stayMin": 20,
+      "tags": [
+        "콩코르드",
+        "Place de la Concorde",
+        "오벨리스크"
+      ],
+      "summary": "이집트 오벨리스크가 서 있는 파리 최대 광장."
+    },
+    {
+      "id": "marais",
+      "name": "마레 지구",
+      "lat": 48.859,
+      "lon": 2.36,
+      "category": "shopping",
+      "stayMin": 120,
+      "tags": [
+        "마레",
+        "Le Marais",
+        "편집숍",
+        "골목"
+      ],
+      "summary": "옛 귀족 저택과 편집숍·갤러리·카페가 모인 골목 산책 지구."
+    },
+    {
+      "id": "place-des-vosges",
+      "name": "보주 광장",
+      "lat": 48.8556,
+      "lon": 2.3655,
+      "category": "nature",
+      "stayMin": 30,
+      "tags": [
+        "보주 광장",
+        "Place des Vosges",
+        "광장"
+      ],
+      "summary": "붉은 벽돌 아케이드로 둘러싸인 파리에서 가장 오래된 계획 광장."
+    },
+    {
+      "id": "rue-des-rosiers",
+      "name": "로지에 거리 팔라펠",
+      "lat": 48.8572,
+      "lon": 2.359,
+      "category": "food",
+      "stayMin": 45,
+      "tags": [
+        "로지에 거리",
+        "Rue des Rosiers",
+        "팔라펠",
+        "L'As du Fallafel"
+      ],
+      "summary": "마레 유대인 거리의 팔라펠 가게들, 줄 서서 먹는 길거리 맛집."
+    },
+    {
+      "id": "pompidou",
+      "name": "퐁피두 센터",
+      "lat": 48.8606,
+      "lon": 2.3522,
+      "category": "culture",
+      "stayMin": 120,
+      "tags": [
+        "퐁피두",
+        "Centre Pompidou",
+        "현대미술",
+        "Beaubourg"
+      ],
+      "summary": "배관이 밖으로 드러난 건물의 현대미술관 (2025년부터 대규모 보수로 장기 휴관 예정)."
+    },
+    {
+      "id": "luxembourg",
+      "name": "뤽상부르 공원",
+      "lat": 48.8462,
+      "lon": 2.3372,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "뤽상부르",
+        "Jardin du Luxembourg",
+        "공원",
+        "상원"
+      ],
+      "summary": "뤽상부르궁 앞의 우아한 정원, 연못과 초록 의자가 상징적이다."
+    },
+    {
+      "id": "saint-germain",
+      "name": "생제르맹데프레 카페 거리",
+      "lat": 48.854,
+      "lon": 2.333,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "생제르맹",
+        "Saint-Germain-des-Prés",
+        "Café de Flore",
+        "Les Deux Magots",
+        "카페"
+      ],
+      "summary": "카페 드 플로르·레 되 마고 등 문인들이 드나들던 역사적 카페가 모인 곳."
+    },
+    {
+      "id": "pantheon",
+      "name": "팡테옹",
+      "lat": 48.8462,
+      "lon": 2.3464,
+      "category": "culture",
+      "stayMin": 50,
+      "tags": [
+        "팡테옹",
+        "Panthéon",
+        "라탱 지구"
+      ],
+      "summary": "볼테르·루소·위고 등 프랑스 위인이 잠든 신고전주의 건물."
+    },
+    {
+      "id": "opera-garnier",
+      "name": "오페라 가르니에",
+      "lat": 48.872,
+      "lon": 2.3316,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "오페라 가르니에",
+        "Palais Garnier",
+        "Opéra",
+        "샤갈 천장화"
+      ],
+      "summary": "화려한 대계단과 샤갈 천장화로 유명한 19세기 오페라 극장."
+    },
+    {
+      "id": "galeries-lafayette",
+      "name": "갤러리 라파예트",
+      "lat": 48.8738,
+      "lon": 2.332,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "라파예트",
+        "Galeries Lafayette",
+        "백화점",
+        "쿠폴",
+        "옥상 전망"
+      ],
+      "summary": "스테인드글라스 돔으로 유명한 백화점, 옥상 테라스에서 오페라 일대가 보인다."
+    },
+    {
+      "id": "seine-cruise",
+      "name": "센강 유람선 선착장 (바토 무슈)",
+      "lat": 48.864,
+      "lon": 2.306,
+      "category": "night",
+      "stayMin": 70,
+      "tags": [
+        "센강 유람선",
+        "Bateaux Mouches",
+        "바토 무슈",
+        "Pont de l'Alma",
+        "크루즈"
+      ],
+      "summary": "알마 다리 옆 선착장에서 출발해 센강의 명소를 한 바퀴 도는 유람선."
+    },
+    {
+      "id": "pont-alexandre",
+      "name": "알렉상드르 3세 다리",
+      "lat": 48.8639,
+      "lon": 2.3135,
+      "category": "night",
+      "stayMin": 20,
+      "tags": [
+        "알렉상드르 3세 다리",
+        "Pont Alexandre III",
+        "야경",
+        "다리"
+      ],
+      "summary": "금빛 조각상과 가로등이 장식된 다리로, 해 질 녘과 야경이 특히 아름답다."
+    },
+    {
+      "id": "moulin-rouge",
+      "name": "물랭 루주",
+      "lat": 48.8841,
+      "lon": 2.3322,
+      "category": "night",
+      "stayMin": 120,
+      "tags": [
+        "물랭 루주",
+        "Moulin Rouge",
+        "카바레",
+        "피갈"
+      ],
+      "summary": "빨간 풍차로 유명한 피갈의 카바레, 프렌치 캉캉 쇼를 공연한다."
+    },
+    {
+      "id": "bastille-market",
+      "name": "바스티유 마르셰",
+      "lat": 48.8545,
+      "lon": 2.37,
+      "category": "food",
+      "stayMin": 45,
+      "tags": [
+        "바스티유 시장",
+        "Marché Bastille",
+        "시장"
+      ],
+      "summary": "목·일요일 오전 리샤르 르누아르 대로에 서는 대형 노천 시장."
+    },
+    {
+      "id": "ile-saint-louis",
+      "name": "생루이섬·베르티옹 아이스크림",
+      "lat": 48.8517,
+      "lon": 2.3567,
+      "category": "food",
+      "stayMin": 40,
+      "tags": [
+        "생루이섬",
+        "Île Saint-Louis",
+        "Berthillon",
+        "아이스크림"
+      ],
+      "summary": "시테섬 옆 조용한 섬으로, 베르티옹 아이스크림을 먹으며 산책하기 좋다."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "파리 첫날 핵심 코스",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "eiffel",
+        "trocadero",
+        "arc-de-triomphe",
+        "champs-elysees",
+        "concorde",
+        "louvre",
+        "notre-dame"
+      ],
+      "modes": [
+        "walk",
+        "subway",
+        "walk",
+        "walk",
+        "walk",
+        "subway"
+      ],
+      "summary": "에펠탑·트로카데로에서 시작해 개선문과 샹젤리제를 걷고 루브르를 거쳐 노트르담으로 마무리하는 하루."
+    },
+    {
+      "id": "museum-day",
+      "title": "미술관 하루",
+      "theme": "미술관",
+      "length": "day",
+      "placeIds": [
+        "louvre",
+        "tuileries",
+        "orangerie",
+        "orsay",
+        "saint-germain"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "오전 루브르, 튈르리 정원을 지나 오랑주리의 「수련」, 오후엔 오르세 인상파를 보고 생제르맹 카페에서 쉰다."
+    },
+    {
+      "id": "seine-night",
+      "title": "센강 야경",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": [
+        "pont-neuf",
+        "orsay",
+        "pont-alexandre",
+        "seine-cruise",
+        "eiffel"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "퐁뇌프에서 센강을 따라 서쪽으로 걸으며 알렉상드르 3세 다리를 지나 유람선을 타고, 정각마다 반짝이는 에펠탑으로 마무리."
+    },
+    {
+      "id": "marais-food",
+      "title": "마레 산책과 먹거리",
+      "theme": "먹거리",
+      "length": "half",
+      "placeIds": [
+        "pompidou",
+        "marais",
+        "rue-des-rosiers",
+        "place-des-vosges",
+        "ile-saint-louis",
+        "notre-dame"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "퐁피두에서 마레 골목으로 들어가 팔라펠을 먹고 보주 광장을 거쳐 생루이섬 아이스크림, 노트르담까지 걷는 코스."
+    }
+  ]
+}

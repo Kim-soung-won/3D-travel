@@ -1,0 +1,35 @@
+{
+  "source": "AI 생성 데이터 (Claude, 2026-10-21) — 미검증. 직항 기준 대략적인 비행·이동 시간이며 탑승·대기 시간은 포함하지 않는다",
+  "links": [
+    {
+      "from": "seoul",
+      "to": "busan",
+      "flightMin": 55,
+      "ground": [
+        { "mode": "train", "name": "KTX", "minutes": 160 },
+        { "mode": "bus", "name": "고속버스", "minutes": 260 },
+        { "mode": "car", "name": "자동차", "minutes": 270 }
+      ],
+      "note": "김포–김해 기준"
+    },
+    { "from": "seoul", "to": "tokyo", "flightMin": 140, "note": "인천–나리타 기준. 김포–하네다는 조금 짧다" },
+    { "from": "busan", "to": "tokyo", "flightMin": 125, "note": "김해–나리타 기준" },
+    { "from": "seoul", "to": "san-francisco", "flightMin": 630 },
+    { "from": "seoul", "to": "los-angeles", "flightMin": 660 },
+    { "from": "seoul", "to": "paris", "flightMin": 840 },
+    { "from": "tokyo", "to": "san-francisco", "flightMin": 600 },
+    { "from": "tokyo", "to": "los-angeles", "flightMin": 600 },
+    { "from": "tokyo", "to": "paris", "flightMin": 870 },
+    {
+      "from": "san-francisco",
+      "to": "los-angeles",
+      "flightMin": 85,
+      "ground": [
+        { "mode": "car", "name": "자동차 (I-5)", "minutes": 360 },
+        { "mode": "bus", "name": "장거리 버스", "minutes": 450 }
+      ]
+    },
+    { "from": "san-francisco", "to": "paris", "flightMin": 650 },
+    { "from": "los-angeles", "to": "paris", "flightMin": 660 }
+  ]
+}

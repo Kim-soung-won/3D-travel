@@ -1,0 +1,161 @@
+:root {
+  --bg: #7bbfbd;
+  --panel: rgba(255, 252, 244, 0.94);
+  --ink: #1f3437;
+  --ink-2: #4b6266;
+  --ink-3: #5f7478;
+  --line: #d9d3c4;
+  --accent: #e4572e;
+  --accent-ink: #b8421f;
+  --select: #f2a93b;
+  --danger: #b42318;
+  font-family: system-ui, -apple-system, 'Apple SD Gothic Neo', 'Segoe UI', sans-serif;
+  color: var(--ink);
+}
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; height: 100%; }
+body { background: var(--bg); overflow: hidden; }
+
+.app { position: relative; height: 100%; }
+.stage { position: absolute; inset: 0 0 0 372px; overflow: hidden; }
+
+.panel {
+  position: absolute; top: 16px; left: 16px; bottom: 16px; width: 340px;
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 18px; border-radius: 16px; background: var(--panel);
+  border: 2px solid #2f4b4f; box-shadow: 0 6px 0 #2f4b4f; z-index: 20;
+}
+.panel-head h1 { margin: 0 0 4px; font-size: 20px; letter-spacing: -0.01em; }
+.hint { margin: 0; font-size: 13px; color: var(--ink-2); line-height: 1.45; }
+
+.empty { flex: 1; display: flex; flex-direction: column; align-items: flex-start; gap: 10px; color: var(--ink-2); font-size: 14px; }
+.empty p { margin: 0; }
+
+.stops { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; min-height: 0; }
+.stop-row { display: flex; align-items: center; gap: 10px; padding: 8px; border-radius: 10px; cursor: pointer; }
+.stop-row:hover { background: rgba(47, 75, 79, 0.06); }
+.stop.is-selected .stop-row { background: rgba(242, 169, 59, 0.2); }
+.stop-num {
+  flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 13px; border: 2px solid #2f4b4f;
+}
+.stop.is-selected .stop-num { background: var(--select); color: var(--ink); }
+.stop-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.stop-name {
+  font: inherit; font-weight: 600; font-size: 14px; color: var(--ink); border: 1px solid transparent;
+  background: transparent; border-radius: 6px; padding: 2px 4px; margin-left: -4px; min-width: 0;
+}
+.stop-name:hover { border-color: var(--line); }
+.stop-name:focus { outline: 2px solid var(--select); background: #fff; }
+.stop-coord { font-size: 12px; color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.stop-actions { display: flex; gap: 2px; flex: none; }
+.leg { margin: 0 0 0 20px; padding: 2px 0 2px 14px; border-left: 2px dashed var(--line); font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+
+.icon-btn {
+  width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--line); background: #fff;
+  color: var(--ink); cursor: pointer; font-size: 13px;
+}
+.icon-btn:hover:not(:disabled) { border-color: #2f4b4f; }
+.icon-btn:disabled { opacity: 0.35; cursor: default; }
+.icon-btn.danger:hover { color: var(--danger); border-color: var(--danger); }
+
+.undo {
+  display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 10px;
+  background: #2f4b4f; color: #fff; font-size: 13px;
+}
+.undo span { flex: 1; }
+.link-btn { background: none; border: 0; color: #ffe1a8; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; padding: 0; }
+.link-btn.muted { color: #cfe0df; font-weight: 400; }
+
+.panel-foot { display: flex; flex-direction: column; gap: 10px; border-top: 2px dashed var(--line); padding-top: 12px; }
+.total { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 8px; font-size: 14px; }
+.total > span:first-child, .total strong { white-space: nowrap; }
+.total strong { font-size: 20px; font-variant-numeric: tabular-nums; }
+.muted { color: var(--ink-3); font-size: 12px; }
+.actions { display: flex; gap: 8px; }
+.btn {
+  font: inherit; font-weight: 700; font-size: 14px; padding: 10px 14px; border-radius: 10px;
+  border: 2px solid #2f4b4f; background: #fff; color: var(--ink); cursor: pointer; box-shadow: 0 3px 0 #2f4b4f;
+}
+.btn:active:not(:disabled) { transform: translateY(2px); box-shadow: 0 1px 0 #2f4b4f; }
+.btn.primary { background: #f2c94c; flex: 1; }
+.btn:disabled { opacity: 0.5; cursor: default; box-shadow: none; }
+.btn.ghost { box-shadow: none; border-color: transparent; background: transparent; }
+.danger-text { color: var(--danger); }
+.reason { margin: 0; font-size: 12px; color: var(--ink-2); }
+.progress { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.progress div { height: 100%; background: var(--accent); }
+
+.pin-labels { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; }
+.pin-label {
+  position: absolute; left: 0; top: 0; will-change: transform;
+  display: inline-flex; align-items: center; gap: 6px; white-space: nowrap;
+  padding: 3px 8px 3px 3px; border-radius: 999px; background: #fffaf0; border: 2px solid #2f4b4f;
+  font-size: 12px; font-weight: 700; color: var(--ink);
+}
+.pin-label.is-selected { background: #ffe8bd; }
+.pin-num { width: 18px; height: 18px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: #fff; font-size: 11px; }
+
+@media (max-width: 720px) {
+  .stage { inset: 0 0 calc(46vh + 8px) 0; }
+  .panel { top: auto; left: 8px; right: 8px; bottom: 8px; width: auto; max-height: 46vh; padding: 14px; }
+  .hint { display: none; }
+}
+
+/* 구간: 수단 고르기 + 거리·시간 */
+.leg { margin: 2px 0 6px 20px; padding: 6px 0 6px 14px; border-left: 2px dashed var(--line); display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; }
+.leg-info { font-size: 12px; color: var(--ink-2); font-variant-numeric: tabular-nums; }
+.leg-note { flex-basis: 100%; font-size: 12px; color: var(--accent-ink); }
+.mode-picker { display: inline-flex; gap: 2px; padding: 2px; border-radius: 9px; background: rgba(47, 75, 79, 0.08); }
+.mode { width: 28px; height: 26px; display: grid; place-items: center; border: 0; border-radius: 7px; background: transparent; color: var(--ink-2); cursor: pointer; font-size: 16px; }
+.mode:hover { background: #fff; color: var(--ink); }
+.mode.is-on { background: #2f4b4f; color: #fff; box-shadow: inset 0 -3px 0 var(--mode-color); }
+.enter-btn { margin: 0 0 4px 44px; padding: 0; border: 0; background: none; font: inherit; font-size: 12px; font-weight: 700; color: var(--ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+.back-btn { margin: 0 0 8px; padding: 0; border: 0; background: none; font: inherit; font-size: 13px; font-weight: 700; color: var(--ink-2); cursor: pointer; }
+.back-btn:hover { color: var(--ink); text-decoration: underline; }
+
+/* 도시 지도 */
+.city-map { position: absolute; inset: 0; }
+.city-map-canvas { width: 100%; height: 100%; }
+.city-pin { display: inline-flex; align-items: center; gap: 6px; padding: 3px 8px 3px 3px; border-radius: 999px; background: #fffaf0; border: 2px solid #2f4b4f; font: 700 12px system-ui, sans-serif; color: var(--ink); cursor: pointer; box-shadow: 0 3px 0 #2f4b4f; white-space: nowrap; }
+.city-pin.is-selected { background: #ffe8bd; }
+.city-vehicle { display: inline-flex; align-items: center; gap: 4px; padding: 4px 8px; border-radius: 999px; background: #2f4b4f; color: #fff; font: 700 12px system-ui, sans-serif; border: 2px solid var(--mode-color, #fff); font-size: 13px; pointer-events: none; }
+.city-vehicle svg { font-size: 16px; color: var(--mode-color, #fff); }
+.maplibregl-ctrl-attrib { font-size: 11px; }
+
+/* 화면 전환 로딩 화면 */
+.curtain { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; background: var(--bg); transition: opacity 350ms ease; }
+.curtain-covering, .curtain-revealing { opacity: 0; }
+.curtain-covering { animation: curtain-in 350ms ease forwards; }
+.curtain-covered { opacity: 1; }
+@keyframes curtain-in { from { opacity: 0; } to { opacity: 1; } }
+.curtain-body { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; padding: 24px; }
+.curtain-globe { width: 72px; height: 72px; border-radius: 50%; border: 3px solid #2f4b4f; background: radial-gradient(circle at 35% 35%, #cfe3a8 0 22%, transparent 23%), radial-gradient(circle at 70% 60%, #cfe3a8 0 18%, transparent 19%), #6fb8b6; box-shadow: 0 5px 0 #2f4b4f; animation: spin 2.4s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.curtain-title { margin: 6px 0 0; font-size: 22px; font-weight: 800; color: var(--ink); }
+.curtain-sub { margin: 0; font-size: 14px; color: var(--ink-2); }
+.curtain-error { margin: 0; max-width: 360px; font-size: 14px; color: var(--danger); }
+@media (prefers-reduced-motion: reduce) { .curtain-globe { animation: none; } .curtain { transition: none; } }
+
+/* 도시 화면: 찾기·추천 */
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.text-btn { background: none; border: 0; padding: 0; font: inherit; font-size: 13px; font-weight: 700; color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; white-space: nowrap; }
+.guide { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+.guide-search input { width: 100%; box-sizing: border-box; padding: 8px 10px; border: 1px solid var(--line); border-radius: 10px; background: #fff; font: inherit; font-size: 14px; color: var(--ink); }
+.guide-results, .guide-routes ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; max-height: 240px; overflow-y: auto; }
+.guide-results button { width: 100%; text-align: left; display: grid; grid-template-columns: 1fr auto; gap: 0 8px; padding: 6px 8px; border: 1px solid transparent; border-radius: 8px; background: none; font: inherit; color: var(--ink); cursor: pointer; }
+.guide-results button:hover, .guide-results button:focus-visible { border-color: var(--line); background: #fff; }
+.guide-name { font-size: 14px; font-weight: 700; }
+.guide-cat { font-size: 12px; color: var(--ink-3); white-space: nowrap; }
+.guide-summary { grid-column: 1 / -1; font-size: 12px; color: var(--ink-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.guide-empty, .guide-none { font-size: 13px; color: var(--ink-2); margin: 0 0 12px; }
+.guide-routes summary { cursor: pointer; font-size: 13px; font-weight: 700; color: var(--ink); }
+.guide-routes ul { margin-top: 6px; }
+.guide-routes li { display: flex; align-items: center; gap: 8px; padding: 6px 8px; border-radius: 8px; background: #fff; border: 1px solid var(--line); }
+.guide-routes li > div { flex: 1; min-width: 0; display: grid; grid-template-columns: auto 1fr; gap: 0 8px; align-items: baseline; }
+.guide-foot { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; }
+.guide-reason, .guide-notice { font-size: 12px; color: var(--ink-3); }
+/* 도시 패널은 찾기와 목록을 한 스크롤 영역에 둔다 (좁은 화면에서 목록 높이가 0이 되지 않게) */
+.panel-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+.panel-body .stops { flex: none; overflow: visible; }
+.panel-body .empty { flex: none; }

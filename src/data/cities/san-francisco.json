@@ -1,0 +1,137 @@
+{
+  "id": "san-francisco",
+  "name": "샌프란시스코",
+  "country": "미국",
+  "center": { "lat": 37.7749, "lon": -122.4194 },
+  "bbox": [-122.5200, 37.7000, -122.3800, 37.8150],
+  "source": "AI 생성 데이터 (Claude, 2026-10-21) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "bart-sf",
+      "name": "BART (시내 구간)",
+      "color": "#0099D8",
+      "stations": [
+        { "name": "엠바카데로", "lat": 37.7929, "lon": -122.3970 },
+        { "name": "몽고메리 스트리트", "lat": 37.7894, "lon": -122.4011 },
+        { "name": "파월 스트리트", "lat": 37.7844, "lon": -122.4079 },
+        { "name": "시빅 센터", "lat": 37.7796, "lon": -122.4138 },
+        { "name": "16번가 미션", "lat": 37.7650, "lon": -122.4196 },
+        { "name": "24번가 미션", "lat": 37.7524, "lon": -122.4184 },
+        { "name": "글렌 파크", "lat": 37.7331, "lon": -122.4338 },
+        { "name": "발보아 파크", "lat": 37.7217, "lon": -122.4474 },
+        { "name": "데일리 시티", "lat": 37.7062, "lon": -122.4690 }
+      ]
+    },
+    {
+      "id": "muni-n",
+      "name": "Muni 메트로 N 주다",
+      "color": "#005B95",
+      "stations": [
+        { "name": "4번가 & 킹 (칼트레인)", "lat": 37.7765, "lon": -122.3943 },
+        { "name": "2번가 & 킹", "lat": 37.7795, "lon": -122.3897 },
+        { "name": "엠바카데로", "lat": 37.7929, "lon": -122.3970 },
+        { "name": "몽고메리 스트리트", "lat": 37.7894, "lon": -122.4011 },
+        { "name": "파월 스트리트", "lat": 37.7844, "lon": -122.4079 },
+        { "name": "시빅 센터", "lat": 37.7796, "lon": -122.4138 },
+        { "name": "반 네스", "lat": 37.7752, "lon": -122.4193 },
+        { "name": "처치", "lat": 37.7671, "lon": -122.4290 },
+        { "name": "칼 & 콜", "lat": 37.7657, "lon": -122.4497 },
+        { "name": "어빙 & 9번 애비뉴", "lat": 37.7642, "lon": -122.4663 },
+        { "name": "주다 & 19번 애비뉴", "lat": 37.7616, "lon": -122.4767 },
+        { "name": "주다 & 28번 애비뉴", "lat": 37.7612, "lon": -122.4863 },
+        { "name": "오션 비치 (주다 & 라 플라야)", "lat": 37.7604, "lon": -122.5089 }
+      ]
+    },
+    {
+      "id": "muni-t",
+      "name": "Muni 메트로 T 서드 (센트럴 지하철 구간)",
+      "color": "#D31245",
+      "stations": [
+        { "name": "차이나타운-로즈 팩", "lat": 37.7948, "lon": -122.4078 },
+        { "name": "유니언 스퀘어/마켓 스트리트", "lat": 37.7865, "lon": -122.4058 },
+        { "name": "예르바 부에나/모스콘", "lat": 37.7828, "lon": -122.4021 },
+        { "name": "4번가 & 킹 (칼트레인)", "lat": 37.7765, "lon": -122.3943 },
+        { "name": "UCSF/체이스 센터", "lat": 37.7686, "lon": -122.3893 }
+      ]
+    },
+    {
+      "id": "cable-powell-hyde",
+      "name": "케이블카 파월-하이드선",
+      "color": "#A96614",
+      "stations": [
+        { "name": "파월 스트리트", "lat": 37.7847, "lon": -122.4077 },
+        { "name": "파월 & 서터", "lat": 37.7891, "lon": -122.4086 },
+        { "name": "파월 & 캘리포니아", "lat": 37.7920, "lon": -122.4091 },
+        { "name": "파월 & 잭슨", "lat": 37.7956, "lon": -122.4100 },
+        { "name": "하이드 & 잭슨", "lat": 37.7947, "lon": -122.4175 },
+        { "name": "하이드 & 롬바드", "lat": 37.8015, "lon": -122.4188 },
+        { "name": "하이드 & 비치 (아쿠아틱 파크)", "lat": 37.8064, "lon": -122.4205 }
+      ]
+    }
+  ],
+  "places": [
+    { "id": "golden-gate-bridge", "name": "골든게이트교", "lat": 37.8078, "lon": -122.4750, "category": "sight", "stayMin": 90, "tags": ["골든게이트교", "금문교", "Golden Gate Bridge", "다리"], "summary": "붉은 주홍빛 현수교로, 남단 웰컴 센터에서 걸어서 다리를 건너볼 수 있다." },
+    { "id": "fishermans-wharf", "name": "피셔맨스 워프", "lat": 37.8080, "lon": -122.4177, "category": "food", "stayMin": 60, "tags": ["피셔맨스 워프", "Fisherman's Wharf", "클램 차우더", "던지니스 크랩"], "summary": "사워도우 빵 그릇에 담긴 클램 차우더와 게 요리로 유명한 항구 거리." },
+    { "id": "pier-39", "name": "피어 39", "lat": 37.8087, "lon": -122.4098, "category": "sight", "stayMin": 60, "tags": ["피어 39", "Pier 39", "바다사자", "sea lions"], "summary": "상점과 식당이 모인 부두로, 부두 끝에 바다사자 무리가 쉬고 있다." },
+    { "id": "alcatraz-ferry", "name": "알카트라즈 페리 선착장", "lat": 37.8067, "lon": -122.4040, "category": "sight", "stayMin": 180, "tags": ["알카트라즈", "Alcatraz", "Pier 33", "페리"], "summary": "피어 33에서 출발하는 페리로 옛 연방 교도소 섬 알카트라즈를 둘러본다(예약 필수)." },
+    { "id": "lombard-street", "name": "롬바드 스트리트", "lat": 37.8021, "lon": -122.4187, "category": "sight", "stayMin": 30, "tags": ["롬바드 스트리트", "Lombard Street", "꼬불꼬불 길", "crookedest street"], "summary": "꽃밭 사이로 여덟 번 굽이치는 '세상에서 가장 구불구불한 길'." },
+    { "id": "chinatown", "name": "차이나타운", "lat": 37.7906, "lon": -122.4058, "category": "culture", "stayMin": 60, "tags": ["차이나타운", "Chinatown", "드래곤 게이트", "Dragon Gate", "딤섬"], "summary": "드래곤 게이트에서 시작하는 북미에서 가장 오래된 차이나타운." },
+    { "id": "union-square", "name": "유니언 스퀘어", "lat": 37.7880, "lon": -122.4075, "category": "shopping", "stayMin": 60, "tags": ["유니언 스퀘어", "Union Square", "쇼핑", "백화점"], "summary": "백화점과 브랜드 매장이 둘러싼 시내 중심 광장으로 케이블카 출발점과 가깝다." },
+    { "id": "golden-gate-park", "name": "골든게이트 파크", "lat": 37.7694, "lon": -122.4862, "category": "nature", "stayMin": 120, "tags": ["골든게이트 파크", "Golden Gate Park", "공원", "재패니즈 티 가든"], "summary": "센트럴파크보다 큰 도시 공원으로 정원·호수·박물관이 모여 있다." },
+    { "id": "painted-ladies", "name": "페인티드 레이디스", "lat": 37.7762, "lon": -122.4328, "category": "sight", "stayMin": 30, "tags": ["페인티드 레이디스", "Painted Ladies", "알라모 스퀘어", "Alamo Square", "빅토리아 양식"], "summary": "알라모 스퀘어 언덕 너머로 빅토리아 양식 주택과 시내 스카이라인이 겹쳐 보인다." },
+    { "id": "mission-dolores", "name": "미션 돌로레스", "lat": 37.7643, "lon": -122.4269, "category": "culture", "stayMin": 40, "tags": ["미션 돌로레스", "Mission Dolores", "Mission San Francisco de Asís", "성당"], "summary": "1776년 세워진 스페인 선교 시설로 도시에서 가장 오래된 건물." },
+    { "id": "dolores-park", "name": "돌로레스 공원", "lat": 37.7596, "lon": -122.4269, "category": "nature", "stayMin": 45, "tags": ["돌로레스 공원", "Dolores Park", "피크닉", "전망"], "summary": "잔디 언덕에서 시내 스카이라인을 바라보며 쉬는 현지인들의 피크닉 명소." },
+    { "id": "ferry-building", "name": "페리 빌딩 마켓플레이스", "lat": 37.7955, "lon": -122.3937, "category": "food", "stayMin": 60, "tags": ["페리 빌딩", "Ferry Building", "파머스 마켓", "굴"], "summary": "시계탑 아래 로컬 식료품점과 식당이 모인 실내 시장, 주말엔 파머스 마켓이 열린다." },
+    { "id": "coit-tower", "name": "코이트 타워", "lat": 37.8024, "lon": -122.4058, "category": "sight", "stayMin": 45, "tags": ["코이트 타워", "Coit Tower", "텔레그래프 힐", "벽화"], "summary": "텔레그래프 힐 꼭대기의 전망탑으로 1930년대 벽화와 베이 전망을 볼 수 있다." },
+    { "id": "north-beach", "name": "노스비치", "lat": 37.8008, "lon": -122.4100, "category": "food", "stayMin": 60, "tags": ["노스비치", "North Beach", "리틀 이탈리아", "워싱턴 스퀘어", "에스프레소"], "summary": "워싱턴 스퀘어 주변 이탈리아 카페와 비트 세대 서점이 모인 동네." },
+    { "id": "palace-of-fine-arts", "name": "팔레스 오브 파인 아츠", "lat": 37.8029, "lon": -122.4484, "category": "culture", "stayMin": 40, "tags": ["팔레스 오브 파인 아츠", "Palace of Fine Arts", "마리나", "로툰다"], "summary": "1915년 박람회 때 지은 로마풍 로툰다와 연못이 있는 산책 명소." },
+    { "id": "crissy-field", "name": "크리시 필드", "lat": 37.8039, "lon": -122.4641, "category": "nature", "stayMin": 60, "tags": ["크리시 필드", "Crissy Field", "프레시디오", "Presidio", "해변 산책"], "summary": "골든게이트교를 정면으로 바라보며 걷는 해안 잔디밭과 산책로." },
+    { "id": "twin-peaks", "name": "트윈 피크스", "lat": 37.7544, "lon": -122.4477, "category": "night", "stayMin": 40, "tags": ["트윈 피크스", "Twin Peaks", "야경", "전망대"], "summary": "도시 한가운데 두 봉우리 언덕으로 시내와 베이 브리지 야경이 한눈에 들어온다." },
+    { "id": "bay-lights", "name": "베이 브리지 야경 (린콘 파크)", "lat": 37.7907, "lon": -122.3895, "category": "night", "stayMin": 30, "tags": ["베이 브리지", "Bay Bridge", "Bay Lights", "린콘 파크", "Rincon Park", "엠바카데로"], "summary": "엠바카데로 해안에서 조명이 켜진 베이 브리지와 큐피드 활 조형물을 감상한다." },
+    { "id": "de-young", "name": "드 영 미술관", "lat": 37.7715, "lon": -122.4686, "category": "culture", "stayMin": 90, "tags": ["드 영 미술관", "de Young Museum", "미술관", "전망탑"], "summary": "골든게이트 파크 안의 미술관으로 무료 전망탑에서 공원과 바다를 내려다본다." },
+    { "id": "cal-academy", "name": "캘리포니아 과학 아카데미", "lat": 37.7699, "lon": -122.4661, "category": "culture", "stayMin": 120, "tags": ["캘리포니아 과학 아카데미", "California Academy of Sciences", "자연사 박물관", "수족관"], "summary": "수족관·열대우림 돔·천체투영관이 한 지붕 아래 있는 자연사 박물관." },
+    { "id": "sfmoma", "name": "샌프란시스코 현대미술관", "lat": 37.7857, "lon": -122.4011, "category": "culture", "stayMin": 120, "tags": ["샌프란시스코 현대미술관", "SFMOMA", "현대미술", "예르바 부에나"], "summary": "소마 지구의 대형 현대미술관으로 7개 층에 걸친 컬렉션을 갖췄다." },
+    { "id": "haight-ashbury", "name": "헤이트 애시버리", "lat": 37.7699, "lon": -122.4469, "category": "shopping", "stayMin": 60, "tags": ["헤이트 애시버리", "Haight-Ashbury", "빈티지", "히피"], "summary": "1960년대 히피 문화의 발상지로 빈티지 옷가게와 레코드점이 늘어서 있다." },
+    { "id": "ghirardelli-square", "name": "기라델리 스퀘어", "lat": 37.8059, "lon": -122.4229, "category": "food", "stayMin": 40, "tags": ["기라델리 스퀘어", "Ghirardelli Square", "초콜릿", "선데"], "summary": "옛 초콜릿 공장을 개조한 광장으로 핫 퍼지 선데가 유명하다." },
+    { "id": "mission-taqueria", "name": "미션 부리토 거리 (24번가)", "lat": 37.7509, "lon": -122.4181, "category": "food", "stayMin": 45, "tags": ["미션 부리토", "Mission burrito", "타케리아", "La Taqueria", "미션 디스트릭트"], "summary": "미션 디스트릭트의 타케리아에서 샌프란시스코식 대형 부리토를 맛본다." },
+    { "id": "balmy-alley", "name": "발미 앨리 벽화 거리", "lat": 37.7522, "lon": -122.4124, "category": "culture", "stayMin": 30, "tags": ["발미 앨리", "Balmy Alley", "벽화", "murals", "미션 디스트릭트"], "summary": "골목 양쪽 차고 문과 담장을 라틴 아메리카풍 벽화가 가득 채운 거리." }
+  ],
+  "routes": [
+    {
+      "id": "sf-first-day",
+      "title": "첫 방문 하루 — 시내에서 금문교까지",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": ["union-square", "chinatown", "north-beach", "coit-tower", "pier-39", "fishermans-wharf", "golden-gate-bridge"],
+      "modes": ["walk", "walk", "walk", "walk", "walk", "bus"],
+      "summary": "유니언 스퀘어에서 차이나타운·노스비치를 걸어 코이트 타워에 오른 뒤 부두를 따라 내려가고, 버스로 골든게이트교까지 간다."
+    },
+    {
+      "id": "sf-hills-cable-car",
+      "title": "언덕과 케이블카",
+      "theme": "케이블카",
+      "length": "half",
+      "placeIds": ["union-square", "lombard-street", "ghirardelli-square", "fishermans-wharf"],
+      "modes": ["subway", "walk", "walk"],
+      "summary": "파월-하이드 케이블카로 언덕을 넘어 롬바드 스트리트에서 내린 뒤 기라델리 스퀘어와 부두까지 내리막을 걷는다."
+    },
+    {
+      "id": "sf-night",
+      "title": "베이와 언덕 야경",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": ["ferry-building", "bay-lights", "pier-39", "twin-peaks"],
+      "modes": ["walk", "bus", "car"],
+      "summary": "해 질 녘 페리 빌딩에서 베이 브리지 조명을 보고, 피어 39에서 저녁을 먹은 뒤 차로 트윈 피크스에 올라 시내 야경을 본다."
+    },
+    {
+      "id": "sf-food",
+      "title": "동네별 먹거리 하루",
+      "theme": "먹거리",
+      "length": "day",
+      "placeIds": ["ferry-building", "chinatown", "north-beach", "mission-dolores", "dolores-park", "mission-taqueria", "balmy-alley"],
+      "modes": ["bus", "walk", "bus", "walk", "bus", "walk"],
+      "summary": "페리 빌딩 시장에서 시작해 차이나타운 딤섬, 노스비치 에스프레소를 거쳐 미션 디스트릭트에서 부리토와 벽화로 마무리한다."
+    }
+  ]
+}

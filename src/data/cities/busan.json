@@ -1,0 +1,123 @@
+{
+  "id": "busan",
+  "name": "부산광역시",
+  "country": "대한민국",
+  "center": { "lat": 35.1300, "lon": 129.0900 },
+  "bbox": [129.0000, 35.0400, 129.2350, 35.2000],
+  "source": "AI 생성 데이터 (Claude, 2026-10-21) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "busan-1",
+      "name": "1호선 (도심 구간)",
+      "color": "#F06A00",
+      "stations": [
+        { "name": "토성", "lat": 35.0976, "lon": 129.0187 },
+        { "name": "자갈치", "lat": 35.0967, "lon": 129.0265 },
+        { "name": "남포", "lat": 35.0978, "lon": 129.0347 },
+        { "name": "중앙", "lat": 35.1037, "lon": 129.0360 },
+        { "name": "부산역", "lat": 35.1150, "lon": 129.0410 },
+        { "name": "초량", "lat": 35.1210, "lon": 129.0447 },
+        { "name": "부산진", "lat": 35.1280, "lon": 129.0486 },
+        { "name": "좌천", "lat": 35.1337, "lon": 129.0533 },
+        { "name": "범일", "lat": 35.1403, "lon": 129.0592 },
+        { "name": "범내골", "lat": 35.1472, "lon": 129.0593 },
+        { "name": "서면", "lat": 35.1578, "lon": 129.0592 },
+        { "name": "부전", "lat": 35.1625, "lon": 129.0630 },
+        { "name": "양정", "lat": 35.1729, "lon": 129.0713 },
+        { "name": "시청", "lat": 35.1797, "lon": 129.0763 },
+        { "name": "연산", "lat": 35.1860, "lon": 129.0816 }
+      ]
+    },
+    {
+      "id": "busan-2",
+      "name": "2호선 (서면~해운대 구간)",
+      "color": "#81BF48",
+      "stations": [
+        { "name": "서면", "lat": 35.1578, "lon": 129.0592 },
+        { "name": "전포", "lat": 35.1530, "lon": 129.0654 },
+        { "name": "국제금융센터·부산은행", "lat": 35.1469, "lon": 129.0665 },
+        { "name": "문현", "lat": 35.1384, "lon": 129.0718 },
+        { "name": "지게골", "lat": 35.1325, "lon": 129.0780 },
+        { "name": "못골", "lat": 35.1307, "lon": 129.0870 },
+        { "name": "대연", "lat": 35.1349, "lon": 129.0930 },
+        { "name": "경성대·부경대", "lat": 35.1376, "lon": 129.1004 },
+        { "name": "남천", "lat": 35.1423, "lon": 129.1079 },
+        { "name": "금련산", "lat": 35.1499, "lon": 129.1116 },
+        { "name": "광안", "lat": 35.1572, "lon": 129.1129 },
+        { "name": "수영", "lat": 35.1658, "lon": 129.1148 },
+        { "name": "민락", "lat": 35.1673, "lon": 129.1236 },
+        { "name": "센텀시티", "lat": 35.1693, "lon": 129.1317 },
+        { "name": "시립미술관", "lat": 35.1665, "lon": 129.1368 },
+        { "name": "동백", "lat": 35.1611, "lon": 129.1478 },
+        { "name": "해운대", "lat": 35.1634, "lon": 129.1588 },
+        { "name": "중동", "lat": 35.1665, "lon": 129.1680 },
+        { "name": "장산", "lat": 35.1698, "lon": 129.1767 }
+      ]
+    }
+  ],
+  "places": [
+    { "id": "haeundae-beach", "name": "해운대해수욕장", "lat": 35.1587, "lon": 129.1604, "category": "nature", "stayMin": 90, "tags": ["해운대", "해수욕장", "바다", "Haeundae", "beach"], "summary": "부산을 대표하는 넓은 백사장과 고층 스카이라인이 어우러진 해변." },
+    { "id": "dongbaekseom", "name": "동백섬·누리마루 APEC하우스", "lat": 35.1534, "lon": 129.1520, "category": "nature", "stayMin": 60, "tags": ["동백섬", "누리마루", "산책", "Dongbaekseom", "Nurimaru APEC House"], "summary": "해운대 서쪽 끝 소나무 숲 산책로와 바다 전망의 APEC 회의장." },
+    { "id": "thebay101", "name": "더베이101 (마린시티 야경)", "lat": 35.1564, "lon": 129.1520, "category": "night", "stayMin": 60, "tags": ["더베이101", "마린시티", "야경", "The Bay 101", "Marine City"], "summary": "마린시티 고층 빌딩 불빛이 물에 비치는 해운대의 대표 야경 명소." },
+    { "id": "blueline-mipo", "name": "해운대 블루라인파크 (미포정거장)", "lat": 35.1600, "lon": 129.1704, "category": "sight", "stayMin": 90, "tags": ["블루라인파크", "해변열차", "스카이캡슐", "미포", "Blueline Park", "Haeundae Beach Train"], "summary": "옛 동해남부선 철길을 따라 바다를 끼고 달리는 해변열차와 스카이캡슐." },
+    { "id": "cheongsapo", "name": "청사포", "lat": 35.1608, "lon": 129.1913, "category": "nature", "stayMin": 60, "tags": ["청사포", "등대", "다릿돌전망대", "Cheongsapo"], "summary": "빨간·하얀 쌍둥이 등대와 조개구이집이 있는 작은 포구 마을." },
+    { "id": "haeundae-market", "name": "해운대시장", "lat": 35.1622, "lon": 129.1610, "category": "food", "stayMin": 45, "tags": ["해운대시장", "떡볶이", "곰장어", "Haeundae Market"], "summary": "해운대역과 해변 사이 골목 시장으로 떡볶이·어묵·곰장어가 유명하다." },
+    { "id": "yonggungsa", "name": "해동용궁사", "lat": 35.1883, "lon": 129.2233, "category": "sight", "stayMin": 60, "tags": ["해동용궁사", "용궁사", "사찰", "기장", "Haedong Yonggungsa", "temple"], "summary": "바닷가 바위 위에 지어진 보기 드문 해안 사찰." },
+    { "id": "gwangalli", "name": "광안리해수욕장", "lat": 35.1532, "lon": 129.1186, "category": "nature", "stayMin": 90, "tags": ["광안리", "해수욕장", "광안대교", "Gwangalli", "beach"], "summary": "광안대교를 정면으로 바라보는 해변으로 카페와 횟집이 늘어서 있다." },
+    { "id": "gwangan-bridge", "name": "광안대교·민락수변공원", "lat": 35.1546, "lon": 129.1335, "category": "night", "stayMin": 45, "tags": ["광안대교", "민락수변공원", "야경", "Gwangan Bridge", "Diamond Bridge"], "summary": "조명이 바뀌는 광안대교를 가까이서 보는 바닷가 야경 쉼터." },
+    { "id": "centum", "name": "신세계 센텀시티", "lat": 35.1688, "lon": 129.1294, "category": "shopping", "stayMin": 120, "tags": ["센텀시티", "신세계", "백화점", "스파랜드", "Shinsegae Centum City"], "summary": "세계 최대 규모급 백화점으로 찜질방 스파랜드도 함께 있다." },
+    { "id": "busan-cinema", "name": "영화의전당", "lat": 35.1711, "lon": 129.1271, "category": "culture", "stayMin": 45, "tags": ["영화의전당", "부산국제영화제", "BIFF", "Busan Cinema Center"], "summary": "부산국제영화제 개막식이 열리는 거대한 지붕의 영화 복합 공간." },
+    { "id": "hwangnyeongsan", "name": "황령산 전망대", "lat": 35.1567, "lon": 129.0830, "category": "night", "stayMin": 60, "tags": ["황령산", "봉수대", "전망대", "야경", "Hwangnyeongsan"], "summary": "서면과 광안대교까지 부산 도심 전체가 내려다보이는 야경 명소." },
+    { "id": "igidae", "name": "이기대 해안산책로", "lat": 35.1265, "lon": 129.1215, "category": "nature", "stayMin": 120, "tags": ["이기대", "해안산책로", "갈맷길", "Igidae"], "summary": "광안대교와 해운대를 건너다보며 걷는 바위 해안 산책길." },
+    { "id": "oryukdo", "name": "오륙도 스카이워크", "lat": 35.1007, "lon": 129.1240, "category": "sight", "stayMin": 45, "tags": ["오륙도", "스카이워크", "Oryukdo", "Skywalk"], "summary": "절벽 끝 유리 바닥 위에서 오륙도 바위섬들을 바라보는 전망대." },
+    { "id": "seomyeon-jeonpo", "name": "전포카페거리", "lat": 35.1555, "lon": 129.0640, "category": "food", "stayMin": 90, "tags": ["전포카페거리", "서면", "카페", "Jeonpo Cafe Street", "Seomyeon"], "summary": "공구상가 골목 사이에 개성 있는 카페와 식당이 모인 서면의 거리." },
+    { "id": "chinatown", "name": "초량 차이나타운·텍사스거리", "lat": 35.1155, "lon": 129.0385, "category": "food", "stayMin": 60, "tags": ["차이나타운", "상해거리", "초량", "만두", "Chinatown"], "summary": "부산역 맞은편, 화교 중식당과 만두집이 모인 거리." },
+    { "id": "ibagu-168", "name": "초량이바구길 168계단", "lat": 35.1187, "lon": 129.0378, "category": "culture", "stayMin": 60, "tags": ["이바구길", "168계단", "초량", "Ibagu-gil", "168 Stairs"], "summary": "피란민 산동네의 가파른 계단과 모노레일, 항구 전망이 있는 골목길." },
+    { "id": "yongdusan", "name": "용두산공원·부산타워", "lat": 35.1007, "lon": 129.0324, "category": "sight", "stayMin": 60, "tags": ["용두산공원", "부산타워", "남포동", "Yongdusan Park", "Busan Tower"], "summary": "남포동 언덕 위 공원과 원도심·항구를 내려다보는 전망 타워." },
+    { "id": "gukje-market", "name": "국제시장", "lat": 35.1012, "lon": 129.0285, "category": "shopping", "stayMin": 60, "tags": ["국제시장", "남포동", "시장", "Gukje Market"], "summary": "한국전쟁 피란 시절부터 이어진 원도심의 거대한 재래시장." },
+    { "id": "bupyeong-market", "name": "부평깡통시장 야시장", "lat": 35.1016, "lon": 129.0262, "category": "food", "stayMin": 60, "tags": ["부평깡통시장", "깡통시장", "야시장", "Bupyeong Kkangtong Market", "night market"], "summary": "저녁이면 노점이 늘어서는 부산 최초의 상설 야시장." },
+    { "id": "biff-square", "name": "BIFF광장", "lat": 35.0988, "lon": 129.0283, "category": "food", "stayMin": 30, "tags": ["비프광장", "BIFF광장", "씨앗호떡", "남포동", "BIFF Square"], "summary": "영화인 핸드프린팅과 씨앗호떡 노점으로 유명한 남포동 거리." },
+    { "id": "jagalchi", "name": "자갈치시장", "lat": 35.0966, "lon": 129.0305, "category": "food", "stayMin": 60, "tags": ["자갈치시장", "자갈치", "회", "수산시장", "Jagalchi Market"], "summary": "한국 최대 수산시장으로 2층 식당에서 바로 회를 먹을 수 있다." },
+    { "id": "gamcheon", "name": "감천문화마을", "lat": 35.0975, "lon": 129.0106, "category": "culture", "stayMin": 90, "tags": ["감천문화마을", "감천", "벽화마을", "Gamcheon Culture Village"], "summary": "산비탈에 계단식으로 들어선 알록달록한 집과 골목 예술 마을." },
+    { "id": "huinnyeoul", "name": "흰여울문화마을", "lat": 35.0785, "lon": 129.0447, "category": "culture", "stayMin": 60, "tags": ["흰여울문화마을", "흰여울", "영도", "절영해안산책로", "Huinnyeoul Culture Village"], "summary": "영도 바닷가 절벽 위 하얀 집들과 해안 산책로가 이어지는 마을." },
+    { "id": "taejongdae", "name": "태종대", "lat": 35.0532, "lon": 129.0857, "category": "nature", "stayMin": 120, "tags": ["태종대", "영도", "다누비열차", "영도등대", "Taejongdae"], "summary": "영도 남쪽 끝 해식 절벽과 등대를 순환 열차로 둘러보는 자연공원." }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "부산 첫 방문 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": ["gamcheon", "jagalchi", "gukje-market", "yongdusan", "haeundae-beach", "dongbaekseom"],
+      "modes": ["bus", "walk", "walk", "subway", "walk"],
+      "summary": "오전엔 감천과 남포동 원도심, 오후엔 지하철로 해운대로 건너가 해변과 동백섬을 걷는다."
+    },
+    {
+      "id": "sea-walk",
+      "title": "동부 해안 바다 산책",
+      "theme": "바다 산책",
+      "length": "day",
+      "placeIds": ["yonggungsa", "cheongsapo", "blueline-mipo", "haeundae-beach", "gwangalli", "igidae", "oryukdo"],
+      "modes": ["bus", "bus", "walk", "subway", "bus", "bus"],
+      "summary": "용궁사에서 시작해 청사포·해운대·광안리를 거쳐 이기대와 오륙도까지 해안을 따라 내려간다."
+    },
+    {
+      "id": "night-view",
+      "title": "원도심에서 바다까지 야경",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": ["bupyeong-market", "yongdusan", "hwangnyeongsan", "gwangalli", "thebay101"],
+      "modes": ["walk", "car", "car", "subway"],
+      "summary": "깡통야시장과 부산타워에서 시작해 황령산 전망대, 광안대교, 마린시티 불빛으로 마무리한다."
+    },
+    {
+      "id": "food-tour",
+      "title": "시장과 골목 먹거리",
+      "theme": "먹거리",
+      "length": "half",
+      "placeIds": ["jagalchi", "biff-square", "bupyeong-market", "chinatown", "seomyeon-jeonpo"],
+      "modes": ["walk", "walk", "subway", "subway"],
+      "summary": "자갈치 회, 비프광장 씨앗호떡, 깡통시장 어묵, 차이나타운 만두를 거쳐 전포 카페로 간다."
+    }
+  ]
+}

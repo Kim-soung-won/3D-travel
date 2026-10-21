@@ -1,0 +1,21 @@
+# 의존성·빌드 결과
+node_modules/
+dist/
+*.tsbuildinfo
+
+# 로컬 환경 변수 (키를 넣을 경우 대비)
+.env
+.env.*
+!.env.example
+
+# 로그·캐시
+*.log
+npm-debug.log*
+.vite/
+coverage/
+
+# 편집기·OS
+.DS_Store
+.idea/
+.vscode/*
+!.vscode/extensions.json
