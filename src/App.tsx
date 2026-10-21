@@ -24,6 +24,7 @@ export function App() {
   const [focus, setFocus] = useState<LatLon | null>(null);
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
+  const [tripStatus, setTripStatus] = useState('');
 
   // 로딩 화면
   const [curtain, setCurtain] = useState<Curtain>('hidden');
@@ -97,7 +98,7 @@ export function App() {
       const id = newId();
       const name = countryAt(p) ?? '바다 위 지점';
       provisional.current.set(id, name);
-      dispatch({ type: 'add', waypoint: { id, name, ...p, mode: 'plane', stops: [] } });
+      dispatch({ type: 'add', waypoint: { id, name, ...p, mode: 'plane', nights: 1, stops: [] } });
       setSelectedId(id);
       reverseGeocode(p, 10).then((r) => {
         if (r && provisional.current.get(id) !== undefined) dispatch({ type: 'update', id, patch: { name: r.name, area: r.area } });
@@ -143,6 +144,7 @@ export function App() {
     onTogglePlay: () => {
       setFocus(null);
       setProgress(0);
+      setTripStatus('');
       setPlaying((p) => !p);
     },
   };
@@ -161,6 +163,7 @@ export function App() {
             onSelect={selectGlobe}
             onFocusDone={() => setFocus(null)}
             onProgress={setProgress}
+            onStatus={setTripStatus}
             onPlayDone={() => setPlaying(false)}
             onReady={reveal}
           />
@@ -186,7 +189,7 @@ export function App() {
         )}
       </div>
       {view.kind === 'globe' || !city ? (
-        <GlobeSidebar {...common} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity} />
+        <GlobeSidebar {...common} status={tripStatus} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity} />
       ) : (
         <CitySidebar {...common} legs={cityLegs} city={city} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
       )}

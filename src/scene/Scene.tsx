@@ -9,7 +9,8 @@ import { CameraRig } from './CameraRig';
 import { Clouds } from './Clouds';
 import { Earth } from './Earth';
 import { PinLabels, Pins } from './Pins';
-import { Traveler } from './Traveler';
+import { cityDays, nightsOf } from '../state/itinerary';
+import { Traveler, type TripStop } from './Traveler';
 
 interface SceneProps {
   waypoints: Waypoint[];
@@ -21,6 +22,8 @@ interface SceneProps {
   onSelect: (id: string) => void;
   onFocusDone: () => void;
   onProgress: (t: number) => void;
+  /** 재생 중 지금 상태 한 줄 ("3일차 · 도쿄도에서 1/2박") */
+  onStatus: (text: string) => void;
   onPlayDone: () => void;
   /** 첫 프레임을 그린 뒤 한 번 (로딩 화면을 걷는 신호) */
   onReady: () => void;
@@ -40,6 +43,7 @@ export function Scene(props: SceneProps) {
   const earthRef = useRef<Mesh>(null);
   const travelerPos = useRef(new Vector3()) as MutableRefObject<Vector3>;
   const labels = useRef(new Map<string, HTMLDivElement>());
+  const stayRef = useRef<string | null>(null);
 
   // 비행기는 떠오른 대권 곡선, 지면 수단은 지표 바로 위(도로 경로가 있으면 그 모양, 없으면 지표 대권)
   const legs3d = useMemo<Leg3D[]>(
@@ -62,6 +66,11 @@ export function Scene(props: SceneProps) {
     [props.legs, waypoints],
   );
 
+  const tripStops = useMemo<TripStop[]>(() => {
+    const days = cityDays(waypoints);
+    return waypoints.map((w, i) => ({ id: w.id, position: latLonToVector3(w, 1.002), name: w.name, nights: nightsOf(w), arrive: days[i].arrive }));
+  }, [waypoints]);
+
   const pick = (e: ThreeEvent<MouseEvent>) => props.onPick(vector3ToLatLon(e.point));
 
   return (
@@ -74,9 +83,12 @@ export function Scene(props: SceneProps) {
         <Earth ref={earthRef} onPick={pick} />
         <Clouds />
         <Arcs legs={legs3d} />
-        <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={props.onSelect} labels={labels} />
+        <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={props.onSelect} labels={labels} hiddenRef={stayRef} />
         <Traveler
           legs={legs3d}
+          stops={tripStops}
+          stayRef={stayRef}
+          onStatus={props.onStatus}
           playing={playing}
           positionRef={travelerPos}
           onProgress={props.onProgress}
@@ -87,6 +99,7 @@ export function Scene(props: SceneProps) {
           onFocusDone={props.onFocusDone}
           follow={playing}
           followRef={travelerPos}
+          closeRef={stayRef}
           idle={!waypoints.length && !playing}
         />
       </Canvas>

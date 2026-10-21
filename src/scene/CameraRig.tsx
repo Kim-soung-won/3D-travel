@@ -11,10 +11,12 @@ interface CameraRigProps {
   onFocusDone: () => void;
   follow: boolean;
   followRef: MutableRefObject<Vector3>;
+  /** 값이 있으면(도시에 머무는 중) 따라가며 더 다가간다 */
+  closeRef?: MutableRefObject<string | null>;
   idle: boolean;
 }
 
-export function CameraRig({ focus, onFocusDone, follow, followRef, idle }: CameraRigProps) {
+export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idle }: CameraRigProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera, size } = useThree();
   // 지구본(대기 포함 반지름 약 1.15)이 화면의 좁은 쪽에 들어오는 카메라 거리
@@ -28,6 +30,9 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, idle }: Camer
     if (camera.position.length() < fit) camera.position.setLength(fit);
   }, [camera, fit]);
   const desired = useMemo(() => new Vector3(), []);
+  const origin = useMemo(() => new Vector3(), []);
+  const up = useMemo(() => new Vector3(), []);
+  const side = useMemo(() => new Vector3(), []);
   const interacting = useRef(false);
 
   useEffect(() => {
@@ -45,8 +50,25 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, idle }: Camer
   useFrame((_, dt) => {
     const k = 1 - Math.pow(0.02, dt); // 프레임률과 무관한 부드러운 접근
     const distance = camera.position.length();
-    if (follow && !interacting.current) {
-      // 비행기 위에서 조금 뒤로 물러나 다음 구간이 보이게 한다
+    const c = controls.current;
+    const close = follow && !!closeRef?.current;
+    if (c) {
+      // 머무는 동안에는 회전 중심을 그 도시로 옮겨 숙소를 비스듬히 보고, 아니면 지구 중심으로 돌아온다
+      if (!close) c.target.lerp(origin, k);
+      c.minDistance = c.target.lengthSq() > 1e-4 ? 0.15 : 1.35;
+    }
+    if (close && c && !interacting.current) {
+      const p = followRef.current;
+      up.copy(p).normalize();
+      // 도시의 남쪽 위에서 북쪽을 바라본다. 카메라 위(세계 Y)·지표 수직·시선이 한 평면에 있어 모형이 화면에 똑바로 선다
+      side.set(0, 1, 0).addScaledVector(up, -up.y);
+      if (side.lengthSq() < 1e-6) side.set(0, 0, 1); // 극점
+      side.normalize();
+      desired.copy(p).addScaledVector(up, 0.24).addScaledVector(side, -0.3);
+      camera.position.lerp(desired, k * 0.6);
+      c.target.lerp(p, k * 0.6);
+    } else if (follow && !interacting.current) {
+      // 이동 중에는 조금 뒤로 물러나 다음 구간이 보이게 한다
       desired.copy(followRef.current).normalize().multiplyScalar(Math.max(fit * 0.85, Math.min(distance, fit * 1.05)));
       camera.position.lerp(desired, k * 0.6);
     } else if (focus && !interacting.current) {

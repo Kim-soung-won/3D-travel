@@ -6,6 +6,7 @@ import { CITY_MODES, formatDuration, GLOBE_MODES } from '../geo/modes';
 import type { LegState } from '../hooks/useLegs';
 import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } from '../state/route';
 import { cityDataAt } from '../data';
+import { cityDays, type CityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
 import { CityGuide } from './CityGuide';
 import { StopList } from './StopList';
 
@@ -31,8 +32,10 @@ function Undo({ route, dispatch }: Pick<CommonProps, 'route' | 'dispatch'>) {
   );
 }
 
-function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReason }: {
+function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReason, status }: {
   legs: LegState[]; count: number; playing: boolean; progress: number; onTogglePlay: () => void; onClear: () => void; minReason: string;
+  /** 재생 중 지금 상태 한 줄 */
+  status?: string;
 }) {
   const totalKm = legs.reduce((a, l) => a + l.distanceKm, 0);
   const groundS = legs.filter((l) => l.mode !== 'plane').reduce((a, l) => a + l.durationS, 0);
@@ -48,6 +51,7 @@ function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReas
         <span className="muted">구간 {legs.length}개{groundS > 0 && ` · 지상 이동 약 ${formatDuration(groundS)}`}
           {flightS > 0 && ` · 비행${flightAll ? '' : '(아는 구간만)'} 약 ${formatDuration(flightS)}`}</span>
       </div>
+      {playing && status && <p className="trip-status" role="status">{status}</p>}
       {playing && (
         <div className="progress" role="progressbar" aria-label="여행 진행" aria-valuenow={Math.round(progress * 100)} aria-valuemin={0} aria-valuemax={100}>
           <div style={{ width: `${progress * 100}%` }} />
@@ -65,14 +69,30 @@ function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReas
   );
 }
 
-export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) => void }) {
+/** 도시별 숙박 수 조절. 날짜 범위(n일차)를 함께 보인다 */
+function NightsStepper({ waypoint, days, onChange }: { waypoint: Waypoint; days: CityDays; onChange: (nights: number) => void }) {
+  const n = nightsOf(waypoint);
+  return (
+    <div className="nights" onClick={(e) => e.stopPropagation()}>
+      <button type="button" className="icon-btn" aria-label={`${waypoint.name} 숙박 하루 줄이기`} disabled={n <= 0} onClick={() => onChange(n - 1)}>−</button>
+      <span className="nights-value" aria-live="polite">{n > 0 ? `${n}박` : '당일'}</span>
+      <button type="button" className="icon-btn" aria-label={`${waypoint.name} 숙박 하루 늘리기`} disabled={n >= MAX_NIGHTS} onClick={() => onChange(n + 1)}>+</button>
+      <span className="nights-days">{formatDayRange(days)}</span>
+    </div>
+  );
+}
+
+export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) => void; status?: string }) {
   const { route, dispatch } = props;
   const list = route.waypoints;
+  const days = cityDays(list);
   return (
     <aside className="panel" aria-label="여행 경로">
       <header className="panel-head">
-        <h1>여행 지구본</h1>
-        <p className="hint">지구본을 클릭해 도시를 추가하세요. 구간마다 이동 수단을 고르고, 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
+        <h1>
+          여행 지구본{list.length > 0 && <span className="trip-badge">{formatTrip(totalNights(list))}</span>}
+        </h1>
+        <p className="hint">지구본을 클릭해 도시를 추가하세요. 도시마다 묵을 밤 수를, 구간마다 이동 수단을 고르고, 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
       </header>
       {list.length === 0 ? (
         <div className="empty">
@@ -94,14 +114,21 @@ export function GlobeSidebar(props: CommonProps & { onEnterCity: (id: string) =>
           onRemove={(id) => dispatch({ type: 'remove', id })}
           onMode={(id, mode) => dispatch({ type: 'update', id, patch: { mode } })}
           extra={(w) => (
-            <button type="button" className="enter-btn" onClick={() => props.onEnterCity(w.id)}>
-              {(w as Waypoint).stops.length ? `도시 경로 ${(w as Waypoint).stops.length}곳 보기` : '도시 안 경로 짜기'} →
-            </button>
+            <>
+              <NightsStepper
+                waypoint={w as Waypoint}
+                days={days[list.findIndex((x) => x.id === w.id)]}
+                onChange={(nights) => dispatch({ type: 'update', id: w.id, patch: { nights } })}
+              />
+              <button type="button" className="enter-btn" onClick={() => props.onEnterCity(w.id)}>
+                {(w as Waypoint).stops.length ? `도시 경로 ${(w as Waypoint).stops.length}곳 보기` : '도시 안 경로 짜기'} →
+              </button>
+            </>
           )}
         />
       )}
       <Undo route={route} dispatch={dispatch} />
-      <Footer legs={props.legs} count={list.length} playing={props.playing} progress={props.progress} onTogglePlay={props.onTogglePlay}
+      <Footer status={props.status} legs={props.legs} count={list.length} playing={props.playing} progress={props.progress} onTogglePlay={props.onTogglePlay}
         onClear={() => dispatch({ type: 'clear' })} minReason="경유지가 2곳 이상이어야 재생할 수 있습니다." />
     </aside>
   );

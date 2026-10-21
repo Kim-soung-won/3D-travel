@@ -25,4 +25,4 @@
 - 시각은 대화 기록의 타임스탬프(UTC)를 KST로 바꾼 값입니다.
 
 ---
-이전: [06](2026-10-21-06-readme-screenshots.md)
+이전: [06](2026-10-21-06-readme-screenshots.md) · 다음: [08. 몇 박 며칠과 머무는 장면](2026-10-21-08-nights-and-stay-scenes.md)

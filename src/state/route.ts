@@ -18,6 +18,8 @@ export interface Stop extends LatLon {
 export interface Waypoint extends Stop {
   /** 도시 안 세부 경유지 */
   stops: Stop[];
+  /** 이 도시에서 묵는 밤 수. 없거나 0이면 당일 들름 (itinerary.ts) */
+  nights?: number;
 }
 
 export interface RouteState {
@@ -30,7 +32,7 @@ export type RouteAction =
   | { type: 'add'; waypoint: Waypoint }
   | { type: 'remove'; id: string }
   | { type: 'move'; id: string; delta: -1 | 1 }
-  | { type: 'update'; id: string; patch: Partial<Pick<Stop, 'name' | 'area' | 'mode'>> }
+  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights'>> }
   | { type: 'clear' }
   | { type: 'load'; waypoints: Waypoint[]; label: string }
   | { type: 'addStop'; parentId: string; stop: Stop }
@@ -124,9 +126,10 @@ export const newId = () => `wp-${Date.now().toString(36)}-${(seq++).toString(36)
 type SampleStop = Omit<Stop, 'id'>;
 const s = (name: string, lat: number, lon: number, mode: Stop['mode'], area?: string): SampleStop => ({ name, lat, lon, mode, area });
 
-export const SAMPLE_ROUTE: (SampleStop & { stops: SampleStop[] })[] = [
+export const SAMPLE_ROUTE: (SampleStop & { stops: SampleStop[]; nights: number })[] = [
   {
     ...s('서울특별시', 37.5665, 126.978, 'plane', '대한민국'),
+    nights: 2,
     stops: [
       s('서울역', 37.5547, 126.9707, 'subway', '용산구 · 서울특별시'),
       s('명동', 37.5636, 126.9826, 'walk', '중구 · 서울특별시'),
@@ -134,11 +137,11 @@ export const SAMPLE_ROUTE: (SampleStop & { stops: SampleStop[] })[] = [
       s('성수동', 37.5445, 127.0557, 'walk', '성동구 · 서울특별시'),
     ],
   },
-  { ...s('부산광역시', 35.1796, 129.0756, 'plane', '대한민국'), stops: [] },
-  { ...s('도쿄도', 35.6762, 139.6503, 'plane', '일본'), stops: [] },
-  { ...s('샌프란시스코', 37.7749, -122.4194, 'car', '캘리포니아 · 미국'), stops: [] },
-  { ...s('로스앤젤레스', 34.0522, -118.2437, 'plane', '캘리포니아 · 미국'), stops: [] },
-  { ...s('파리', 48.8566, 2.3522, 'plane', '일드프랑스 · 프랑스'), stops: [] },
+  { ...s('부산광역시', 35.1796, 129.0756, 'plane', '대한민국'), nights: 1, stops: [] },
+  { ...s('도쿄도', 35.6762, 139.6503, 'plane', '일본'), nights: 2, stops: [] },
+  { ...s('샌프란시스코', 37.7749, -122.4194, 'car', '캘리포니아 · 미국'), nights: 1, stops: [] },
+  { ...s('로스앤젤레스', 34.0522, -118.2437, 'plane', '캘리포니아 · 미국'), nights: 2, stops: [] },
+  { ...s('파리', 48.8566, 2.3522, 'plane', '일드프랑스 · 프랑스'), nights: 3, stops: [] },
 ];
 
 export function sampleWaypoints(): Waypoint[] {

@@ -159,3 +159,11 @@ body { background: var(--bg); overflow: hidden; }
 .panel-body { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
 .panel-body .stops { flex: none; overflow: visible; }
 .panel-body .empty { flex: none; }
+
+/* 몇 박 며칠 */
+.trip-badge { margin-left: 8px; padding: 2px 8px; border-radius: 999px; background: #ffe8bd; border: 1px solid var(--line); font-size: 13px; font-weight: 700; vertical-align: 2px; white-space: nowrap; }
+.nights { display: flex; align-items: center; gap: 6px; margin: 0 0 4px 44px; font-size: 12px; color: var(--ink-2); }
+.nights .icon-btn { width: 24px; height: 24px; font-size: 14px; line-height: 1; }
+.nights-value { min-width: 34px; text-align: center; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.nights-days { color: var(--ink-3); font-variant-numeric: tabular-nums; }
+.trip-status { margin: 0; font-size: 13px; font-weight: 700; color: var(--ink); }
