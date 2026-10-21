@@ -5,6 +5,7 @@ import { greatCircleArc, latLonToVector3, vector3ToLatLon, type LatLon } from '.
 import type { LegState } from '../hooks/useLegs';
 import type { Waypoint } from '../state/route';
 import { Arcs, type Leg3D } from './Arcs';
+import { AttentionTracker, createAttention, type Attention } from './attention';
 import { CameraRig } from './CameraRig';
 import { Clouds } from './Clouds';
 import { Earth } from './Earth';
@@ -44,6 +45,7 @@ export function Scene(props: SceneProps) {
   const travelerPos = useRef(new Vector3()) as MutableRefObject<Vector3>;
   const labels = useRef(new Map<string, HTMLDivElement>());
   const stayRef = useRef<string | null>(null);
+  const attention = useRef<Attention>(createAttention(performance.now()));
 
   // 비행기는 떠오른 대권 곡선, 지면 수단은 지표 바로 위(도로 경로가 있으면 그 모양, 없으면 지표 대권)
   const legs3d = useMemo<Leg3D[]>(
@@ -78,10 +80,11 @@ export function Scene(props: SceneProps) {
       <Canvas camera={{ position: [0.45, 1.0, 3.45], fov: 40, near: 0.01, far: 100 }} dpr={[1, 2]} gl={{ antialias: true }}>
         <color attach="background" args={['#7bbfbd']} />
         <ReadySignal onReady={props.onReady} />
+        <AttentionTracker target={attention} />
         <ambientLight intensity={0.9} />
         <directionalLight position={[4, 3, 5]} intensity={2.2} />
         <Earth ref={earthRef} onPick={pick} />
-        <Clouds />
+        <Clouds attention={attention} />
         <Arcs legs={legs3d} />
         <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={props.onSelect} labels={labels} hiddenRef={stayRef} />
         <Traveler
@@ -101,6 +104,7 @@ export function Scene(props: SceneProps) {
           followRef={travelerPos}
           closeRef={stayRef}
           idle={!waypoints.length && !playing}
+          attention={attention}
         />
       </Canvas>
       <PinLabels waypoints={waypoints} selectedId={props.selectedId} labels={labels} />

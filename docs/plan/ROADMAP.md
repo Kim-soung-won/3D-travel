@@ -49,3 +49,4 @@
 - 2026-10-21 · 개발 이력·계획 체계 · [07](../history/details/2026-10-21-07-history-and-plan.md)
 - 2026-10-21 · 몇 박 며칠과 머무는 장면 · [08](../history/details/2026-10-21-08-nights-and-stay-scenes.md)
 - 2026-10-21 · 자동 저장·공유 링크·이미지 카드·파일 내보내기 · [09](../history/details/2026-10-21-09-sharing.md)
+- 2026-10-22 · 보는 동안 자동 회전·구름 멈추기 · [2026-10-22 01](../history/details/2026-10-22-01-pause-auto-motion.md)

@@ -1,10 +1,14 @@
 // 카메라 동작 세 가지: 자유 조작(OrbitControls), 경유지로 날아가기, 비행기 따라가기.
+// 빈 지구본은 저절로 돌지만, 사용자가 화면을 보는 동안(attention.ts)에는 멈춘다.
 import { OrbitControls } from '@react-three/drei';
 import { useFrame, useThree } from '@react-three/fiber';
 import { useEffect, useMemo, useRef, type MutableRefObject } from 'react';
 import { PerspectiveCamera, Vector3 } from 'three';
 import type { OrbitControls as OrbitControlsImpl } from 'three-stdlib';
 import { latLonToVector3, type LatLon } from '../geo/geo';
+import { easeMotion, isAttending, type Attention } from './attention';
+
+const AUTO_ROTATE_SPEED = 0.35;
 
 interface CameraRigProps {
   focus: LatLon | null;
@@ -14,9 +18,10 @@ interface CameraRigProps {
   /** 값이 있으면(도시에 머무는 중) 따라가며 더 다가간다 */
   closeRef?: MutableRefObject<string | null>;
   idle: boolean;
+  attention: MutableRefObject<Attention>;
 }
 
-export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idle }: CameraRigProps) {
+export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idle, attention }: CameraRigProps) {
   const controls = useRef<OrbitControlsImpl>(null);
   const { camera, size } = useThree();
   // 지구본(대기 포함 반지름 약 1.15)이 화면의 좁은 쪽에 들어오는 카메라 거리
@@ -34,6 +39,7 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idl
   const up = useMemo(() => new Vector3(), []);
   const side = useMemo(() => new Vector3(), []);
   const interacting = useRef(false);
+  const spin = useRef(0);
 
   useEffect(() => {
     const c = controls.current;
@@ -53,6 +59,8 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idl
     const c = controls.current;
     const close = follow && !!closeRef?.current;
     if (c) {
+      spin.current = easeMotion(spin.current, !idle || isAttending(attention.current, performance.now()), dt);
+      c.autoRotateSpeed = AUTO_ROTATE_SPEED * spin.current;
       // 머무는 동안에는 회전 중심을 그 도시로 옮겨 숙소를 비스듬히 보고, 아니면 지구 중심으로 돌아온다
       if (!close) c.target.lerp(origin, k);
       c.minDistance = c.target.lengthSq() > 1e-4 ? 0.15 : 1.35;
@@ -89,8 +97,8 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idl
       rotateSpeed={0.5}
       minDistance={1.35}
       maxDistance={6}
-      autoRotate={idle}
-      autoRotateSpeed={0.35}
+      autoRotate
+      autoRotateSpeed={0}
     />
   );
 }

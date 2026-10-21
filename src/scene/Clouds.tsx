@@ -1,16 +1,18 @@
-// 지구 위를 천천히 도는 구름 몇 덩이. 장식이라 클릭을 받지 않는다.
-import { useMemo, useRef } from 'react';
+// 지구 위를 천천히 도는 구름 몇 덩이. 장식이라 클릭을 받지 않고, 사용자가 화면을 보는 동안에는 멈춘다.
+import { useMemo, useRef, type MutableRefObject } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Group, Quaternion, Vector3 } from 'three';
 import { latLonToVector3 } from '../geo/geo';
+import { easeMotion, isAttending, type Attention } from './attention';
 
 function rand(seed: number) {
   const x = Math.sin(seed * 9301 + 49297) * 233280;
   return x - Math.floor(x);
 }
 
-export function Clouds({ count = 14 }: { count?: number }) {
+export function Clouds({ count = 14, attention }: { count?: number; attention: MutableRefObject<Attention> }) {
   const group = useRef<Group>(null);
+  const motion = useRef(0);
   const puffs = useMemo(
     () =>
       Array.from({ length: count }, (_, i) => {
@@ -22,7 +24,8 @@ export function Clouds({ count = 14 }: { count?: number }) {
     [count],
   );
   useFrame((_, dt) => {
-    if (group.current) group.current.rotation.y += dt * 0.012;
+    motion.current = easeMotion(motion.current, isAttending(attention.current, performance.now()), dt);
+    if (group.current) group.current.rotation.y += dt * 0.012 * motion.current;
   });
   return (
     <group ref={group} raycast={() => null}>
