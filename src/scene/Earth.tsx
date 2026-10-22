@@ -56,6 +56,8 @@ export const Earth = forwardRef<Mesh, EarthProps>(function Earth({ onPick }, ref
           e.stopPropagation();
           onPick(e);
         }}
+        // 지구 뒤편에 가려진 핀이 마우스 올림을 받지 않게 여기서 멈춘다
+        onPointerMove={(e) => e.stopPropagation()}
         onPointerOver={() => (document.body.style.cursor = 'crosshair')}
         onPointerOut={() => (document.body.style.cursor = '')}
       >

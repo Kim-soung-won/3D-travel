@@ -30,6 +30,8 @@ interface SceneProps {
   onAddCity: (c: CityOption) => void;
   onHoverCity: (i: number | null) => void;
   onSelect: (id: string) => void;
+  /** 핀을 두 번 눌러 그 도시 화면으로 들어간다 */
+  onEnterCity: (id: string) => void;
   onFocusDone: () => void;
   onProgress: (t: number) => void;
   /** 재생 중 지금 상태 한 줄 ("3일차 · 도쿄도에서 1/2박") */
@@ -38,6 +40,8 @@ interface SceneProps {
   /** 첫 프레임을 그린 뒤 한 번 (로딩 화면을 걷는 신호) */
   onReady: () => void;
 }
+
+const DOUBLE_CLICK_MS = 450;
 
 function ReadySignal({ onReady }: { onReady: () => void }) {
   const frames = useRef(0);
@@ -82,7 +86,25 @@ export function Scene(props: SceneProps) {
     return waypoints.map((w, i) => ({ id: w.id, position: latLonToVector3(w, 1.002), name: w.name, nights: nightsOf(w), arrive: days[i].arrive }));
   }, [waypoints]);
 
-  const pick = (e: ThreeEvent<MouseEvent>) => props.onPick(vector3ToLatLon(e.point));
+  // 두 번 누르기는 클릭 두 번의 간격으로 판단한다. 첫 클릭에 카메라가 핀으로 날아가기 시작해
+  // 두 번째 클릭이 핀을 벗어나 지구 표면에 닿을 수 있으므로, 그때도 같은 핀을 두 번 누른 것으로 본다
+  const lastPin = useRef<{ id: string; t: number } | null>(null);
+  const takeDouble = (id?: string) => {
+    const last = lastPin.current;
+    const hit = last && performance.now() - last.t < DOUBLE_CLICK_MS && (id === undefined || id === last.id);
+    lastPin.current = null;
+    if (hit) props.onEnterCity(last.id);
+    return hit;
+  };
+  const selectPin = (id: string) => {
+    if (takeDouble(id)) return;
+    lastPin.current = { id, t: performance.now() };
+    props.onSelect(id);
+  };
+  const pick = (e: ThreeEvent<MouseEvent>) => {
+    if (takeDouble()) return;
+    props.onPick(vector3ToLatLon(e.point));
+  };
 
   return (
     <>
@@ -102,7 +124,7 @@ export function Scene(props: SceneProps) {
           onAddCity={props.onAddCity}
           onHoverCity={props.onHoverCity}
         />
-        <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={props.onSelect} labels={labels} hiddenRef={stayRef} />
+        <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={selectPin} labels={labels} hiddenRef={stayRef} />
         <Traveler
           legs={legs3d}
           stops={tripStops}

@@ -164,7 +164,7 @@ export function GlobeSidebar(props: CommonProps & {
           </h1>
           <button type="button" className="btn share-btn" onClick={props.onShare}>공유</button>
         </div>
-        <p className="hint">지구본에서 나라를 누른 뒤 도시를 고르세요. 도시마다 묵을 밤 수를, 구간마다 이동 수단을 고르고, 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
+        <p className="hint">지구본에서 나라를 누른 뒤 도시를 고르세요. 도시마다 묵을 밤 수를, 구간마다 이동 수단을 고르고, 지구본의 도시 핀을 두 번 누르면 도시에 들어가 세부 경로를 짤 수 있습니다.</p>
       </header>
       {props.country && (
         <CountryPicker country={props.country} waypoints={list} hovered={props.hoveredCity} onHover={props.onHoverCity} onAdd={props.onAddCity} onClose={props.onCloseCountry} />

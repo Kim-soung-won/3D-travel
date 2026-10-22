@@ -239,6 +239,7 @@ export function App() {
             onAddCity={addCity}
             onHoverCity={setHoveredCity}
             onSelect={selectGlobe}
+            onEnterCity={enterCity}
             onFocusDone={() => setFocus(null)}
             onProgress={setProgress}
             onStatus={setTripStatus}
