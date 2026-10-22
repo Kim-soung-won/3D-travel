@@ -107,13 +107,17 @@ export function App() {
   );
 
   // 지구본에서는 나라를 고르고, 그 나라의 도시 목록(패널·지구본 점)에서 도시를 넣는다. 바다를 누르면 고른 나라를 푼다
-  const pickGlobe = useCallback((p: LatLon) => {
-    const key = countryKeyAt(p);
-    setHoveredCity(null);
-    setCountry(key);
-    const center = key && countryCenter(key);
-    if (center) setFocus(center);
-  }, []);
+  const pickGlobe = useCallback(
+    (p: LatLon) => {
+      const key = countryKeyAt(p);
+      if (key && key === country) return; // 고른 나라 안을 다시 누르면 그대로 둔다
+      setHoveredCity(null);
+      setCountry(key);
+      const center = key && countryCenter(key);
+      if (center) setFocus(center);
+    },
+    [country],
+  );
   useEffect(() => {
     if (!country) return;
     let alive = true;
@@ -236,7 +240,6 @@ export function App() {
             country={country}
             countryCities={countryInfo?.cities ?? []}
             hoveredCity={hoveredCity}
-            onAddCity={addCity}
             onHoverCity={setHoveredCity}
             onSelect={selectGlobe}
             onEnterCity={enterCity}

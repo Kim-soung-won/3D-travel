@@ -27,7 +27,6 @@ interface SceneProps {
   country: string | null;
   countryCities: CityOption[];
   hoveredCity: number | null;
-  onAddCity: (c: CityOption) => void;
   onHoverCity: (i: number | null) => void;
   onSelect: (id: string) => void;
   /** 핀을 두 번 눌러 그 도시 화면으로 들어간다 */
@@ -121,7 +120,6 @@ export function Scene(props: SceneProps) {
           countryKey={playing ? null : props.country}
           cities={props.countryCities}
           hovered={props.hoveredCity}
-          onAddCity={props.onAddCity}
           onHoverCity={props.onHoverCity}
         />
         <Pins waypoints={waypoints} selectedId={props.selectedId} onSelect={selectPin} labels={labels} hiddenRef={stayRef} />

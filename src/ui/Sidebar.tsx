@@ -96,7 +96,7 @@ export interface CountryPanel {
   cities: CityOption[] | null;
 }
 
-/** 지구본에서 고른 나라의 주요 도시. 누르면 경유지 끝에 넣는다. 지구본의 점과 마우스 올림을 함께 보인다 */
+/** 지구본에서 고른 나라의 주요 도시. 누르면 경유지 끝에 넣는다. 지구본의 점(누를 수 없음)과 마우스 올림을 함께 보인다 */
 function CountryPicker({ country, waypoints, hovered, onHover, onAdd, onClose }: {
   country: CountryPanel; waypoints: Waypoint[]; hovered: number | null; onHover: (i: number | null) => void; onAdd: (c: CityOption) => void; onClose: () => void;
 }) {

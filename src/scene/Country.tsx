@@ -1,4 +1,5 @@
-// 고른 나라: 땅을 칠해 보이고, 주요 도시를 점으로 찍는다. 점을 누르면 그 도시를 경유지로 넣는다.
+// 고른 나라: 땅을 칠해 보이고, 주요 도시를 점으로 찍는다.
+// 지구본 클릭은 나라 고르기만 하므로 점은 누를 수 없다. 포인터를 올리면 패널 목록의 같은 줄을 강조할 뿐이고, 도시는 목록에서 넣는다.
 import { useFrame } from '@react-three/fiber';
 import { useEffect, useMemo, useRef } from 'react';
 import { CanvasTexture, Group, SRGBColorSpace } from 'three';
@@ -21,7 +22,7 @@ function Overlay({ countryKey }: { countryKey: string }) {
   );
 }
 
-function CityDot({ city, index, hovered, onAdd, onHover }: { city: CityOption; index: number; hovered: boolean; onAdd: (c: CityOption) => void; onHover: (i: number | null) => void }) {
+function CityDot({ city, index, hovered, onHover }: { city: CityOption; index: number; hovered: boolean; onHover: (i: number | null) => void }) {
   const dot = useRef<Group>(null);
   const pos = useMemo(() => latLonToVector3(city, 1.004), [city]);
   // 가까이 다가가면 점이 땅을 덮지 않게 줄인다
@@ -35,25 +36,9 @@ function CityDot({ city, index, hovered, onAdd, onHover }: { city: CityOption; i
         <sphereGeometry args={[r, 12, 8]} />
         <meshToonMaterial color={hovered ? '#e4572e' : city.capital ? '#1f3437' : '#2f4b4f'} />
       </mesh>
-      {/* 누르기 쉬운 넉넉한 판정 영역 */}
-      <mesh
-        visible={false}
-        onClick={(e) => {
-          if (e.delta > 5) return;
-          e.stopPropagation();
-          onAdd(city);
-        }}
-        onPointerOver={(e) => {
-          e.stopPropagation();
-          document.body.style.cursor = 'pointer';
-          onHover(index);
-        }}
-        onPointerOut={() => {
-          document.body.style.cursor = '';
-          onHover(null);
-        }}
-      >
-        <sphereGeometry args={[0.022, 8, 6]} />
+      {/* 마우스 올림 판정. 클릭은 그대로 지구(나라 고르기)로 넘긴다 */}
+      <mesh visible={false} onPointerOver={() => onHover(index)} onPointerOut={() => onHover(null)}>
+        <sphereGeometry args={[r * 1.6, 8, 6]} />
       </mesh>
     </group>
   );
@@ -63,17 +48,16 @@ interface CountryLayerProps {
   countryKey: string | null;
   cities: CityOption[];
   hovered: number | null;
-  onAddCity: (c: CityOption) => void;
   onHoverCity: (i: number | null) => void;
 }
 
-export function CountryLayer({ countryKey, cities, hovered, onAddCity, onHoverCity }: CountryLayerProps) {
+export function CountryLayer({ countryKey, cities, hovered, onHoverCity }: CountryLayerProps) {
   if (!countryKey) return null;
   return (
     <>
       <Overlay countryKey={countryKey} />
       {cities.map((c, i) => (
-        <CityDot key={`${c.name}-${i}`} city={c} index={i} hovered={hovered === i} onAdd={onAddCity} onHover={onHoverCity} />
+        <CityDot key={`${c.name}-${i}`} city={c} index={i} hovered={hovered === i} onHover={onHoverCity} />
       ))}
     </>
   );
