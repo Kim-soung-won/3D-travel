@@ -33,10 +33,23 @@ describe('공유 링크', () => {
   });
 });
 
+describe('경유지 링크 (v2)', () => {
+  test('링크는 왕복하고, 링크 없는 v1 일정도 읽는다', async () => {
+    const trip = [{ id: 'x', name: '파리', lat: 48.85, lon: 2.35, mode: 'plane' as const, nights: 2, link: 'https://maps.app.goo.gl/abc', stops: [{ id: 'y', name: '루브르', lat: 48.86, lon: 2.34, mode: 'walk' as const, link: 'https://www.louvre.fr/' }] }];
+    expect(strip(await decodeTrip(await encodeTrip(trip)))).toEqual(strip(trip));
+    expect(fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'walk' }] })[0].link).toBeUndefined();
+  });
+  test('받은 일정의 위험한 링크는 버리고 나머지는 살린다', () => {
+    const [w] = fromShared({ v: 2, w: [{ n: '가', la: 0, lo: 0, m: 'walk', u: 'javascript:alert(1)', s: [{ n: '나', la: 0, lo: 0, m: 'walk', u: 'https://ok.example/' }] }] });
+    expect(w.link).toBeUndefined();
+    expect(w.stops[0].link).toBe('https://ok.example/');
+  });
+});
+
 describe('형식 검사', () => {
   test('버전·좌표·수단이 틀리면 거부하고, 숙박은 0~30으로 자른다', () => {
     const ok = toShared(sampleWaypoints());
-    expect(() => fromShared({ ...ok, v: 2 })).toThrow(/버전/);
+    expect(() => fromShared({ ...ok, v: 3 })).toThrow(/버전/);
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 91, lo: 0, m: 'walk' }] })).toThrow(/좌표/);
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'rocket' }] })).toThrow(/수단/);
     expect(fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'walk', ni: 99 }] })[0].nights).toBe(30);

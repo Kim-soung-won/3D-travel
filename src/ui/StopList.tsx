@@ -4,6 +4,7 @@ import { formatKm, formatLatLon } from '../geo/geo';
 import { formatDuration, MODES, type Mode } from '../geo/modes';
 import type { LegState } from '../hooks/useLegs';
 import type { Stop } from '../state/route';
+import { LinkField, OpenLink } from './LinkField';
 import { ModePicker } from './ModePicker';
 
 interface StopListProps {
@@ -17,10 +18,12 @@ interface StopListProps {
   onMove: (id: string, delta: -1 | 1) => void;
   onRemove: (id: string) => void;
   onMode: (id: string, mode: Mode) => void;
+  /** 링크 붙이기·떼기. 고른 경유지에서만 칸이 보인다 */
+  onLink: (id: string, link: string | undefined) => void;
   extra?: (item: Stop) => ReactNode;
 }
 
-export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRename, onMove, onRemove, onMode, extra }: StopListProps) {
+export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRename, onMove, onRemove, onMode, onLink, extra }: StopListProps) {
   return (
     <ol className="stops">
       {items.map((w, i) => {
@@ -37,7 +40,10 @@ export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRen
                   onChange={(e) => onRename(w.id, e.target.value)}
                   onClick={(e) => e.stopPropagation()}
                 />
-                <span className="stop-coord">{w.area || formatLatLon(w)}</span>
+                <span className="stop-coord">
+                  {w.area || formatLatLon(w)}
+                  <OpenLink href={w.link} className="stop-link" label={`${w.name} 링크 새 탭에서 열기`} />
+                </span>
               </div>
               <div className="stop-actions">
                 <button type="button" className="icon-btn" aria-label={`${i + 1}번 ${noun}를 위로`} disabled={i === 0}
@@ -48,6 +54,7 @@ export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRen
                   onClick={(e) => { e.stopPropagation(); onRemove(w.id); }}>✕</button>
               </div>
             </div>
+            {w.id === selectedId && <LinkField item={w} label={`${i + 1}번 ${noun}`} onChange={(link) => onLink(w.id, link)} />}
             {extra?.(w)}
             {leg && (
               <div className="leg">

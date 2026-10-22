@@ -188,6 +188,7 @@ export function GlobeSidebar(props: CommonProps & {
           onMove={(id, delta) => dispatch({ type: 'move', id, delta })}
           onRemove={(id) => dispatch({ type: 'remove', id })}
           onMode={(id, mode) => dispatch({ type: 'update', id, patch: { mode } })}
+          onLink={(id, link) => dispatch({ type: 'update', id, patch: { link } })}
           extra={(w) => (
             <>
               <NightsStepper
@@ -234,6 +235,7 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
           onMove={(id, delta) => dispatch({ type: 'moveStop', parentId: city.id, id, delta })}
           onRemove={(id) => dispatch({ type: 'removeStop', parentId: city.id, id })}
           onMode={(id, mode) => dispatch({ type: 'updateStop', parentId: city.id, id, patch: { mode } })}
+          onLink={(id, link) => dispatch({ type: 'updateStop', parentId: city.id, id, patch: { link } })}
         />
       )}
       </div>

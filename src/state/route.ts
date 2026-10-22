@@ -13,6 +13,8 @@ export interface Stop extends LatLon {
   area?: string;
   /** 이 지점에서 다음 지점까지 타는 수단 */
   mode: Mode;
+  /** 사용자가 붙인 바깥 링크(구글 지도 등). http(s)만 (link.ts) */
+  link?: string;
 }
 
 export interface Waypoint extends Stop {
@@ -32,13 +34,13 @@ export type RouteAction =
   | { type: 'add'; waypoint: Waypoint }
   | { type: 'remove'; id: string }
   | { type: 'move'; id: string; delta: -1 | 1 }
-  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights'>> }
+  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link'>> }
   | { type: 'clear' }
   | { type: 'load'; waypoints: Waypoint[]; label: string }
   | { type: 'addStop'; parentId: string; stop: Stop }
   | { type: 'removeStop'; parentId: string; id: string }
   | { type: 'moveStop'; parentId: string; id: string; delta: -1 | 1 }
-  | { type: 'updateStop'; parentId: string; id: string; patch: Partial<Pick<Stop, 'name' | 'area' | 'mode'>> }
+  | { type: 'updateStop'; parentId: string; id: string; patch: Partial<Pick<Stop, 'name' | 'area' | 'mode' | 'link'>> }
   | { type: 'clearStops'; parentId: string }
   /** 추천 루트 불러오기·순서 최적화처럼 목록을 통째로 바꾼다. 되돌리기를 남긴다 */
   | { type: 'setStops'; parentId: string; stops: Stop[]; label: string }

@@ -11,6 +11,7 @@ import type { LegState } from '../hooks/useLegs';
 import type { Stop } from '../state/route';
 import { MODE_ICON } from '../ui/modeIcons';
 import { loadCityStyle } from './mapStyle';
+import { linkLabel, safeLink } from '../state/link';
 
 interface CityViewProps {
   center: LatLon;
@@ -150,16 +151,33 @@ export default function CityView(props: CityViewProps) {
     markers.current = [];
     if (!m || !loaded) return;
     props.stops.forEach((s, i) => {
-      const el = document.createElement('button');
-      el.type = 'button';
-      el.className = `city-pin${s.id === props.selectedId ? ' is-selected' : ''}`;
-      el.setAttribute('aria-label', `${i + 1}번 세부 경유지 ${s.name}`);
-      el.innerHTML = `<span class="pin-num">${i + 1}</span><span class="city-pin-name"></span>`;
-      (el.querySelector('.city-pin-name') as HTMLElement).textContent = s.name;
-      el.addEventListener('click', (ev) => {
+      const el = document.createElement('div');
+      el.className = 'city-pin-wrap';
+      const pin = document.createElement('button');
+      pin.type = 'button';
+      pin.className = `city-pin${s.id === props.selectedId ? ' is-selected' : ''}`;
+      pin.setAttribute('aria-label', `${i + 1}번 세부 경유지 ${s.name}`);
+      pin.innerHTML = `<span class="pin-num">${i + 1}</span><span class="city-pin-name"></span>`;
+      (pin.querySelector('.city-pin-name') as HTMLElement).textContent = s.name;
+      pin.addEventListener('click', (ev) => {
         ev.stopPropagation();
         latest.current.onSelect(s.id);
       });
+      el.append(pin);
+      // 사용자가 붙인 링크는 마커 옆 작은 단추로 연다 (button 안에 a를 넣을 수 없다)
+      const link = safeLink(s.link);
+      if (link) {
+        const a = document.createElement('a');
+        a.className = 'pin-link';
+        a.href = link;
+        a.target = '_blank';
+        a.rel = 'noopener noreferrer';
+        a.textContent = '↗';
+        a.title = linkLabel(link);
+        a.setAttribute('aria-label', `${s.name} ${linkLabel(link)} 새 탭에서 열기`);
+        a.addEventListener('click', (ev) => ev.stopPropagation());
+        el.append(a);
+      }
       markers.current.push(new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([s.lon, s.lat]).addTo(m));
     });
   }, [props.stops, props.selectedId, loaded]);

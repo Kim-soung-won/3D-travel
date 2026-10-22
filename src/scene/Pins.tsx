@@ -5,6 +5,7 @@ import { useFrame } from '@react-three/fiber';
 import { useRef, type MutableRefObject } from 'react';
 import { Quaternion, Vector3, type Group } from 'three';
 import { latLonToVector3 } from '../geo/geo';
+import { linkLabel, safeLink } from '../state/link';
 import type { Waypoint } from '../state/route';
 
 const UP = new Vector3(0, 1, 0);
@@ -90,6 +91,17 @@ function PinLabelProjector({ waypoints, labels, hiddenRef }: { waypoints: Waypoi
   return null;
 }
 
+/** 라벨 안의 링크. 라벨 층은 클릭을 통과시키지만 이 링크만 누를 수 있다 */
+function PinLink({ href, name }: { href?: string; name: string }) {
+  const link = safeLink(href);
+  if (!link) return null;
+  return (
+    <a className="pin-link" href={link} target="_blank" rel="noopener noreferrer" aria-label={`${name} ${linkLabel(link)} 새 탭에서 열기`} title={linkLabel(link)}>
+      ↗
+    </a>
+  );
+}
+
 /** 캔버스 위에 겹치는 라벨 DOM 레이어. 위치는 PinLabelProjector가 정한다 */
 export function PinLabels({ waypoints, selectedId, labels }: { waypoints: Waypoint[]; selectedId: string | null; labels: LabelEls }) {
   return (
@@ -106,6 +118,7 @@ export function PinLabels({ waypoints, selectedId, labels }: { waypoints: Waypoi
         >
           <span className="pin-num">{i + 1}</span>
           {w.name}
+          <PinLink href={w.link} name={w.name} />
         </div>
       ))}
     </div>
