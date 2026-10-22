@@ -222,3 +222,18 @@ body { background: var(--bg); overflow: hidden; }
 .link-field input { flex: 1 1 180px; min-width: 0; font: inherit; font-size: 13px; padding: 5px 8px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); }
 .link-field input[aria-invalid='true'] { border-color: var(--danger); }
 .link-field .reason { flex-basis: 100%; margin: 0; }
+
+/* 시간 단위 일정 */
+.trip-start { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 8px; font-size: 13px; color: var(--ink-2); }
+.trip-start-label { font-weight: 700; color: var(--ink); }
+.trip-start input, .city-times input[type='time'] { flex: none; font: inherit; font-size: 13px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); }
+.trip-start-hint { flex-basis: 100%; font-size: 12px; color: var(--ink-3); }
+.city-times { display: flex; flex-direction: column; gap: 4px; padding: 2px 8px 4px 36px; font-size: 12px; color: var(--ink-2); }
+.city-times-row { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 8px; min-height: 26px; }
+.city-times-key { flex: none; width: 3.5em; font-weight: 700; color: var(--ink); }
+.city-times-val { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.city-times-tz { font-size: 11px; color: var(--ink-3); white-space: nowrap; }
+.city-times-note { margin: 0; padding-left: calc(3.5em + 8px); font-size: 11px; color: var(--ink-3); }
+.stay { display: inline-flex; align-items: center; gap: 4px; }
+.stay-value { min-width: 4.5em; text-align: center; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.trip-start input[type='time'], .city-times input[type='time'] { min-width: 9em; }

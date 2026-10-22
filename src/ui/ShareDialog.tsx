@@ -5,7 +5,7 @@ import { canvasToBlob, cardFileName, drawTripCard } from '../share/card';
 import { encodeTrip, shareUrl } from '../share/codec';
 import { fromShared, toShared, TripFormatError } from '../share/format';
 import { cityDays, formatDayRange, formatTrip, nightsOf, totalNights } from '../state/itinerary';
-import type { Waypoint } from '../state/route';
+import type { Trip } from '../state/route';
 
 /** 이 주소로 만든 링크를 다른 기기에서 열 수 있는가 */
 export const isLocalHost = (host = location.hostname) => /^(localhost|127\.0\.0\.1|\[::1\]|.+\.localhost)$/.test(host);
@@ -39,7 +39,7 @@ function download(blob: Blob, name: string) {
 }
 
 /** 파일을 읽어 일정으로. 실패하면 TripFormatError */
-export async function readTripFile(file: File): Promise<Waypoint[]> {
+export async function readTripFile(file: File): Promise<Trip> {
   if (file.size > 1_000_000) throw new TripFormatError('파일이 너무 큽니다 (최대 1MB)');
   let data: unknown;
   try {
@@ -50,7 +50,8 @@ export async function readTripFile(file: File): Promise<Waypoint[]> {
   return fromShared(data);
 }
 
-export function ShareDialog({ waypoints, onClose, onImportFile }: { waypoints: Waypoint[]; onClose: () => void; onImportFile: (file: File) => void }) {
+export function ShareDialog({ trip, onClose, onImportFile }: { trip: Trip; onClose: () => void; onImportFile: (file: File) => void }) {
+  const { waypoints } = trip;
   const [link, setLink] = useState('');
   const [copied, setCopied] = useState<'idle' | 'done' | 'fail'>('idle');
   const [cardUrl, setCardUrl] = useState('');
@@ -62,7 +63,7 @@ export function ShareDialog({ waypoints, onClose, onImportFile }: { waypoints: W
   useEffect(() => {
     if (empty) return;
     let alive = true;
-    encodeTrip(waypoints).then((code) => alive && setLink(shareUrl(code)));
+    encodeTrip(trip).then((code) => alive && setLink(shareUrl(code)));
     canvasToBlob(drawTripCard(waypoints)).then((blob) => {
       if (!alive) return;
       cardBlob.current = blob;
@@ -71,7 +72,7 @@ export function ShareDialog({ waypoints, onClose, onImportFile }: { waypoints: W
     return () => {
       alive = false;
     };
-  }, [waypoints, empty]);
+  }, [trip, waypoints, empty]);
   useEffect(() => () => void (cardUrl && URL.revokeObjectURL(cardUrl)), [cardUrl]);
 
   const copy = async () => {
@@ -142,7 +143,7 @@ export function ShareDialog({ waypoints, onClose, onImportFile }: { waypoints: W
             type="button"
             className="btn"
             disabled={empty}
-            onClick={() => download(new Blob([JSON.stringify(toShared(waypoints), null, 2)], { type: 'application/json' }), `travel-globe-${formatTrip(totalNights(waypoints)).replace(/\s/g, '')}.json`)}
+            onClick={() => download(new Blob([JSON.stringify(toShared(trip), null, 2)], { type: 'application/json' }), `travel-globe-${formatTrip(totalNights(waypoints)).replace(/\s/g, '')}.json`)}
           >
             파일로 내보내기
           </button>
@@ -165,10 +166,10 @@ export function ShareDialog({ waypoints, onClose, onImportFile }: { waypoints: W
   );
 }
 
-export type Incoming = { source: '링크' | '파일'; waypoints: Waypoint[] } | { source: '링크' | '파일'; error: string };
+export type Incoming = { source: '링크' | '파일'; trip: Trip } | { source: '링크' | '파일'; error: string };
 
 /** 받은 일정 미리보기. 가져오기 전에는 내 일정을 바꾸지 않는다 */
-export function IncomingDialog({ incoming, hasOwnTrip, onImport, onClose }: { incoming: Incoming; hasOwnTrip: boolean; onImport: (w: Waypoint[]) => void; onClose: () => void }) {
+export function IncomingDialog({ incoming, hasOwnTrip, onImport, onClose }: { incoming: Incoming; hasOwnTrip: boolean; onImport: (trip: Trip) => void; onClose: () => void }) {
   if ('error' in incoming)
     return (
       <Modal title={`공유받은 ${incoming.source === '링크' ? '링크를' : '파일을'} 열지 못했습니다`} onClose={onClose}>
@@ -179,7 +180,7 @@ export function IncomingDialog({ incoming, hasOwnTrip, onImport, onClose }: { in
         </div>
       </Modal>
     );
-  const w = incoming.waypoints;
+  const w = incoming.trip.waypoints;
   const days = cityDays(w);
   return (
     <Modal title="공유받은 일정" onClose={onClose}>
@@ -199,7 +200,7 @@ export function IncomingDialog({ incoming, hasOwnTrip, onImport, onClose }: { in
       </ol>
       {hasOwnTrip && <p className="share-note">가져오면 지금 일정이 바뀝니다. 바로 [되돌리기]로 원래 일정으로 돌아갈 수 있습니다.</p>}
       <div className="share-row">
-        <button type="button" className="btn primary" onClick={() => onImport(w)} disabled={!w.length}>내 일정으로 가져오기</button>
+        <button type="button" className="btn primary" onClick={() => onImport(incoming.trip)} disabled={!w.length}>내 일정으로 가져오기</button>
         <button type="button" className="btn" onClick={onClose}>가져오지 않기</button>
       </div>
     </Modal>

@@ -1,5 +1,5 @@
 // 두 화면(지구본 ↔ 도시 지도)을 로딩 화면으로 전환한다. 두 화면은 동시에 떠 있지 않아 가볍다.
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { LatLon } from './geo/geo';
 import { reverseGeocode } from './geo/geocode';
 import { countryCenter, countryKeyAt, countryName } from './geo/world';
@@ -10,7 +10,7 @@ import { Scene } from './scene/Scene';
 import { codeFromHash, decodeTrip } from './share/codec';
 import { TripFormatError } from './share/format';
 import { loadSaved, saveTrip } from './share/storage';
-import { newId, useRoute, type Stop, type Waypoint } from './state/route';
+import { newId, useRoute, type Stop, type Trip } from './state/route';
 import { IncomingDialog, readTripFile, ShareDialog, type Incoming } from './ui/ShareDialog';
 import { LoadingScreen, type Curtain } from './ui/LoadingScreen';
 import { CitySidebar, GlobeSidebar } from './ui/Sidebar';
@@ -165,10 +165,11 @@ export function App() {
   );
 
   // 일정이 바뀌면 잠시 뒤 브라우저에 저장한다
+  const trip = useMemo(() => ({ waypoints: route.waypoints, start: route.start }), [route.waypoints, route.start]);
   useEffect(() => {
-    const id = window.setTimeout(() => saveTrip(route.waypoints), 300);
+    const id = window.setTimeout(() => saveTrip(trip), 300);
     return () => window.clearTimeout(id);
-  }, [route.waypoints]);
+  }, [trip]);
 
   // 공유 링크(#trip=...)로 열리면 받은 일정 미리보기를 띄운다. 주소의 일정 부분은 바로 지운다
   useEffect(() => {
@@ -177,7 +178,7 @@ export function App() {
       if (!code) return;
       history.replaceState(null, '', `${location.pathname}${location.search}`);
       decodeTrip(code)
-        .then((waypoints) => setIncoming({ source: '링크', waypoints }))
+        .then((t) => setIncoming({ source: '링크', trip: t }))
         .catch((e) => setIncoming({ source: '링크', error: e instanceof TripFormatError ? e.message : '링크를 읽지 못했습니다' }));
     };
     take();
@@ -188,15 +189,15 @@ export function App() {
   const importFile = useCallback((file: File) => {
     setShareOpen(false);
     readTripFile(file)
-      .then((waypoints) => setIncoming({ source: '파일', waypoints }))
+      .then((t) => setIncoming({ source: '파일', trip: t }))
       .catch((e) => setIncoming({ source: '파일', error: e instanceof TripFormatError ? e.message : '파일을 읽지 못했습니다' }));
   }, []);
 
   const acceptIncoming = useCallback(
-    (waypoints: Waypoint[]) => {
+    (t: Trip) => {
       setPlaying(false);
       setSelectedId(null);
-      dispatch({ type: 'load', label: '공유받은 일정을 불러옴', waypoints });
+      dispatch({ type: 'load', label: '공유받은 일정을 불러옴', waypoints: t.waypoints, start: t.start });
       setIncoming(null);
     },
     [dispatch],
@@ -284,7 +285,7 @@ export function App() {
         onRetry={city ? () => enterCity(city.id) : undefined}
         onBack={backToGlobe}
       />
-      {shareOpen && <ShareDialog waypoints={route.waypoints} onClose={() => setShareOpen(false)} onImportFile={importFile} />}
+      {shareOpen && <ShareDialog trip={trip} onClose={() => setShareOpen(false)} onImportFile={importFile} />}
       {incoming && (
         <IncomingDialog incoming={incoming} hasOwnTrip={route.waypoints.length > 0} onImport={acceptIncoming} onClose={() => setIncoming(null)} />
       )}

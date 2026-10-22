@@ -1,14 +1,17 @@
 // 패널: 지구 화면이면 도시 단위 경유지, 도시 화면이면 그 도시의 세부 경유지를 다룬다.
 // 지우기는 확인 창 대신 즉시 실행하고 되돌리기를 준다.
-import { useEffect, useRef, type Dispatch } from 'react';
+import { useEffect, useMemo, useRef, type Dispatch } from 'react';
 import { PLACES_NOTICE, type CityOption } from '../data/places';
 import { distanceKm, formatKm } from '../geo/geo';
 import { CITY_MODES, formatDuration, GLOBE_MODES } from '../geo/modes';
 import type { LegState } from '../hooks/useLegs';
 import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } from '../state/route';
 import { cityDataAt } from '../data';
-import { cityDays, type CityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
+import { cityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
+import { useTimeZones } from '../geo/timezone';
+import { computeSchedule, DEFAULT_CITY_STAY_MIN, DEFAULT_START, scheduleDayRange } from '../state/schedule';
 import { CityGuide } from './CityGuide';
+import { CityTimes, TripStartField } from './TimeFields';
 import { StopList } from './StopList';
 
 interface CommonProps {
@@ -71,14 +74,14 @@ function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReas
 }
 
 /** 도시별 숙박 수 조절. 날짜 범위(n일차)를 함께 보인다 */
-function NightsStepper({ waypoint, days, onChange }: { waypoint: Waypoint; days: CityDays; onChange: (nights: number) => void }) {
+function NightsStepper({ waypoint, days, onChange }: { waypoint: Waypoint; days: string; onChange: (nights: number) => void }) {
   const n = nightsOf(waypoint);
   return (
     <div className="nights" onClick={(e) => e.stopPropagation()}>
       <button type="button" className="icon-btn" aria-label={`${waypoint.name} 숙박 하루 줄이기`} disabled={n <= 0} onClick={() => onChange(n - 1)}>−</button>
       <span className="nights-value" aria-live="polite">{n > 0 ? `${n}박` : '당일'}</span>
       <button type="button" className="icon-btn" aria-label={`${waypoint.name} 숙박 하루 늘리기`} disabled={n >= MAX_NIGHTS} onClick={() => onChange(n + 1)}>+</button>
-      <span className="nights-days">{formatDayRange(days)}</span>
+      <span className="nights-days">{days}</span>
     </div>
   );
 }
@@ -155,6 +158,12 @@ export function GlobeSidebar(props: CommonProps & {
   const { route, dispatch } = props;
   const list = route.waypoints;
   const days = cityDays(list);
+  // 시간 단위 일정: 시간대를 찾고, 구간 이동 시간(경로를 찾는 중이면 모름)을 더해 도착·출발 시각을 계산한다
+  const zones = useTimeZones(list);
+  const schedule = useMemo(
+    () => (zones ? computeSchedule(list, zones, props.legs.map((l) => (l.loading ? null : l.durationS / 60)), route.start ?? DEFAULT_START) : null),
+    [list, zones, props.legs, route.start],
+  );
   return (
     <aside className="panel" aria-label="여행 경로">
       <header className="panel-head">
@@ -169,6 +178,10 @@ export function GlobeSidebar(props: CommonProps & {
       {props.country && (
         <CountryPicker country={props.country} waypoints={list} hovered={props.hoveredCity} onHover={props.onHoverCity} onAdd={props.onAddCity} onClose={props.onCloseCountry} />
       )}
+      {list.length > 0 && (
+        <TripStartField start={route.start} onChange={(start) => dispatch({ type: 'setStart', start })} />
+      )}
+      {list.length > 0 && schedule?.pending && <p className="reason">경로를 찾는 중이라 뒤쪽 도착 시각이 바뀔 수 있습니다.</p>}
       {list.length === 0 ? (
         <div className="empty">
           <p>아직 경유지가 없습니다. 지구본에서 나라를 눌러 시작하세요.</p>
@@ -189,18 +202,33 @@ export function GlobeSidebar(props: CommonProps & {
           onRemove={(id) => dispatch({ type: 'remove', id })}
           onMode={(id, mode) => dispatch({ type: 'update', id, patch: { mode } })}
           onLink={(id, link) => dispatch({ type: 'update', id, patch: { link } })}
-          extra={(w) => (
-            <>
-              <NightsStepper
-                waypoint={w as Waypoint}
-                days={days[list.findIndex((x) => x.id === w.id)]}
-                onChange={(nights) => dispatch({ type: 'update', id: w.id, patch: { nights } })}
-              />
-              <button type="button" className="enter-btn" onClick={() => props.onEnterCity(w.id)}>
-                {(w as Waypoint).stops.length ? `도시 경로 ${(w as Waypoint).stops.length}곳 보기` : '도시 안 경로 짜기'} →
-              </button>
-            </>
-          )}
+          extra={(w) => {
+            const i = list.findIndex((x) => x.id === w.id);
+            const city = w as Waypoint;
+            return (
+              <>
+                <NightsStepper
+                  waypoint={city}
+                  days={schedule ? scheduleDayRange(schedule, i) : formatDayRange(days[i])}
+                  onChange={(nights) => dispatch({ type: 'update', id: w.id, patch: { nights } })}
+                />
+                <CityTimes
+                  name={city.name}
+                  nights={nightsOf(city)}
+                  leaveAt={city.leaveAt}
+                  stayMin={city.stayMin ?? DEFAULT_CITY_STAY_MIN}
+                  time={schedule?.cities[i] ?? null}
+                  schedule={schedule}
+                  last={i === list.length - 1}
+                  onLeaveAt={(leaveAt) => dispatch({ type: 'update', id: w.id, patch: { leaveAt } })}
+                  onStay={(stayMin) => dispatch({ type: 'update', id: w.id, patch: { stayMin } })}
+                />
+                <button type="button" className="enter-btn" onClick={() => props.onEnterCity(w.id)}>
+                  {(w as Waypoint).stops.length ? `도시 경로 ${(w as Waypoint).stops.length}곳 보기` : '도시 안 경로 짜기'} →
+                </button>
+              </>
+            );
+          }}
         />
       )}
       <Undo route={route} dispatch={dispatch} />

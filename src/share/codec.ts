@@ -1,6 +1,6 @@
 // 공유 링크용 인코딩: 형식 v1 JSON → deflate-raw 압축(브라우저 내장 CompressionStream) → base64url.
 // 링크는 URL의 # 뒤(fragment)에 담아, 호스팅 서버로 보내지지 않게 한다.
-import type { Waypoint } from '../state/route';
+import type { Trip } from '../state/route';
 import { fromShared, toShared, TripFormatError } from './format';
 
 export const HASH_KEY = 'trip';
@@ -22,12 +22,12 @@ function fromBase64Url(text: string): Uint8Array {
   return Uint8Array.from(bin, (c) => c.charCodeAt(0));
 }
 
-export async function encodeTrip(waypoints: Waypoint[]): Promise<string> {
-  const json = new TextEncoder().encode(JSON.stringify(toShared(waypoints)));
+export async function encodeTrip(trip: Trip): Promise<string> {
+  const json = new TextEncoder().encode(JSON.stringify(toShared(trip)));
   return toBase64Url(await pipe(json, new CompressionStream('deflate-raw')));
 }
 
-export async function decodeTrip(code: string): Promise<Waypoint[]> {
+export async function decodeTrip(code: string): Promise<Trip> {
   let json: string;
   try {
     json = new TextDecoder().decode(await pipe(fromBase64Url(code), new DecompressionStream('deflate-raw')));

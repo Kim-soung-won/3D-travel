@@ -5,6 +5,7 @@
 import { useReducer } from 'react';
 import type { LatLon } from '../geo/geo';
 import type { Mode } from '../geo/modes';
+import type { TripStart } from './schedule';
 
 export interface Stop extends LatLon {
   id: string;
@@ -15,6 +16,8 @@ export interface Stop extends LatLon {
   mode: Mode;
   /** 사용자가 붙인 바깥 링크(구글 지도 등). http(s)만 (link.ts) */
   link?: string;
+  /** 머무는 시간(분). 세부 경유지, 또는 숙박하지 않는 도시 (schedule.ts) */
+  stayMin?: number;
 }
 
 export interface Waypoint extends Stop {
@@ -22,11 +25,21 @@ export interface Waypoint extends Stop {
   stops: Stop[];
   /** 이 도시에서 묵는 밤 수. 없거나 0이면 당일 들름 (itinerary.ts) */
   nights?: number;
+  /** 숙박하는 도시의 출발 시각 'HH:MM' (현지) */
+  leaveAt?: string;
+  /** 도시 안 하루 일정의 시작 시각 'HH:MM' */
+  dayStart?: string;
 }
 
-export interface RouteState {
+/** 일정 한 벌: 공유·저장 단위 */
+export interface Trip {
   waypoints: Waypoint[];
-  undo: { label: string; waypoints: Waypoint[] } | null;
+  /** 첫 도시 도착 날짜·시각 */
+  start?: TripStart;
+}
+
+export interface RouteState extends Trip {
+  undo: ({ label: string } & Trip) | null;
 }
 
 /** 세부 경유지 동작은 parentId(도시)를 함께 받는다 */
@@ -34,13 +47,14 @@ export type RouteAction =
   | { type: 'add'; waypoint: Waypoint }
   | { type: 'remove'; id: string }
   | { type: 'move'; id: string; delta: -1 | 1 }
-  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link'>> }
+  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link' | 'leaveAt' | 'stayMin' | 'dayStart'>> }
   | { type: 'clear' }
-  | { type: 'load'; waypoints: Waypoint[]; label: string }
+  | { type: 'load'; waypoints: Waypoint[]; start?: TripStart; label: string }
+  | { type: 'setStart'; start: TripStart | undefined }
   | { type: 'addStop'; parentId: string; stop: Stop }
   | { type: 'removeStop'; parentId: string; id: string }
   | { type: 'moveStop'; parentId: string; id: string; delta: -1 | 1 }
-  | { type: 'updateStop'; parentId: string; id: string; patch: Partial<Pick<Stop, 'name' | 'area' | 'mode' | 'link'>> }
+  | { type: 'updateStop'; parentId: string; id: string; patch: Partial<Pick<Stop, 'name' | 'area' | 'mode' | 'link' | 'stayMin'>> }
   | { type: 'clearStops'; parentId: string }
   /** 추천 루트 불러오기·순서 최적화처럼 목록을 통째로 바꾼다. 되돌리기를 남긴다 */
   | { type: 'setStops'; parentId: string; stops: Stop[]; label: string }
@@ -58,42 +72,48 @@ function moveItem<T extends { id: string }>(list: T[], id: string, delta: -1 | 1
 
 export function routeReducer(state: RouteState, action: RouteAction): RouteState {
   const list = state.waypoints;
+  const start = state.start;
+  /** 지우기·불러오기 전 상태를 되돌리기로 남긴다 */
+  const snapshot = (label: string) => ({ label, waypoints: list, start });
   const withParent = (parentId: string, fn: (w: Waypoint) => Waypoint) => list.map((w) => (w.id === parentId ? fn(w) : w));
   const parentOf = (parentId: string) => list.find((w) => w.id === parentId);
 
   switch (action.type) {
     case 'add':
-      return { waypoints: [...list, action.waypoint], undo: null };
+      return { waypoints: [...list, action.waypoint], start, undo: null };
     case 'remove': {
       const target = list.find((w) => w.id === action.id);
       if (!target) return state;
-      return { waypoints: list.filter((w) => w.id !== action.id), undo: { label: `"${target.name}" 삭제됨`, waypoints: list } };
+      return { waypoints: list.filter((w) => w.id !== action.id), start, undo: snapshot(`"${target.name}" 삭제됨`) };
     }
     case 'move': {
       const next = moveItem(list, action.id, action.delta);
-      return next ? { waypoints: next, undo: null } : state;
+      return next ? { waypoints: next, start, undo: null } : state;
     }
     case 'update':
       return { ...state, waypoints: list.map((w) => (w.id === action.id ? { ...w, ...action.patch } : w)) };
     case 'clear':
       if (!list.length) return state;
-      return { waypoints: [], undo: { label: `경유지 ${list.length}곳을 모두 지움`, waypoints: list } };
+      return { waypoints: [], start, undo: snapshot(`경유지 ${list.length}곳을 모두 지움`) };
     case 'load':
-      return { waypoints: action.waypoints, undo: list.length ? { label: action.label, waypoints: list } : null };
+      return { waypoints: action.waypoints, start: action.start, undo: list.length ? snapshot(action.label) : null };
+    case 'setStart':
+      return { ...state, start: action.start };
     case 'addStop':
-      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: [...w.stops, action.stop] })), undo: null };
+      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: [...w.stops, action.stop] })), start, undo: null };
     case 'removeStop': {
       const target = parentOf(action.parentId)?.stops.find((s) => s.id === action.id);
       if (!target) return state;
       return {
         waypoints: withParent(action.parentId, (w) => ({ ...w, stops: w.stops.filter((s) => s.id !== action.id) })),
-        undo: { label: `"${target.name}" 삭제됨`, waypoints: list },
+        start,
+        undo: snapshot(`"${target.name}" 삭제됨`),
       };
     }
     case 'moveStop': {
       const parent = parentOf(action.parentId);
       const next = parent && moveItem(parent.stops, action.id, action.delta);
-      return next ? { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: next })), undo: null } : state;
+      return next ? { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: next })), start, undo: null } : state;
     }
     case 'updateStop':
       return {
@@ -105,21 +125,22 @@ export function routeReducer(state: RouteState, action: RouteAction): RouteState
       if (!parent?.stops.length) return state;
       return {
         waypoints: withParent(action.parentId, (w) => ({ ...w, stops: [] })),
-        undo: { label: `${parent.name}의 세부 경유지 ${parent.stops.length}곳을 모두 지움`, waypoints: list },
+        start,
+        undo: snapshot(`${parent.name}의 세부 경유지 ${parent.stops.length}곳을 모두 지움`),
       };
     }
     case 'setStops':
       if (!parentOf(action.parentId)) return state;
-      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: action.stops })), undo: { label: action.label, waypoints: list } };
+      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: action.stops })), start, undo: snapshot(action.label) };
     case 'undo':
-      return state.undo ? { waypoints: state.undo.waypoints, undo: null } : state;
+      return state.undo ? { waypoints: state.undo.waypoints, start: state.undo.start, undo: null } : state;
     case 'dismissUndo':
       return { ...state, undo: null };
   }
 }
 
-export function useRoute(initial: Waypoint[] = []) {
-  return useReducer(routeReducer, { waypoints: initial, undo: null });
+export function useRoute(initial: Trip = { waypoints: [] }) {
+  return useReducer(routeReducer, { ...initial, undo: null });
 }
 
 let seq = 0;
