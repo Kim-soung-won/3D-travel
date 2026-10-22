@@ -49,11 +49,21 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idl
   const side = useMemo(() => new Vector3(), []);
   const interacting = useRef(false);
   const spin = useRef(0);
+  // 재생이 끝나면(머무는 장면에서 다가가 있던 경우 포함) 지구 전체가 보이는 거리로 물러난다
+  const backOut = useRef(false);
+  const wasFollowing = useRef(follow);
+  useEffect(() => {
+    if (wasFollowing.current && !follow) backOut.current = true;
+    wasFollowing.current = follow;
+  }, [follow]);
 
   useEffect(() => {
     const c = controls.current;
     if (!c) return;
-    const start = () => (interacting.current = true);
+    const start = () => {
+      interacting.current = true;
+      backOut.current = false; // 사용자가 직접 돌리거나 확대하면 물러나기를 그만둔다
+    };
     c.addEventListener('start', start);
     return () => c.removeEventListener('start', start);
   }, []);
@@ -88,6 +98,10 @@ export function CameraRig({ focus, onFocusDone, follow, followRef, closeRef, idl
       // 이동 중에는 조금 뒤로 물러나 다음 구간이 보이게 한다
       desired.copy(followRef.current).normalize().multiplyScalar(Math.max(fit * 0.85, Math.min(distance, fit * 1.05)));
       camera.position.lerp(desired, k * 0.6);
+    } else if (backOut.current && !focus && !interacting.current) {
+      desired.copy(camera.position).setLength(fit);
+      camera.position.lerp(desired, k * 0.6);
+      if (Math.abs(camera.position.length() - fit) < 0.01) backOut.current = false;
     } else if (focus && !interacting.current) {
       latLonToVector3(focus, focus.radius === undefined ? Math.max(fit * 0.7, Math.min(distance, fit * 1.05)) : viewDistance(focus.radius, camera as PerspectiveCamera, fit), desired);
       camera.position.lerp(desired, k);
