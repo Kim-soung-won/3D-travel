@@ -1,4 +1,4 @@
-// OpenFreeMap "liberty" 스타일(OSM, 키 없음)을 지구본과 같은 그림체로 다시 칠하고, 한국어 이름을 우선 쓴다.
+// OpenFreeMap "liberty" 스타일(OSM, 키 없음)을 지구본과 같은 그림체로 다시 칠하고, 한국어 이름을 우선 쓴다(없으면 로마자).
 import type { LayerSpecification, StyleSpecification } from 'maplibre-gl';
 
 export const STYLE_URL = 'https://tiles.openfreemap.org/styles/liberty';
@@ -20,8 +20,17 @@ const C = {
   halo: '#fffaf0',
 };
 
-/** 한국어 이름 → 현지 이름 → 기본 이름 순으로 고른다 */
-export const LOCAL_NAME = ['coalesce', ['get', 'name:ko'], ['get', 'name:nonlatin'], ['get', 'name']];
+const firstChar = ['slice', ['coalesce', ['get', 'name'], ''], 0, 1];
+/**
+ * 라벨 이름: 한국어 이름 → (원래 이름이 한글이면) 원래 이름 → 영어 → 로마자 → 원래 이름.
+ * 해외 지도의 가게·도로는 한국어 이름이 거의 없어(도쿄 가게 6%, 파리 1%) 현지 문자 대신 읽을 수 있는 로마자를 쓴다.
+ * 국내는 한국어 이름 칸이 비어 있어도 원래 이름이 한글이라 그대로 둔다(서울 가게의 84%).
+ */
+export const LOCAL_NAME = [
+  'coalesce',
+  ['get', 'name:ko'],
+  ['case', ['all', ['>=', firstChar, '가'], ['<=', firstChar, '힣']], ['get', 'name'], ['coalesce', ['get', 'name:en'], ['get', 'name:latin'], ['get', 'name']]],
+];
 
 function paint(layer: LayerSpecification, key: string, value: unknown) {
   (layer as { paint?: Record<string, unknown> }).paint = { ...(layer as { paint?: Record<string, unknown> }).paint, [key]: value };

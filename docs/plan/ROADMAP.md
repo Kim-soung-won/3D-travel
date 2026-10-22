@@ -37,6 +37,7 @@
 | 서울을 눌렀는데 부산으로 진입 | 재현 안 됨 (1회) | [03](../history/details/2026-10-21-03-city-view-bugfix.md) |
 | 재생 중 클릭하지 않은 지점이 경유지로 추가 | 재현 안 됨 (1회) | [03](../history/details/2026-10-21-03-city-view-bugfix.md) |
 | 작은 나라는 지구본에서 고를 수 없음 (싱가포르·바티칸 등) | 지구본 국경이 1:110m | [2026-10-22 02](../history/details/2026-10-22-02-country-then-city.md) |
+| 해외 지도 라벨 일부가 현지 문자 (도쿄 가게·도로 약 40%) | OpenStreetMap에 한국어·로마자 이름이 없음. 데이터 한계 | [2026-10-22 06](../history/details/2026-10-22-06-map-label-names.md) |
 | 지하철 시간이 실제보다 조금 김 (부산 남포→해운대 약 1시간 6분, 걷기 포함) | 평균값 어림의 한계 | [04](../history/details/2026-10-21-04-ai-prebuilt-data.md) |
 
 ## 완료
@@ -54,3 +55,4 @@
 - 2026-10-22 · 마커에 링크 붙이기 (공유 형식 v2) · [2026-10-22 03](../history/details/2026-10-22-03-marker-links.md)
 - 2026-10-22 · 지구본 핀을 두 번 눌러 도시로 들어가기 · [2026-10-22 04](../history/details/2026-10-22-04-pin-double-click.md)
 - 2026-10-22 · 나라 안을 누르면 도시가 들어가던 문제 수정 · [2026-10-22 05](../history/details/2026-10-22-05-country-click-fix.md)
+- 2026-10-22 · 해외 도시 지도 라벨을 영어·로마자로 · [2026-10-22 06](../history/details/2026-10-22-06-map-label-names.md)
