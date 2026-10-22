@@ -1,7 +1,10 @@
 // 도시 화면: MapLibre로 실제 도로·건물을 그리고, 세부 경유지와 구간(버스·지하철·도보·자동차)을 올린다.
 // 지구본 화면과 동시에 떠 있지 않는다. 이 파일은 처음 들어갈 때만 불러온다(lazy).
-import maplibregl, { type GeoJSONSource, type Map as MapLibreMap } from 'maplibre-gl';
+import * as maplibregl from 'maplibre-gl';
+import type { GeoJSONSource, Map as MapLibreMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
+// maplibre-gl 6은 번들러에서 워커 주소를 스스로 찾지 못한다. Vite가 워커를 따로 묶은 주소를 알려 준다
+import workerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 import { useEffect, useRef, useState } from 'react';
 import { cityDataAt } from '../data';
 import type { CityData } from '../data/types';
@@ -12,6 +15,8 @@ import type { Stop } from '../state/route';
 import { MODE_ICON } from '../ui/modeIcons';
 import { loadCityStyle } from './mapStyle';
 import { linkLabel, safeLink } from '../state/link';
+
+maplibregl.setWorkerUrl(workerUrl);
 
 interface CityViewProps {
   center: LatLon;

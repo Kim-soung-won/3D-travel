@@ -12,6 +12,7 @@
 - **도시 화면(`src/city/`):**
   - 지도는 스타일을 비동기로 불러온 뒤 생긴다. 지도에 무언가 올리는 effect는 `loaded`를 의존성에 넣는다.
   - MapLibre는 컨테이너에 `position: relative`를 덮어쓴다. 크기는 바깥 div가 정하고, 지도는 안쪽 div(100%)에 붙인다.
+  - maplibre-gl 6은 ESM 전용이고 번들러에서 워커 주소를 스스로 찾지 못한다. `CityView.tsx`의 `setWorkerUrl(…?worker&url)`을 지우지 않는다. 지우면 빌드 결과물에서 지도가 그려지지 않는다.
   - `useLegs`의 결과는 같은 입력이면 같은 배열이어야 한다. 재생 effect가 이 배열에 걸려 있다.
 - **사전 데이터(`src/data/`):** LLM이 만든 미검증 데이터다.
   - 형식은 `types.ts`를 따른다. 환승역은 노선이 달라도 이름 문자열이 같아야 한다(환승 판단 기준).

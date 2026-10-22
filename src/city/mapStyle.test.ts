@@ -22,7 +22,7 @@ test('물·건물 색을 바꾸고, 라틴 이름 대신 한국어 우선 이름
 
 test('라벨 이름: 한국어 → 한글 원래 이름 → 영어 → 로마자 → 원래 이름', async () => {
   const { expression } = await import('@maplibre/maplibre-gl-style-spec');
-  const parsed = expression.createExpression(LOCAL_NAME);
+  const parsed = expression.createExpression(LOCAL_NAME, 'text-field');
   if (parsed.result !== 'success') throw new Error(JSON.stringify(parsed.value));
   const name = (properties: Record<string, string>) => parsed.value.evaluate({ zoom: 14 }, { type: 'Point', properties } as never);
   expect(name({ name: '東京', 'name:ko': '도쿄', 'name:en': 'Tokyo' })).toBe('도쿄');
