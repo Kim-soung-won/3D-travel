@@ -1,6 +1,22 @@
-// 시간 단위 일정 입력: 첫 도시 도착(날짜·시각), 숙박 도시의 출발 시각, 당일 도시·장소의 머무는 시간.
+// 시간 단위 일정 입력: 첫 도시 도착(날짜·시각), 숙박 도시의 출발 시각, 당일 도시·장소의 머무는 시간, 도시 안 하루 시작.
 // 시각은 모두 그 도시의 현지 시각이다. 계산은 state/schedule.ts에 있다.
-import { clampStay, DEFAULT_LEAVE, DEFAULT_START, formatOffset, formatSpan, formatWhen, isTime, MAX_STAY_MIN, STAY_STEP_MIN, type CityTime, type Schedule, type TripStart } from '../state/schedule';
+import {
+  clampStay,
+  DEFAULT_DAY_START,
+  DEFAULT_LEAVE,
+  DEFAULT_START,
+  formatClock,
+  formatOffset,
+  formatSpan,
+  formatWhen,
+  isTime,
+  MAX_STAY_MIN,
+  STAY_STEP_MIN,
+  type CityTime,
+  type PlaceTime,
+  type Schedule,
+  type TripStart,
+} from '../state/schedule';
 
 /** 첫 도시 도착 날짜·시각. 날짜를 비우면 "n일차"로 보인다 */
 export function TripStartField({ start, onChange }: { start: TripStart | undefined; onChange: (s: TripStart | undefined) => void }) {
@@ -76,6 +92,40 @@ export function CityTimes({ name, nights, leaveAt, stayMin, time, schedule, last
         </div>
       )}
       {time && nights > 0 && <p className="city-times-note">머무는 시간 {formatSpan((time.leave - time.arrive) / 60000)}</p>}
+    </div>
+  );
+}
+
+/** 도시 안 하루 일정의 시작 시각과 끝나는 시각 */
+export function DayStartField({ dayStart, end, pending, onChange }: { dayStart: string | undefined; end: number | null; pending: boolean; onChange: (t: string | undefined) => void }) {
+  const value = isTime(dayStart) ? dayStart : DEFAULT_DAY_START;
+  const [h, m] = value.split(':').map(Number);
+  return (
+    <div className="trip-start">
+      <span className="trip-start-label">하루 시작</span>
+      <input type="time" value={value} aria-label="도시 안 일정 시작 시각" onChange={(e) => onChange(isTime(e.target.value) && e.target.value !== DEFAULT_DAY_START ? e.target.value : undefined)} />
+      {end !== null && (
+        <span className="trip-start-hint">
+          {formatClock(end)}에 끝 · 모두 {formatSpan(end - (h * 60 + m))}
+          {pending && ' (경로를 찾는 중이라 바뀔 수 있음)'}
+        </span>
+      )}
+    </div>
+  );
+}
+
+/** 세부 경유지의 머무는 시각과 머무는 시간 */
+export function PlaceTimes({ name, place, stayMin, onStay }: { name: string; place: PlaceTime | undefined; stayMin: number; onStay: (min: number) => void }) {
+  return (
+    <div className="city-times" onClick={(e) => e.stopPropagation()}>
+      <div className="city-times-row">
+        <span className="city-times-key">시간</span>
+        <span className="city-times-val">{place ? `${formatClock(place.arrive)} – ${formatClock(place.leave)}` : '…'}</span>
+      </div>
+      <div className="city-times-row">
+        <span className="city-times-key">머무름</span>
+        <StayStepper minutes={stayMin} label={name} onChange={onStay} />
+      </div>
     </div>
   );
 }

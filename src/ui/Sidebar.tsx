@@ -9,9 +9,9 @@ import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } fro
 import { cityDataAt } from '../data';
 import { cityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
 import { useTimeZones } from '../geo/timezone';
-import { computeSchedule, DEFAULT_CITY_STAY_MIN, DEFAULT_START, scheduleDayRange } from '../state/schedule';
+import { computeDayPlan, computeSchedule, DEFAULT_CITY_STAY_MIN, DEFAULT_PLACE_STAY_MIN, DEFAULT_START, scheduleDayRange } from '../state/schedule';
 import { CityGuide } from './CityGuide';
-import { CityTimes, TripStartField } from './TimeFields';
+import { CityTimes, DayStartField, PlaceTimes, TripStartField } from './TimeFields';
 import { StopList } from './StopList';
 
 interface CommonProps {
@@ -240,6 +240,8 @@ export function GlobeSidebar(props: CommonProps & {
 
 export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () => void }) {
   const { route, dispatch, city } = props;
+  // 하루 시간표: 하루 시작부터 장소마다 머무는 시간과 구간 이동 시간을 더한다
+  const plan = useMemo(() => computeDayPlan(city.dayStart, city.stops, props.legs.map((l) => (l.loading ? null : l.durationS / 60))), [city.dayStart, city.stops, props.legs]);
   return (
     <aside className="panel" aria-label={`${city.name} 세부 경로`}>
       <header className="panel-head">
@@ -252,6 +254,13 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
       {city.stops.length === 0 ? (
         <div className="empty"><p>아직 세부 경유지가 없습니다. 추천 루트를 불러오거나 장소를 검색해 보세요.</p></div>
       ) : (
+        <>
+        <DayStartField
+          dayStart={city.dayStart}
+          end={plan.places.at(-1)?.leave ?? null}
+          pending={plan.pending}
+          onChange={(dayStart) => dispatch({ type: 'update', id: city.id, patch: { dayStart } })}
+        />
         <StopList
           items={city.stops}
           legs={props.legs}
@@ -264,7 +273,16 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
           onRemove={(id) => dispatch({ type: 'removeStop', parentId: city.id, id })}
           onMode={(id, mode) => dispatch({ type: 'updateStop', parentId: city.id, id, patch: { mode } })}
           onLink={(id, link) => dispatch({ type: 'updateStop', parentId: city.id, id, patch: { link } })}
+          extra={(s) => (
+            <PlaceTimes
+              name={s.name}
+              place={plan.places[city.stops.findIndex((x) => x.id === s.id)]}
+              stayMin={s.stayMin ?? DEFAULT_PLACE_STAY_MIN}
+              onStay={(stayMin) => dispatch({ type: 'updateStop', parentId: city.id, id: s.id, patch: { stayMin } })}
+            />
+          )}
         />
+        </>
       )}
       </div>
       <Undo route={route} dispatch={dispatch} />
