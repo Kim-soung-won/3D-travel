@@ -5,6 +5,7 @@ import { reverseGeocode } from './geo/geocode';
 import { countryCenter, countryKeyAt, countryName } from './geo/world';
 import { loadCountryCities, type CityOption, type CountryCities } from './data/places';
 import { useLegs } from './hooks/useLegs';
+import { useSchedule } from './hooks/useSchedule';
 import type { Focus } from './scene/CameraRig';
 import { Scene } from './scene/Scene';
 import { codeFromHash, decodeTrip } from './share/codec';
@@ -39,6 +40,8 @@ export function App() {
   const [country, setCountry] = useState<string | null>(null);
   const [loadedCountry, setLoadedCountry] = useState<{ key: string; data: CountryCities } | null>(null);
   const [hoveredCity, setHoveredCity] = useState<number | null>(null);
+  // 좁은 화면에서 패널을 크게 펼쳤는지 (지구·도시 화면이 함께 쓴다)
+  const [tall, setTall] = useState(false);
 
   // 로딩 화면
   const [curtain, setCurtain] = useState<Curtain>('hidden');
@@ -50,6 +53,7 @@ export function App() {
   const city = view.kind === 'city' ? route.waypoints.find((w) => w.id === view.id) ?? null : null;
   const globeLegs = useLegs(route.waypoints);
   const cityLegs = useLegs(city?.stops ?? NO_STOPS);
+  const schedule = useSchedule(route, globeLegs);
 
   /** 로딩 화면으로 덮고, 덮인 뒤 화면을 바꾼다 */
   const transition = useCallback((next: View, title: string, subtitle: string) => {
@@ -218,6 +222,8 @@ export function App() {
     dispatch: guardedDispatch,
     playing,
     progress,
+    tall,
+    onToggleTall: () => setTall((t) => !t),
     onTogglePlay: () => {
       setFocus(null);
       setCountry(null);
@@ -272,10 +278,10 @@ export function App() {
         )}
       </div>
       {view.kind === 'globe' || !city ? (
-        <GlobeSidebar {...common} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity}
+        <GlobeSidebar {...common} schedule={schedule} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity}
           country={countryInfo} hoveredCity={hoveredCity} onHoverCity={setHoveredCity} onAddCity={addCity} onCloseCountry={() => setCountry(null)} />
       ) : (
-        <CitySidebar {...common} legs={cityLegs} city={city} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
+        <CitySidebar {...common} schedule={schedule} legs={cityLegs} city={city} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
       )}
       <LoadingScreen
         state={curtain}

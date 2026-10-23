@@ -7,6 +7,7 @@ import { Quaternion, Vector3, type Group } from 'three';
 import { latLonToVector3 } from '../geo/geo';
 import { linkLabel, safeLink } from '../state/link';
 import type { Waypoint } from '../state/route';
+import { liftLabels, type LabelBox } from '../ui/labelLayout';
 
 const UP = new Vector3(0, 1, 0);
 const camDir = new Vector3();
@@ -61,32 +62,44 @@ export function Pins({ waypoints, selectedId, onSelect, labels, hiddenRef }: Pin
       {waypoints.map((w) => (
         <Pin key={w.id} w={w} selected={w.id === selectedId} onSelect={onSelect} hiddenRef={hiddenRef} />
       ))}
-      <PinLabelProjector waypoints={waypoints} labels={labels} hiddenRef={hiddenRef} />
+      <PinLabelProjector waypoints={waypoints} selectedId={selectedId} labels={labels} hiddenRef={hiddenRef} />
     </>
   );
 }
 
 const anchor = new Vector3();
 
-/** 핀 머리 위(반지름 1.1)를 화면 좌표로 옮기고, 카메라에서 본 면 방향으로 투명도를 정한다 */
-function PinLabelProjector({ waypoints, labels, hiddenRef }: { waypoints: Waypoint[]; labels: LabelEls; hiddenRef: MutableRefObject<string | null> }) {
+/**
+ * 핀 머리 위(반지름 1.1)를 화면 좌표로 옮기고, 카메라에서 본 면 방향으로 투명도를 정한다.
+ * 가까운 도시끼리 라벨이 겹치면 고른 것·앞 번호를 제자리에 두고 나머지를 위로 띄워 세로줄로 잇는다(labelLayout.ts).
+ */
+function PinLabelProjector({ waypoints, selectedId, labels, hiddenRef }: { waypoints: Waypoint[]; selectedId: string | null; labels: LabelEls; hiddenRef: MutableRefObject<string | null> }) {
   useFrame(({ camera, size }) => {
     camDir.copy(camera.position).normalize();
-    for (const w of waypoints) {
+    const shown: { el: HTMLDivElement; box: LabelBox }[] = [];
+    waypoints.forEach((w, i) => {
       const el = labels.current.get(w.id);
-      if (!el) continue;
+      if (!el) return;
       anchor.copy(latLonToVector3(w, 1.1));
       // 지구 가장자리(0) 근처부터 흐려지고 뒤편(음수)에선 숨긴다
       const facing = anchor.clone().normalize().dot(camDir);
       // 여행자가 머무는 도시의 라벨은 숙소 모형을 가리지 않게 숨긴다
       const opacity = w.id === hiddenRef.current ? 0 : Math.min(1, Math.max(0, (facing - 0.05) / 0.2));
       anchor.project(camera);
-      const x = ((anchor.x + 1) / 2) * size.width;
-      const y = ((1 - anchor.y) / 2) * size.height;
-      el.style.transform = `translate(${x.toFixed(1)}px, ${y.toFixed(1)}px) translate(-50%, -100%)`;
       el.style.opacity = String(opacity);
       el.style.visibility = opacity === 0 ? 'hidden' : 'visible';
-    }
+      if (opacity === 0) return;
+      const x = ((anchor.x + 1) / 2) * size.width;
+      const y = ((1 - anchor.y) / 2) * size.height;
+      // 흐려지는 가장자리 라벨은 뒤로 미룬다
+      shown.push({ el, box: { x, y, w: el.offsetWidth, h: el.offsetHeight, priority: (w.id === selectedId ? 0 : 1) + (opacity < 1 ? 2 : 0) + i / 1000 } });
+    });
+    const lifts = liftLabels(shown.map((s) => s.box));
+    shown.forEach(({ el, box }, k) => {
+      el.style.transform = `translate(${box.x.toFixed(1)}px, ${(box.y - lifts[k]).toFixed(1)}px) translate(-50%, -100%)`;
+      el.style.setProperty('--lift', `${lifts[k].toFixed(1)}px`);
+      el.classList.toggle('is-lifted', lifts[k] > 0);
+    });
   });
   return null;
 }

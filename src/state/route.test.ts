@@ -63,3 +63,27 @@ test('목록 통째로 바꾸기(추천 루트·순서 최적화)는 되돌릴 �
   expect(next.undo?.label).toBe('바꿈');
   expect(routeReducer(next, { type: 'undo' }).waypoints[0].stops).toHaveLength(1);
 });
+
+describe('도시 안 여러 날', () => {
+  const day = (id: string, d?: number): Stop => ({ ...stop(id), ...(d ? { day: d } : {}) });
+  const city = (stops: Stop[]): RouteState => ({ waypoints: [{ ...wp('c', stops), nights: 2 }], undo: null });
+  const order = (s: RouteState) => s.waypoints[0].stops.map((x) => `${x.id}:${x.day ?? 1}`);
+
+  test('다른 날로 옮기면 그날의 끝에 놓는다', () => {
+    const s = city([day('a'), day('b'), day('c', 2), day('d', 3)]);
+    expect(order(routeReducer(s, { type: 'setStopDay', parentId: 'c', id: 'a', day: 2 }))).toEqual(['b:1', 'c:2', 'a:2', 'd:3']);
+    expect(order(routeReducer(s, { type: 'setStopDay', parentId: 'c', id: 'd', day: 1 }))).toEqual(['a:1', 'b:1', 'd:1', 'c:2']);
+    // 머무는 날(2박 3일)을 넘지 않는다
+    expect(order(routeReducer(s, { type: 'setStopDay', parentId: 'c', id: 'a', day: 9 }))).toEqual(['b:1', 'c:2', 'd:3', 'a:3']);
+  });
+  test('날의 첫 장소를 위로 옮기면 앞 날의 끝으로 넘어가고, 같은 날 안에서는 자리를 바꾼다', () => {
+    const s = city([day('a'), day('b', 2), day('c', 2)]);
+    expect(order(routeReducer(s, { type: 'moveStop', parentId: 'c', id: 'b', delta: -1 }))).toEqual(['a:1', 'b:1', 'c:2']);
+    expect(order(routeReducer(s, { type: 'moveStop', parentId: 'c', id: 'c', delta: -1 }))).toEqual(['a:1', 'c:2', 'b:2']);
+    expect(order(routeReducer(s, { type: 'moveStop', parentId: 'c', id: 'a', delta: 1 }))).toEqual(['a:2', 'b:2', 'c:2']);
+  });
+  test('새 장소는 마지막 장소와 같은 날에 붙는다', () => {
+    const s = routeReducer(city([day('a'), day('b', 3)]), { type: 'addStop', parentId: 'c', stop: stop('n') });
+    expect(order(s)).toEqual(['a:1', 'b:3', 'n:3']);
+  });
+});

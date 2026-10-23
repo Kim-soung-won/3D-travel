@@ -47,12 +47,12 @@ describe('경유지 링크 (v2)', () => {
   });
 });
 
-describe('시간 단위 일정 (v3)', () => {
+describe('시간 단위 일정 (v3·v4)', () => {
   test('첫 도시 도착·출발 시각·머무는 시간·하루 시작이 왕복한다', async () => {
     const trip = {
       start: { date: '2026-10-23', time: '09:30' },
       waypoints: [
-        { id: 'a', name: '서울', lat: 37.5, lon: 127, mode: 'plane' as const, nights: 2, leaveAt: '11:00', dayStart: '08:00', stops: [{ id: 'b', name: '경복궁', lat: 37.58, lon: 126.98, mode: 'walk' as const, stayMin: 90 }] },
+        { id: 'a', name: '서울', lat: 37.5, lon: 127, mode: 'plane' as const, nights: 2, leaveAt: '11:00', dayStarts: ['08:00'], stops: [{ id: 'b', name: '경복궁', lat: 37.58, lon: 126.98, mode: 'walk' as const, stayMin: 90 }] },
         { id: 'c', name: '부산', lat: 35.1, lon: 129, mode: 'plane' as const, nights: 0, stayMin: 300, stops: [] },
       ],
     };
@@ -67,6 +67,21 @@ describe('시간 단위 일정 (v3)', () => {
     expect(t.waypoints[0].leaveAt).toBeUndefined();
     expect(t.waypoints[0].stayMin).toBe(24 * 60);
   });
+  test('도시 안 날과 날마다 시작 시각이 왕복하고, v3의 하루 시작은 첫날 시작이 된다', async () => {
+    const trip = {
+      waypoints: [
+        {
+          id: 'a', name: '서울', lat: 37.5, lon: 127, mode: 'plane' as const, nights: 2, dayStarts: [null, '10:00'],
+          stops: [{ id: 'b', name: '경복궁', lat: 37.58, lon: 126.98, mode: 'walk' as const }, { id: 'c', name: '성수동', lat: 37.54, lon: 127.06, mode: 'walk' as const, day: 3 }],
+        },
+      ],
+    };
+    expect(strip(await decodeTrip(await encodeTrip(trip)))).toEqual(strip(trip));
+    expect(fromShared({ v: 3, w: [{ n: '가', la: 0, lo: 0, m: 'walk', ds: '08:00' }] }).waypoints[0].dayStarts).toEqual(['08:00']);
+    // 날 순서가 어긋난 목록은 날 순서로 놓는다
+    const t = fromShared({ v: 4, w: [{ n: '가', la: 0, lo: 0, m: 'walk', ni: 2, s: [{ n: '나', la: 0, lo: 0, m: 'walk', d: 2 }, { n: '다', la: 0, lo: 0, m: 'walk' }] }] });
+    expect(t.waypoints[0].stops.map((x) => x.name)).toEqual(['다', '나']);
+  });
   test('v2 일정은 시간 필드 없이 읽는다', () => {
     const t = fromShared({ v: 2, w: [{ n: '가', la: 0, lo: 0, m: 'walk', ni: 1 }] });
     expect(t.start).toBeUndefined();
@@ -77,7 +92,7 @@ describe('시간 단위 일정 (v3)', () => {
 describe('형식 검사', () => {
   test('버전·좌표·수단이 틀리면 거부하고, 숙박은 0~30으로 자른다', () => {
     const ok = toShared(T(sampleWaypoints()));
-    expect(() => fromShared({ ...ok, v: 4 })).toThrow(/버전/);
+    expect(() => fromShared({ ...ok, v: 5 })).toThrow(/버전/);
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 91, lo: 0, m: 'walk' }] })).toThrow(/좌표/);
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'rocket' }] })).toThrow(/수단/);
     expect(fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'walk', ni: 99 }] }).waypoints[0].nights).toBe(30);

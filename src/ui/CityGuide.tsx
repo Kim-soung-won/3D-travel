@@ -7,6 +7,7 @@ import { distanceKm, formatKm } from '../geo/geo';
 import type { Mode } from '../geo/modes';
 import { optimizeOrder, pathKm } from '../geo/optimize';
 import { newId, type RouteAction, type Stop, type Waypoint } from '../state/route';
+import { cityDayCount, stopDay } from '../state/schedule';
 
 export const CATEGORY_LABEL: Record<PlaceCategory, string> = {
   sight: '명소',
@@ -79,7 +80,9 @@ export function CityGuide({ city, data, dispatch, onSelect }: Props) {
 
   const optimize = () => {
     const before = pathKm(city.stops);
-    const order = optimizeOrder(city.stops);
+    // 여러 날이면 날마다 따로 다듬는다 (각 날의 첫 장소는 그대로)
+    const count = cityDayCount(city);
+    const order = Array.from({ length: count }, (_, k) => optimizeOrder(city.stops.filter((s) => stopDay(s, count) === k + 1))).flat();
     // 구간 수단은 새 이웃 사이 거리로 다시 어림한다 (마지막 지점의 수단은 쓰이지 않는다)
     const stops = order.map((s, i) => (order[i + 1] ? { ...s, mode: suggestMode(s, order[i + 1], hasTransit) } : s));
     const after = pathKm(stops);

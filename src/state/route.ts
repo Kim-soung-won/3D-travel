@@ -5,7 +5,7 @@
 import { useReducer } from 'react';
 import type { LatLon } from '../geo/geo';
 import type { Mode } from '../geo/modes';
-import type { TripStart } from './schedule';
+import { cityDayCount, stopDay, type TripStart } from './schedule';
 
 export interface Stop extends LatLon {
   id: string;
@@ -18,6 +18,8 @@ export interface Stop extends LatLon {
   link?: string;
   /** 머무는 시간(분). 세부 경유지, 또는 숙박하지 않는 도시 (schedule.ts) */
   stayMin?: number;
+  /** 세부 경유지가 속한 도시 안 날(1부터, 없으면 1). 목록은 날 순서로 놓인다 */
+  day?: number;
 }
 
 export interface Waypoint extends Stop {
@@ -27,8 +29,8 @@ export interface Waypoint extends Stop {
   nights?: number;
   /** 숙박하는 도시의 출발 시각 'HH:MM' (현지) */
   leaveAt?: string;
-  /** 도시 안 하루 일정의 시작 시각 'HH:MM' */
-  dayStart?: string;
+  /** 도시 안 날마다 일정 시작 시각 'HH:MM'. 칸이 비면(null) 기본 09:00 */
+  dayStarts?: (string | null)[];
 }
 
 /** 일정 한 벌: 공유·저장 단위 */
@@ -47,7 +49,7 @@ export type RouteAction =
   | { type: 'add'; waypoint: Waypoint }
   | { type: 'remove'; id: string }
   | { type: 'move'; id: string; delta: -1 | 1 }
-  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link' | 'leaveAt' | 'stayMin' | 'dayStart'>> }
+  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link' | 'leaveAt' | 'stayMin' | 'dayStarts'>> }
   | { type: 'clear' }
   | { type: 'load'; waypoints: Waypoint[]; start?: TripStart; label: string }
   | { type: 'setStart'; start: TripStart | undefined }
@@ -56,6 +58,8 @@ export type RouteAction =
   | { type: 'moveStop'; parentId: string; id: string; delta: -1 | 1 }
   | { type: 'updateStop'; parentId: string; id: string; patch: Partial<Pick<Stop, 'name' | 'area' | 'mode' | 'link' | 'stayMin'>> }
   | { type: 'clearStops'; parentId: string }
+  /** 세부 경유지를 다른 날로 옮긴다. 그날의 끝에 놓는다 */
+  | { type: 'setStopDay'; parentId: string; id: string; day: number }
   /** 추천 루트 불러오기·순서 최적화처럼 목록을 통째로 바꾼다. 되돌리기를 남긴다 */
   | { type: 'setStops'; parentId: string; stops: Stop[]; label: string }
   | { type: 'undo' }
@@ -68,6 +72,20 @@ function moveItem<T extends { id: string }>(list: T[], id: string, delta: -1 | 1
   const next = list.slice();
   [next[i], next[j]] = [next[j], next[i]];
   return next;
+}
+
+/** 날 순서로 놓는다. 같은 날 안의 순서는 그대로 둔다 */
+export function sortByDay<T extends Pick<Stop, 'day'>>(stops: T[]): T[] {
+  return stops
+    .map((s, i) => ({ s, i }))
+    .sort((a, b) => (a.s.day ?? 1) - (b.s.day ?? 1) || a.i - b.i)
+    .map((x) => x.s);
+}
+
+/** day가 1이면 칸을 지운다 (저장·공유를 짧게) */
+function withDay<T extends Stop>(s: T, day: number): T {
+  const { day: _old, ...rest } = s;
+  return (day > 1 ? { ...rest, day } : rest) as T;
 }
 
 export function routeReducer(state: RouteState, action: RouteAction): RouteState {
@@ -100,7 +118,16 @@ export function routeReducer(state: RouteState, action: RouteAction): RouteState
     case 'setStart':
       return { ...state, start: action.start };
     case 'addStop':
-      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: [...w.stops, action.stop] })), start, undo: null };
+      // 새 장소는 목록 끝(마지막 장소와 같은 날)에 놓는다
+      return {
+        waypoints: withParent(action.parentId, (w) => {
+          const last = w.stops.at(-1);
+          const day = action.stop.day ?? (last ? stopDay(last, cityDayCount(w)) : 1);
+          return { ...w, stops: [...w.stops, withDay(action.stop, day)] };
+        }),
+        start,
+        undo: null,
+      };
     case 'removeStop': {
       const target = parentOf(action.parentId)?.stops.find((s) => s.id === action.id);
       if (!target) return state;
@@ -112,8 +139,32 @@ export function routeReducer(state: RouteState, action: RouteAction): RouteState
     }
     case 'moveStop': {
       const parent = parentOf(action.parentId);
-      const next = parent && moveItem(parent.stops, action.id, action.delta);
+      if (!parent) return state;
+      // 날의 첫(끝) 장소를 위(아래)로 옮기면 자리를 바꾸지 않고 앞(뒤) 날의 끝(처음)으로 넘어간다
+      const count = cityDayCount(parent);
+      const i = parent.stops.findIndex((s) => s.id === action.id);
+      const other = parent.stops[i + action.delta];
+      if (i >= 0 && other && stopDay(other, count) !== stopDay(parent.stops[i], count)) {
+        const stops = parent.stops.map((s, k) => (k === i ? withDay(s, stopDay(other, count)) : s));
+        return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops })), start, undo: null };
+      }
+      const next = moveItem(parent.stops, action.id, action.delta);
       return next ? { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: next })), start, undo: null } : state;
+    }
+    case 'setStopDay': {
+      const parent = parentOf(action.parentId);
+      const target = parent?.stops.find((s) => s.id === action.id);
+      if (!parent || !target) return state;
+      const count = cityDayCount(parent);
+      const day = Math.max(1, Math.min(count, Math.round(action.day)));
+      const rest = parent.stops.filter((s) => s.id !== action.id);
+      // 그날(또는 그 앞 날)의 마지막 장소 뒤에 넣는다
+      let at = 0;
+      rest.forEach((s, k) => {
+        if (stopDay(s, count) <= day) at = k + 1;
+      });
+      const stops = [...rest.slice(0, at), withDay(target, day), ...rest.slice(at)];
+      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops })), start, undo: null };
     }
     case 'updateStop':
       return {
@@ -131,7 +182,7 @@ export function routeReducer(state: RouteState, action: RouteAction): RouteState
     }
     case 'setStops':
       if (!parentOf(action.parentId)) return state;
-      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: action.stops })), start, undo: snapshot(action.label) };
+      return { waypoints: withParent(action.parentId, (w) => ({ ...w, stops: sortByDay(action.stops) })), start, undo: snapshot(action.label) };
     case 'undo':
       return state.undo ? { waypoints: state.undo.waypoints, start: state.undo.start, undo: null } : state;
     case 'dismissUndo':

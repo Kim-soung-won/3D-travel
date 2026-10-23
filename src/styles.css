@@ -237,3 +237,42 @@ body { background: var(--bg); overflow: hidden; }
 .stay { display: inline-flex; align-items: center; gap: 4px; }
 .stay-value { min-width: 4.5em; text-align: center; font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; }
 .trip-start input[type='time'], .city-times input[type='time'] { min-width: 9em; }
+
+/* 도시 안 여러 날: 날마다 머리(날짜·시작 시각·끝)를 끼운다 */
+.day-head { display: flex; flex-direction: column; gap: 4px; padding: 8px 0 6px; }
+.stop-group + .stop .stop-row { margin-top: 2px; }
+.stop-group { padding-top: 6px; }
+.stop-group:not(:first-child) { margin-top: 6px; border-top: 2px dashed var(--line); }
+.stop-group .day-head + .day-head { border-top: 1px dashed var(--line); }
+.day-note { margin: 0; font-size: 12px; color: var(--ink-3); }
+.day-note.warn { color: var(--accent-ink); font-weight: 700; }
+.city-times select { flex: none; font: inherit; font-size: 13px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: var(--ink); max-width: 100%; }
+
+/* 좁은 화면: 패널 손잡이로 크게 펼치기, 장소의 시각·머무름·날을 한두 줄로 */
+.panel-grip { display: none; }
+@media (max-width: 720px) {
+  .panel { padding-top: 22px; transition: max-height 200ms ease; }
+  .panel.is-tall { max-height: calc(100vh - 72px); max-height: calc(100dvh - 72px); }
+  .panel-grip {
+    display: grid; place-items: center; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 96px; height: 22px; padding: 0; border: 0; background: none; cursor: pointer;
+  }
+  .panel-grip span { width: 40px; height: 5px; border-radius: 3px; background: var(--ink-3); }
+  .panel-grip:focus-visible { outline: 2px solid var(--select); border-radius: 8px; }
+  .city-times { flex-direction: row; flex-wrap: wrap; gap: 2px 14px; padding-left: 44px; }
+  .city-times-row { min-height: 28px; }
+  .city-times-key { width: auto; }
+  .city-times-note { padding-left: 0; flex-basis: 100%; }
+}
+@media (max-width: 720px) and (prefers-reduced-motion: reduce) { .panel { transition: none; } }
+
+/* 겹쳐서 위로 띄운 라벨: 핀까지 세로줄로 잇는다 (labelLayout.ts) */
+.pin-label.is-lifted::after, .city-pin-wrap.is-lifted::after {
+  content: ''; position: absolute; left: 50%; top: 100%; width: 2px; height: var(--lift, 0); margin-left: -1px;
+  background: #2f4b4f; pointer-events: none;
+}
+/* 띄운 라벨의 줄이 제자리 라벨 글자를 가로지르지 않게, 띄운 라벨을 한 층 아래에 둔다 */
+.pin-label { z-index: 1; }
+.pin-label.is-lifted { z-index: 0; }
+.maplibregl-marker.city-pin-wrap { z-index: 1; }
+.maplibregl-marker.city-pin-wrap.is-lifted { z-index: 0; }

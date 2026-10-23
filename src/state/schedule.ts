@@ -2,7 +2,9 @@
 // 시각은 모두 절대 시각(UTC ms)으로 계산하고, 보일 때만 그 도시의 현지 시각으로 바꾼다. 그래서 시차와 날짜 변경선이 반영된다.
 // - 숙박하는 도시: 도착한 날 + 숙박 수 날짜의 출발 시각(leaveAt, 기본 10:00)에 떠난다.
 // - 당일 들르는 도시: 머무는 시간(stayMin, 기본 3시간) 뒤에 떠난다.
-// - 도시 안 세부 경유지: 하루 시작 시각(dayStart, 기본 09:00)부터 장소마다 머무는 시간(stayMin, 기본 1시간)과 이동 시간을 더한다.
+// - 도시 안 세부 경유지: 도시에 머무는 날(숙박 수 + 1일)마다 따로 계산한다. 그날의 시작 시각(dayStarts, 기본 09:00)부터
+//   장소마다 머무는 시간(stayMin, 기본 1시간)과 이동 시간을 더한다. 첫날은 도착 시각보다 일찍 시작하지 않고,
+//   마지막 날이 출발 시각을 넘기면 알린다. 날이 바뀌는 구간(전날 마지막 → 다음 날 첫 장소)의 이동 시간은 더하지 않는다.
 import { nightsOf } from './itinerary';
 import type { Stop, Waypoint } from './route';
 
@@ -89,13 +91,16 @@ function dayNumber(date: string): number {
 }
 const WEEKDAY = ['일', '월', '화', '수', '목', '금', '토'];
 
+/** "10/23(목)" (날짜를 정했을 때) 또는 "3일차". base는 여행 첫날 */
+export function formatDay(date: string, base: string, withDate: boolean): string {
+  if (!withDate) return `${dayNumber(date) - dayNumber(base) + 1}일차`;
+  const [, m, d] = date.split('-').map(Number);
+  return `${m}/${d}(${WEEKDAY[(dayNumber(date) + 4) % 7]})`; // 1970-01-01은 목요일
+}
+
 /** "10/23(목) 14:30" (날짜를 정했을 때) 또는 "3일차 14:30". base는 여행 첫날 */
 export function formatWhen(ms: number, tz: string, base: string, withDate: boolean): string {
-  const date = localDate(ms, tz);
-  const time = localTime(ms, tz);
-  if (!withDate) return `${dayNumber(date) - dayNumber(base) + 1}일차 ${time}`;
-  const [, m, d] = date.split('-').map(Number);
-  return `${m}/${d}(${WEEKDAY[(dayNumber(date) + 4) % 7]}) ${time}`; // 1970-01-01은 목요일
+  return `${formatDay(localDate(ms, tz), base, withDate)} ${localTime(ms, tz)}`;
 }
 
 /** "2일 1시간", "3시간 30분", "45분" */
@@ -167,29 +172,79 @@ export function scheduleDayRange(s: Schedule, i: number): string {
   return b > a ? `${a}~${b}일차` : `${a}일차`;
 }
 
-// ---- 도시 안 하루 일정 ----
+// ---- 도시 안 일정 (날마다) ----
 export interface PlaceTime {
-  /** 하루 시작 0시 기준 분 (하루를 넘기면 1440 이상) */
+  /** 그날 0시 기준 분 (하루를 넘기면 1440 이상) */
   arrive: number;
   leave: number;
 }
 
-/** 세부 경유지 시간표. legMin[i]는 i → i+1 이동 시간(분), 모르면 null */
-export function computeDayPlan(dayStart: string | undefined, stops: Pick<Stop, 'stayMin'>[], legMin: (number | null)[]): { places: PlaceTime[]; pending: boolean } {
-  const [h, m] = (isTime(dayStart) ? dayStart : DEFAULT_DAY_START).split(':').map(Number);
-  let t = h * 60 + m;
-  let pending = false;
-  const places = stops.map((s, i) => {
-    const arrive = t;
-    const leave = arrive + clampStay(s.stayMin ?? DEFAULT_PLACE_STAY_MIN);
-    if (i < stops.length - 1) {
-      const lm = legMin[i];
-      if (lm == null) pending = true;
-      t = leave + Math.round(lm ?? 0);
+/** 도시에 머무는 날 수: 도착한 날부터 떠나는 날까지 */
+export const cityDayCount = (w: Pick<Waypoint, 'nights'>) => nightsOf(w) + 1;
+/** 세부 경유지가 속한 날(1부터). 숙박을 줄여 없어진 날이면 마지막 날로 본다 */
+export const stopDay = (s: Pick<Stop, 'day'>, count: number) => Math.max(1, Math.min(count, Math.round(s.day ?? 1)));
+
+export interface DayPlan {
+  /** 도시 안 몇째 날 (1부터) */
+  day: number;
+  /** 그날 현지 날짜. 시간대를 모르면 없음 */
+  date?: string;
+  /** 정한(또는 기본) 시작 시각, 분 */
+  start: number;
+  /** 첫날 도착 시각 때문에 늦춰진 실제 시작, 분. 늦춰지지 않았으면 start와 같다 */
+  begin: number;
+  /** stops에서의 번호와 시각 */
+  places: ({ index: number } & PlaceTime)[];
+  pending: boolean;
+  /** 도착 시각(첫날), 출발 시각(마지막 날). 그날 0시 기준 분 */
+  arriveAt?: number;
+  leaveAt?: number;
+}
+
+const toMin = (t: string) => {
+  const [h, m] = t.split(':').map(Number);
+  return h * 60 + m;
+};
+
+/**
+ * 도시 안 일정을 날마다 계산한다. legMin[i]는 stops[i] → stops[i+1] 이동 시간(분), 모르면 null.
+ * time이 있으면(시간대를 안 뒤) 첫날은 도착 뒤부터 시작하고, 마지막 날에 출발 시각을 붙인다.
+ */
+export function computeCityPlan(
+  city: Pick<Waypoint, 'nights' | 'dayStarts'>,
+  stops: Pick<Stop, 'stayMin' | 'day'>[],
+  legMin: (number | null)[],
+  time: CityTime | null,
+): DayPlan[] {
+  const count = cityDayCount(city);
+  const firstDate = time ? localDate(time.arrive, time.tz) : undefined;
+  const days: DayPlan[] = Array.from({ length: count }, (_, k) => {
+    const set = city.dayStarts?.[k];
+    const start = toMin(isTime(set) ? set : DEFAULT_DAY_START);
+    const date = firstDate && addDays(firstDate, k);
+    const plan: DayPlan = { day: k + 1, date, start, begin: start, places: [], pending: false };
+    if (time && date) {
+      if (k === 0) {
+        plan.arriveAt = toMin(localTime(time.arrive, time.tz));
+        plan.begin = Math.max(start, plan.arriveAt);
+      }
+      if (k === count - 1) plan.leaveAt = toMin(localTime(time.leave, time.tz)) + (dayNumber(localDate(time.leave, time.tz)) - dayNumber(date)) * 1440;
     }
-    return { arrive, leave };
+    return plan;
   });
-  return { places, pending };
+  // 세부 경유지는 날 순서로 놓여 있다 (route.ts가 지킨다)
+  stops.forEach((s, i) => {
+    const plan = days[stopDay(s, count) - 1];
+    const last = plan.places.at(-1);
+    let arrive = plan.begin;
+    if (last) {
+      const lm = legMin[i - 1];
+      if (lm == null) plan.pending = true;
+      arrive = last.leave + Math.round(lm ?? 0);
+    }
+    plan.places.push({ index: i, arrive, leave: arrive + clampStay(s.stayMin ?? DEFAULT_PLACE_STAY_MIN) });
+  });
+  return days;
 }
 
 /** 분 → "14:30", 하루를 넘기면 "다음 날 01:10" */

@@ -1,6 +1,6 @@
 // 패널: 지구 화면이면 도시 단위 경유지, 도시 화면이면 그 도시의 세부 경유지를 다룬다.
 // 지우기는 확인 창 대신 즉시 실행하고 되돌리기를 준다.
-import { useEffect, useMemo, useRef, type Dispatch } from 'react';
+import { useEffect, useMemo, useRef, type Dispatch, type ReactNode } from 'react';
 import { PLACES_NOTICE, type CityOption } from '../data/places';
 import { distanceKm, formatKm } from '../geo/geo';
 import { CITY_MODES, formatDuration, GLOBE_MODES } from '../geo/modes';
@@ -8,10 +8,9 @@ import type { LegState } from '../hooks/useLegs';
 import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } from '../state/route';
 import { cityDataAt } from '../data';
 import { cityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
-import { useTimeZones } from '../geo/timezone';
-import { computeDayPlan, computeSchedule, DEFAULT_CITY_STAY_MIN, DEFAULT_PLACE_STAY_MIN, DEFAULT_START, scheduleDayRange } from '../state/schedule';
+import { cityDayCount, computeCityPlan, DEFAULT_CITY_STAY_MIN, DEFAULT_PLACE_STAY_MIN, formatDay, scheduleDayRange, stopDay, type Schedule } from '../state/schedule';
 import { CityGuide } from './CityGuide';
-import { CityTimes, DayStartField, PlaceTimes, TripStartField } from './TimeFields';
+import { CityTimes, DayHead, PlaceTimes, TripStartField } from './TimeFields';
 import { StopList } from './StopList';
 
 interface CommonProps {
@@ -23,6 +22,20 @@ interface CommonProps {
   playing: boolean;
   progress: number;
   onTogglePlay: () => void;
+  /** 도시 단위 일정. 시간대를 찾기 전에는 null */
+  schedule: Schedule | null;
+  /** 좁은 화면에서 패널을 크게 펼쳤는지 */
+  tall: boolean;
+  onToggleTall: () => void;
+}
+
+/** 좁은 화면 전용: 패널을 크게 펼치거나 접는 손잡이. 넓은 화면에서는 CSS로 숨긴다 */
+function PanelGrip({ tall, onToggle }: { tall: boolean; onToggle: () => void }) {
+  return (
+    <button type="button" className="panel-grip" aria-expanded={tall} aria-label={tall ? '패널 작게 보기' : '패널 크게 보기'} onClick={onToggle}>
+      <span aria-hidden="true" />
+    </button>
+  );
 }
 
 function Undo({ route, dispatch }: Pick<CommonProps, 'route' | 'dispatch'>) {
@@ -158,14 +171,10 @@ export function GlobeSidebar(props: CommonProps & {
   const { route, dispatch } = props;
   const list = route.waypoints;
   const days = cityDays(list);
-  // 시간 단위 일정: 시간대를 찾고, 구간 이동 시간(경로를 찾는 중이면 모름)을 더해 도착·출발 시각을 계산한다
-  const zones = useTimeZones(list);
-  const schedule = useMemo(
-    () => (zones ? computeSchedule(list, zones, props.legs.map((l) => (l.loading ? null : l.durationS / 60)), route.start ?? DEFAULT_START) : null),
-    [list, zones, props.legs, route.start],
-  );
+  const { schedule } = props;
   return (
-    <aside className="panel" aria-label="여행 경로">
+    <aside className={props.tall ? 'panel is-tall' : 'panel'} aria-label="여행 경로">
+      <PanelGrip tall={props.tall} onToggle={props.onToggleTall} />
       <header className="panel-head">
         <div className="panel-title">
           <h1>
@@ -239,14 +248,35 @@ export function GlobeSidebar(props: CommonProps & {
 }
 
 export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () => void }) {
-  const { route, dispatch, city } = props;
-  // 하루 시간표: 하루 시작부터 장소마다 머무는 시간과 구간 이동 시간을 더한다
-  const plan = useMemo(() => computeDayPlan(city.dayStart, city.stops, props.legs.map((l) => (l.loading ? null : l.durationS / 60))), [city.dayStart, city.stops, props.legs]);
+  const { route, dispatch, city, schedule } = props;
+  // 도시 안 일정: 머무는 날마다 시작 시각부터 장소마다 머무는 시간과 구간 이동 시간을 더한다. 첫날은 도착, 마지막 날은 출발에 잇는다
+  const cityIndex = route.waypoints.findIndex((w) => w.id === city.id);
+  const time = schedule?.cities[cityIndex] ?? null;
+  const plans = useMemo(
+    () => computeCityPlan(city, city.stops, props.legs.map((l) => (l.loading ? null : l.durationS / 60)), time),
+    [city, props.legs, time],
+  );
+  const count = cityDayCount(city);
+  // 날 이름: 날짜를 정했으면 "10/24(토)", 아니면 여행 전체의 "3일차". 시간대를 찾기 전에는 숙박 수로 어림한다
+  const firstTripDay = cityDays(route.waypoints)[cityIndex]?.arrive ?? 1;
+  const dayLabels = plans.map((p, k) => (schedule && p.date ? formatDay(p.date, schedule.base, schedule.withDate) : `${firstTripDay + k}일차`));
+  const placeOf = (i: number) => plans.flatMap((p) => p.places).find((p) => p.index === i);
+  const setStart = (k: number, t: string | undefined) => {
+    const next = Array.from({ length: Math.max(count, city.dayStarts?.length ?? 0) }, (_, j) => (j === k ? t ?? null : city.dayStarts?.[j] ?? null));
+    dispatch({ type: 'update', id: city.id, patch: { dayStarts: next.some(Boolean) ? next : undefined } });
+  };
+  const head = (k: number) => <DayHead key={k} plan={plans[k]} label={count > 1 ? (schedule?.withDate ? `${dayLabels[k]} · ${k + 1}일째` : dayLabels[k]) : '하루 시작'} onStart={(t) => setStart(k, t)} />;
+  // 여러 날이면 날마다 머리를 끼운다. 장소가 없는 날도 머리를 보여 그날이 있음을 알린다
+  const headsBetween = (from: number, to: number): ReactNode =>
+    to > from ? Array.from({ length: to - from }, (_, j) => head(from + j)) : null;
+  const lastStop = city.stops.at(-1);
+  const trailing = count > 1 && lastStop ? headsBetween(stopDay(lastStop, count), count) : null;
   return (
-    <aside className="panel" aria-label={`${city.name} 세부 경로`}>
+    <aside className={props.tall ? 'panel is-tall' : 'panel'} aria-label={`${city.name} 세부 경로`}>
+      <PanelGrip tall={props.tall} onToggle={props.onToggleTall} />
       <header className="panel-head">
         <button type="button" className="back-btn" onClick={props.onBack}>← 지구로 돌아가기</button>
-        <h1>{city.name}</h1>
+        <h1>{city.name}{count > 1 && <span className="trip-badge">{count - 1}박 {count}일</span>}</h1>
         <p className="hint">장소를 검색하거나 지도를 클릭해 추가하세요. 버스·자동차·도보는 실제 도로를, 지하철은 노선을 따라갑니다.</p>
       </header>
       <div className="panel-body">
@@ -255,12 +285,7 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
         <div className="empty"><p>아직 세부 경유지가 없습니다. 추천 루트를 불러오거나 장소를 검색해 보세요.</p></div>
       ) : (
         <>
-        <DayStartField
-          dayStart={city.dayStart}
-          end={plan.places.at(-1)?.leave ?? null}
-          pending={plan.pending}
-          onChange={(dayStart) => dispatch({ type: 'update', id: city.id, patch: { dayStart } })}
-        />
+        {count === 1 && head(0)}
         <StopList
           items={city.stops}
           legs={props.legs}
@@ -273,14 +298,22 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
           onRemove={(id) => dispatch({ type: 'removeStop', parentId: city.id, id })}
           onMode={(id, mode) => dispatch({ type: 'updateStop', parentId: city.id, id, patch: { mode } })}
           onLink={(id, link) => dispatch({ type: 'updateStop', parentId: city.id, id, patch: { link } })}
-          extra={(s) => (
-            <PlaceTimes
-              name={s.name}
-              place={plan.places[city.stops.findIndex((x) => x.id === s.id)]}
-              stayMin={s.stayMin ?? DEFAULT_PLACE_STAY_MIN}
-              onStay={(stayMin) => dispatch({ type: 'updateStop', parentId: city.id, id: s.id, patch: { stayMin } })}
-            />
-          )}
+          groupHead={count > 1 ? (s, i) => headsBetween(i ? stopDay(city.stops[i - 1], count) : 0, stopDay(s, count)) : undefined}
+          tail={trailing && <li className="stop-group">{trailing}</li>}
+          extra={(s) => {
+            const i = city.stops.findIndex((x) => x.id === s.id);
+            return (
+              <PlaceTimes
+                name={s.name}
+                place={placeOf(i)}
+                stayMin={s.stayMin ?? DEFAULT_PLACE_STAY_MIN}
+                onStay={(stayMin) => dispatch({ type: 'updateStop', parentId: city.id, id: s.id, patch: { stayMin } })}
+                days={count > 1 ? dayLabels : undefined}
+                day={stopDay(s, count)}
+                onDay={(day) => dispatch({ type: 'setStopDay', parentId: city.id, id: s.id, day })}
+              />
+            );
+          }}
         />
         </>
       )}

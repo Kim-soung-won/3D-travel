@@ -12,6 +12,7 @@ import { distanceKm, type LatLon } from '../geo/geo';
 import { MODES } from '../geo/modes';
 import type { LegState } from '../hooks/useLegs';
 import type { Stop } from '../state/route';
+import { liftLabels } from '../ui/labelLayout';
 import { MODE_ICON } from '../ui/modeIcons';
 import { loadCityStyle } from './mapStyle';
 import { linkLabel, safeLink } from '../state/link';
@@ -185,6 +186,27 @@ export default function CityView(props: CityViewProps) {
       }
       markers.current.push(new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([s.lon, s.lat]).addTo(m));
     });
+    // 가까운 마커끼리 겹치면 고른 것·앞 번호를 제자리에 두고 나머지를 위로 띄운다. 가려진 링크 단추도 누를 수 있게 된다
+    const selected = props.selectedId;
+    const stops = props.stops;
+    const relayout = () => {
+      const boxes = markers.current.map((mk, i) => {
+        const p = m.project([stops[i].lon, stops[i].lat]);
+        const el = mk.getElement();
+        return { x: p.x, y: p.y, w: el.offsetWidth, h: el.offsetHeight, priority: (stops[i].id === selected ? 0 : 1) + i / 1000 };
+      });
+      liftLabels(boxes).forEach((lift, i) => {
+        const mk = markers.current[i];
+        mk.setOffset([0, -lift]);
+        mk.getElement().style.setProperty('--lift', `${lift.toFixed(1)}px`);
+        mk.getElement().classList.toggle('is-lifted', lift > 0);
+      });
+    };
+    relayout();
+    m.on('move', relayout);
+    return () => {
+      m.off('move', relayout);
+    };
   }, [props.stops, props.selectedId, loaded]);
 
   // 목록이 통째로 바뀌면(추천 루트·되돌리기 등 두 곳 이상 달라짐) 전체가 보이게 맞춘다. 한 곳 추가는 그대로 둔다

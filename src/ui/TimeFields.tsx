@@ -1,4 +1,4 @@
-// 시간 단위 일정 입력: 첫 도시 도착(날짜·시각), 숙박 도시의 출발 시각, 당일 도시·장소의 머무는 시간, 도시 안 하루 시작.
+// 시간 단위 일정 입력: 첫 도시 도착(날짜·시각), 숙박 도시의 출발 시각, 당일 도시·장소의 머무는 시간, 도시 안 날마다 시작 시각.
 // 시각은 모두 그 도시의 현지 시각이다. 계산은 state/schedule.ts에 있다.
 import {
   clampStay,
@@ -13,6 +13,7 @@ import {
   MAX_STAY_MIN,
   STAY_STEP_MIN,
   type CityTime,
+  type DayPlan,
   type PlaceTime,
   type Schedule,
   type TripStart,
@@ -96,28 +97,54 @@ export function CityTimes({ name, nights, leaveAt, stayMin, time, schedule, last
   );
 }
 
-/** 도시 안 하루 일정의 시작 시각과 끝나는 시각 */
-export function DayStartField({ dayStart, end, pending, onChange }: { dayStart: string | undefined; end: number | null; pending: boolean; onChange: (t: string | undefined) => void }) {
-  const value = isTime(dayStart) ? dayStart : DEFAULT_DAY_START;
-  const [h, m] = value.split(':').map(Number);
+/** 도시 안 하루의 머리: 날짜, 시작 시각, 끝나는 시각. 첫날은 도착 뒤에 시작하고, 마지막 날이 출발을 넘기면 알린다 */
+export function DayHead({ plan, label, onStart }: { plan: DayPlan; label: string; onStart: (t: string | undefined) => void }) {
+  const end = plan.places.at(-1)?.leave;
+  const late = end !== undefined && plan.leaveAt !== undefined ? end - plan.leaveAt : 0;
   return (
-    <div className="trip-start">
-      <span className="trip-start-label">하루 시작</span>
-      <input type="time" value={value} aria-label="도시 안 일정 시작 시각" onChange={(e) => onChange(isTime(e.target.value) && e.target.value !== DEFAULT_DAY_START ? e.target.value : undefined)} />
-      {end !== null && (
-        <span className="trip-start-hint">
-          {formatClock(end)}에 끝 · 모두 {formatSpan(end - (h * 60 + m))}
-          {pending && ' (경로를 찾는 중이라 바뀔 수 있음)'}
-        </span>
+    <div className="day-head">
+      <div className="trip-start">
+        <span className="trip-start-label">{label}</span>
+        <input
+          type="time"
+          value={formatClock(plan.start)}
+          aria-label={`${label} 일정 시작 시각`}
+          onChange={(e) => onStart(isTime(e.target.value) && e.target.value !== DEFAULT_DAY_START ? e.target.value : undefined)}
+        />
+        {end !== undefined ? (
+          <span className="trip-start-hint">
+            {formatClock(end)}에 끝 · 모두 {formatSpan(end - plan.begin)}
+            {plan.pending && ' (경로를 찾는 중이라 바뀔 수 있음)'}
+          </span>
+        ) : (
+          <span className="trip-start-hint">아직 장소가 없습니다</span>
+        )}
+      </div>
+      {plan.arriveAt !== undefined && plan.begin > plan.start && (
+        <p className="day-note">도시에 {formatClock(plan.arriveAt)}에 도착해서 그 뒤부터 시작합니다</p>
       )}
+      {late > 0 && <p className="day-note warn">떠나는 시각({formatClock(plan.leaveAt!)})보다 {formatSpan(late)} 늦게 끝납니다. 머무는 시간을 줄이거나 다른 날로 옮기세요.</p>}
+      {late <= 0 && plan.leaveAt !== undefined && end !== undefined && <p className="day-note">{formatClock(plan.leaveAt)}에 이 도시를 떠납니다</p>}
     </div>
   );
 }
 
-/** 세부 경유지의 머무는 시각과 머무는 시간 */
-export function PlaceTimes({ name, place, stayMin, onStay }: { name: string; place: PlaceTime | undefined; stayMin: number; onStay: (min: number) => void }) {
+/** 세부 경유지의 머무는 시각과 머무는 시간. 여러 날이면 날을 고른다 */
+export function PlaceTimes({ name, place, stayMin, onStay, days, day, onDay }: {
+  name: string; place: PlaceTime | undefined; stayMin: number; onStay: (min: number) => void;
+  /** 고를 수 있는 날 이름(1일째부터). 하루뿐이면 비운다 */
+  days?: string[]; day?: number; onDay?: (day: number) => void;
+}) {
   return (
     <div className="city-times" onClick={(e) => e.stopPropagation()}>
+      {days && days.length > 1 && (
+        <div className="city-times-row">
+          <span className="city-times-key">날</span>
+          <select value={day ?? 1} aria-label={`${name} 가는 날`} onChange={(e) => onDay?.(Number(e.target.value))}>
+            {days.map((d, k) => <option key={k} value={k + 1}>{d}</option>)}
+          </select>
+        </div>
+      )}
       <div className="city-times-row">
         <span className="city-times-key">시간</span>
         <span className="city-times-val">{place ? `${formatClock(place.arrive)} – ${formatClock(place.leave)}` : '…'}</span>
