@@ -1,5 +1,5 @@
 // 구간 경로: 도로를 따르는 수단은 OSRM(FOSSGIS 공개 서버, 키 없음)으로, 지하철은 사전 노선 데이터로,
-// 비행기는 대권 직선 + 사전 비행 시간으로. 데이터가 없으면 직선과 평균 속도로 어림한다.
+// 비행기는 대권 직선 + 사전 비행 시간으로, 기차는 지표 직선 + 사전 지상 이동 시간(KTX 등)으로. 데이터가 없으면 직선과 평균 속도로 어림한다.
 // 같은 구간은 다시 요청하지 않도록 메모리에 캐시한다. 공개 서버라 시제품 용도로만 쓴다.
 import { cityDataAt, intercityLink } from '../data';
 import { distanceKm, type LatLon } from './geo';
@@ -59,13 +59,21 @@ export function planeLeg(a: LatLon, b: LatLon): LegGeometry {
   return { ...leg, durationS: link.flightMin * 60, timeKnown: true, note: ground ? `지상 대안: ${ground}` : undefined };
 }
 
+/** 기차: 지표 직선. 두 도시 사이 기차 시간을 사전 데이터로 알면 그 값을, 모르면 직선 거리와 평균 속도로 어림한다 */
+export function trainLeg(a: LatLon, b: LatLon): LegGeometry {
+  const leg = straightLeg(a, b, 'train');
+  const train = intercityLink(a, b)?.ground?.find((g) => g.mode === 'train');
+  if (train) return { ...leg, durationS: train.minutes * 60, note: `${train.name} 기준 (참고 데이터)` };
+  return { ...leg, note: `기차 노선 데이터가 없어 직선 거리와 평균 시속 ${MODES.train.speedKmh}km로 어림` };
+}
+
 export function fetchLeg(a: LatLon, b: LatLon, mode: Mode, fetcher: typeof fetch = fetch): Promise<LegGeometry> {
   const key = legKey(a, b, mode);
   const hit = cache.get(key);
   if (hit) return hit;
   const info = MODES[mode];
   const job: Promise<LegGeometry> = !info.road
-    ? Promise.resolve(mode === 'subway' ? subwayLeg(a, b) : mode === 'plane' ? planeLeg(a, b) : straightLeg(a, b, mode))
+    ? Promise.resolve(mode === 'subway' ? subwayLeg(a, b) : mode === 'plane' ? planeLeg(a, b) : mode === 'train' ? trainLeg(a, b) : straightLeg(a, b, mode))
     : fetcher(`${OSRM[info.road]}/${a.lon},${a.lat};${b.lon},${b.lat}?overview=full&geometries=geojson`)
         .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
         .then((data: { code: string; routes?: { distance: number; duration: number; geometry: { coordinates: [number, number][] } }[] }) => {

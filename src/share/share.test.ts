@@ -92,7 +92,8 @@ describe('시간 단위 일정 (v3·v4)', () => {
 describe('형식 검사', () => {
   test('버전·좌표·수단이 틀리면 거부하고, 숙박은 0~30으로 자른다', () => {
     const ok = toShared(T(sampleWaypoints()));
-    expect(() => fromShared({ ...ok, v: 5 })).toThrow(/버전/);
+    expect(() => fromShared({ ...ok, v: 6 })).toThrow(/버전/);
+    expect(fromShared({ v: 5, w: [{ n: '가', la: 0, lo: 0, m: 'train' }] }).waypoints[0].mode).toBe('train');
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 91, lo: 0, m: 'walk' }] })).toThrow(/좌표/);
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'rocket' }] })).toThrow(/수단/);
     expect(fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'walk', ni: 99 }] }).waypoints[0].nights).toBe(30);

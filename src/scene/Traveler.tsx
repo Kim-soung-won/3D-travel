@@ -27,7 +27,7 @@ type Segment =
   | { kind: 'stay'; stop: number; start: number; duration: number }
   | { kind: 'move'; leg: number; start: number; duration: number };
 
-const BY: Record<Mode, string> = { plane: '비행기로', bus: '버스로', car: '자동차로', subway: '지하철로', walk: '걸어서' };
+const BY: Record<Mode, string> = { plane: '비행기로', train: '기차로', bus: '버스로', car: '자동차로', subway: '지하철로', walk: '걸어서' };
 
 export function buildTimeline(stops: Pick<TripStop, 'nights'>[], legs: Leg3D[]): Segment[] {
   const segs: Segment[] = [];

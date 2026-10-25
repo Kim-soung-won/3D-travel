@@ -46,7 +46,7 @@ export interface CuratedRoute {
   length: 'half' | 'day';
   placeIds: string[];
   /** placeIds 사이 구간 수단. 길이는 placeIds.length - 1. 도시 화면 수단만 쓴다 */
-  modes: Exclude<Mode, 'plane'>[];
+  modes: Exclude<Mode, 'plane' | 'train'>[];
   summary: string;
 }
 

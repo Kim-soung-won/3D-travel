@@ -1,7 +1,8 @@
-// 공유·저장 형식 v4. 공유 링크, 파일 내보내기, 브라우저 자동 저장이 모두 이 형식을 쓴다.
+// 공유·저장 형식 v5. 공유 링크, 파일 내보내기, 브라우저 자동 저장이 모두 이 형식을 쓴다.
 // v1 → v2: 경유지 링크(u)가 생겼다.
 // v2 → v3: 시간 단위 일정(첫 도시 도착 st, 출발 시각 lt, 머무는 시간 sm, 하루 시작 ds)이 생겼다.
 // v3 → v4: 도시 안 일정이 여러 날로 나뉘었다. 세부 경유지의 날(d), 날마다 시작 시각(ds가 문자열 하나 → 배열).
+// v4 → v5: 이동 수단에 기차(train)가 생겼다. 예전 앱이 모르는 수단을 "버전이 다르다"고 알리도록 버전을 올렸다.
 // 예전 버전은 그대로 읽는다. v3의 ds 문자열은 첫날 시작 시각이 된다.
 // 경로선(도로 좌표)은 담지 않는다. 받는 쪽에서 다시 계산한다. 계획: docs/plan/sharing.md
 import type { Mode } from '../geo/modes';
@@ -10,10 +11,10 @@ import { safeLink } from '../state/link';
 import { newId, sortByDay, type Stop, type Trip, type Waypoint } from '../state/route';
 import { clampStay, isDate, isTime, type TripStart } from '../state/schedule';
 
-export const FORMAT_VERSION = 4;
+export const FORMAT_VERSION = 5;
 /** 읽을 수 있는 버전. 예전 버전을 지우면 이미 퍼진 링크가 깨진다 */
-const READABLE_VERSIONS = [1, 2, 3, 4];
-const MODES: Mode[] = ['plane', 'bus', 'car', 'subway', 'walk'];
+const READABLE_VERSIONS = [1, 2, 3, 4, 5];
+const MODES: Mode[] = ['plane', 'train', 'bus', 'car', 'subway', 'walk'];
 export const LIMITS = { cities: 100, stopsPerCity: 100, name: 80, area: 80 };
 
 /**

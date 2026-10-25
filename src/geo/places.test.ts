@@ -47,6 +47,19 @@ describe('구간 경로', () => {
     const unknown = await fetchLeg(SEOUL, { lat: 35.8714, lon: 128.6014 }, 'plane');
     expect(unknown.timeKnown).toBeFalsy();
   });
+  test('기차는 지표 직선으로 그리고, 사전 데이터의 기차 시간(서울–부산 KTX 2시간 40분)을 쓴다. 모르면 평균 속도로 어림', async () => {
+    const busan = { lat: 35.1796, lon: 129.0756 };
+    const leg = await fetchLeg(SEOUL, busan, 'train');
+    expect(leg.kind).toBe('straight');
+    expect(leg.durationS).toBe(160 * 60);
+    expect(leg.note).toMatch(/KTX/);
+    // 서울–대구는 직선 약 237km. 데이터가 없어 시속 90km로 어림한다
+    const daegu = await fetchLeg(SEOUL, { lat: 35.8714, lon: 128.6014 }, 'train');
+    expect(daegu.distanceKm).toBeGreaterThan(230);
+    expect(daegu.distanceKm).toBeLessThan(245);
+    expect(daegu.durationS).toBeCloseTo((daegu.distanceKm / 90) * 3600, 0);
+    expect(daegu.note).toMatch(/어림/);
+  });
   test('도로 수단은 OSRM 결과를 쓰고, 버스 시간은 자동차의 1.5배로 어림', async () => {
     const fetcher = vi.fn(async () => ({
       ok: true,

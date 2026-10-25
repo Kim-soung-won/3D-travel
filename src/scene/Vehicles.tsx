@@ -88,6 +88,28 @@ function Subway() {
   );
 }
 
+function Train() {
+  return (
+    <group>
+      {[-0.8, 0.8].map((z) => (
+        <mesh key={z} position={[0, 0.32, z]}>
+          <boxGeometry args={[0.5, 0.48, 1.5]} />
+          <meshToonMaterial color="#fffaf0" />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.25, 0]}>
+        <boxGeometry args={[0.52, 0.14, 3.1]} />
+        <meshToonMaterial color="#3f7cc4" />
+      </mesh>
+      {/* 앞머리: 고속열차처럼 둥글게 */}
+      <mesh position={[0, 0.3, 1.6]} rotation={[Math.PI / 2, 0, 0]} scale={[1, 1, 0.9]}>
+        <sphereGeometry args={[0.25, 12, 10, 0, Math.PI * 2, 0, Math.PI / 2]} />
+        <meshToonMaterial color="#3f7cc4" />
+      </mesh>
+    </group>
+  );
+}
+
 function Walker() {
   return (
     <group>
@@ -107,6 +129,8 @@ export function Vehicle({ mode }: { mode: Mode }) {
   switch (mode) {
     case 'plane':
       return <Plane />;
+    case 'train':
+      return <Train />;
     case 'bus':
       return <Bus />;
     case 'car':

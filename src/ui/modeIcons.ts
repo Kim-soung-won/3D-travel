@@ -6,6 +6,7 @@ const wrap = (body: string) =>
 
 export const MODE_ICON: Record<Mode, string> = {
   plane: wrap('<path d="M21 3 3 10.5l7 2.5 2.5 7z"/><path d="m10 13 4-4"/>'),
+  train: wrap('<path d="M2 16h15a5 5 0 0 0 5-5c-2-3-6-5-11-5H2z"/><path d="M2 10h11l4 3"/><path d="M2 20h20"/><path d="M6 16v4m8-4v4"/>'),
   bus: wrap('<rect x="4" y="3" width="16" height="15" rx="3"/><path d="M4 11h16"/><circle cx="8" cy="20" r="1.5"/><circle cx="16" cy="20" r="1.5"/>'),
   car: wrap('<path d="M5 17v-6l2-5h10l2 5v6z"/><path d="M5 11h14"/><circle cx="8" cy="17" r="1.5"/><circle cx="16" cy="17" r="1.5"/>'),
   subway: wrap('<rect x="6" y="3" width="12" height="14" rx="3"/><path d="M6 10h12"/><circle cx="9.5" cy="13.5" r="1"/><circle cx="14.5" cy="13.5" r="1"/><path d="m8 21 2-4m6 4-2-4"/>'),
