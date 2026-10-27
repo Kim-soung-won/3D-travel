@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, type Dispatch, type ReactNode } from 'react';
 import { PLACES_NOTICE, type CityOption } from '../data/places';
 import { distanceKm, formatKm } from '../geo/geo';
-import { CITY_MODES, formatDuration, GLOBE_MODES } from '../geo/modes';
+import { CITY_MODES, formatDuration, GLOBE_MODES, travelLine } from '../geo/modes';
 import type { LegState } from '../hooks/useLegs';
 import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } from '../state/route';
 import { cityDataAt } from '../data';
@@ -247,7 +247,7 @@ export function GlobeSidebar(props: CommonProps & {
   );
 }
 
-export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () => void }) {
+export function CitySidebar(props: CommonProps & { city: Waypoint; playLeg: number | null; onBack: () => void }) {
   const { route, dispatch, city, schedule } = props;
   // 도시 안 일정: 머무는 날마다 시작 시각부터 장소마다 머무는 시간과 구간 이동 시간을 더한다. 첫날은 도착, 마지막 날은 출발에 잇는다
   const cityIndex = route.waypoints.findIndex((w) => w.id === city.id);
@@ -257,9 +257,16 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
     [city, props.legs, time],
   );
   const count = cityDayCount(city);
+  const cityData = cityDataAt(city);
   // 날 이름: 날짜를 정했으면 "10/24(토)", 아니면 여행 전체의 "3일차". 시간대를 찾기 전에는 숙박 수로 어림한다
   const firstTripDay = cityDays(route.waypoints)[cityIndex]?.arrive ?? 1;
   const dayLabels = plans.map((p, k) => (schedule && p.date ? formatDay(p.date, schedule.base, schedule.withDate) : `${firstTripDay + k}일차`));
+  // 재생 상태 글: 그 구간으로 가 닿는 장소의 날 + 수단 + 출발 → 도착. 날이 바뀌는 구간은 다음 날 아침 이동으로 본다
+  const playFrom = props.playLeg === null ? undefined : city.stops[props.playLeg];
+  const playTo = props.playLeg === null ? undefined : city.stops[props.playLeg + 1];
+  const status = playFrom && playTo
+    ? `${dayLabels[stopDay(playTo, count) - 1]} · ${travelLine(props.legs[props.playLeg!]?.mode ?? playFrom.mode, playFrom.name, playTo.name)}`
+    : undefined;
   const placeOf = (i: number) => plans.flatMap((p) => p.places).find((p) => p.index === i);
   const setStart = (k: number, t: string | undefined) => {
     const next = Array.from({ length: Math.max(count, city.dayStarts?.length ?? 0) }, (_, j) => (j === k ? t ?? null : city.dayStarts?.[j] ?? null));
@@ -280,9 +287,9 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
         <p className="hint">장소를 검색하거나 지도를 클릭해 추가하세요. 버스·자동차·도보는 실제 도로를, 지하철은 노선을 따라갑니다.</p>
       </header>
       <div className="panel-body">
-      <CityGuide city={city} data={cityDataAt(city)} dispatch={dispatch} onSelect={props.onSelect} />
+      <CityGuide city={city} data={cityData} dispatch={dispatch} onSelect={props.onSelect} />
       {city.stops.length === 0 ? (
-        <div className="empty"><p>아직 세부 경유지가 없습니다. 추천 루트를 불러오거나 장소를 검색해 보세요.</p></div>
+        <div className="empty"><p>{cityData ? '아직 세부 경유지가 없습니다. 추천 루트를 불러오거나 장소를 검색해 보세요.' : '아직 세부 경유지가 없습니다.'}</p></div>
       ) : (
         <>
         {count === 1 && head(0)}
@@ -319,7 +326,7 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; onBack: () =>
       )}
       </div>
       <Undo route={route} dispatch={dispatch} />
-      <Footer legs={props.legs} count={city.stops.length} playing={props.playing} progress={props.progress} onTogglePlay={props.onTogglePlay}
+      <Footer status={status} legs={props.legs} count={city.stops.length} playing={props.playing} progress={props.progress} onTogglePlay={props.onTogglePlay}
         onClear={() => dispatch({ type: 'clearStops', parentId: city.id })} minReason="세부 경유지가 2곳 이상이어야 재생할 수 있습니다." />
     </aside>
   );

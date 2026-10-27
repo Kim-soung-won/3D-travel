@@ -30,6 +30,8 @@ interface CityViewProps {
   onReady: () => void;
   onError: (message: string) => void;
   onProgress: (t: number) => void;
+  /** 재생 중 지금 달리는 구간 번호. 구간이 바뀔 때만 부른다 */
+  onLeg: (i: number) => void;
   onPlayDone: () => void;
 }
 
@@ -245,6 +247,7 @@ export default function CityView(props: CityViewProps) {
     let start: number | null = null;
     let frame = 0;
     let shownMode = '';
+    let shownLeg = -1;
     const tick = (now: number) => {
       start ??= now;
       const t = (now - start) / 1000;
@@ -257,6 +260,10 @@ export default function CityView(props: CityViewProps) {
       let acc = 0;
       while (i < durations.length - 1 && t >= acc + durations[i]) acc += durations[i++];
       const pos = along(legs[i].coords, (t - acc) / durations[i]);
+      if (i !== shownLeg) {
+        shownLeg = i;
+        latest.current.onLeg(i);
+      }
       if (shownMode !== legs[i].mode) {
         shownMode = legs[i].mode;
         el.style.setProperty('--mode-color', MODES[legs[i].mode].color);

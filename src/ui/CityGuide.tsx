@@ -50,6 +50,8 @@ interface Props {
 
 export function CityGuide({ city, data, dispatch, onSelect }: Props) {
   const [query, setQuery] = useState('');
+  // 이미 가장 짧은 순서일 때 보일 안내. 그때의 경유지 배열을 기억해 두고, 경유지가 바뀌면 저절로 사라진다
+  const [shortestFor, setShortestFor] = useState<Stop[] | null>(null);
   const results = useMemo(() => (data ? searchPlaces(data.places, query).slice(0, 6) : []), [data, query]);
 
   if (!data)
@@ -88,7 +90,9 @@ export function CityGuide({ city, data, dispatch, onSelect }: Props) {
     const after = pathKm(stops);
     const same = stops.every((s, i) => s.id === city.stops[i].id);
     if (same) {
-      dispatch({ type: 'setStops', parentId: city.id, stops, label: '이미 가장 짧은 순서입니다' });
+      // 아무것도 바뀌지 않으면 되돌릴 것도 없으니 안내만 한다. 수단만 바뀌었으면 되돌릴 수 있게 둔다
+      if (stops.every((s, i) => s.mode === city.stops[i].mode)) setShortestFor(city.stops);
+      else dispatch({ type: 'setStops', parentId: city.id, stops, label: '순서는 이미 가장 짧아, 구간 수단만 거리에 맞춰 다시 정함' });
       return;
     }
     dispatch({ type: 'setStops', parentId: city.id, stops, label: `순서를 바꿈: 직선 거리 ${formatKm(before)} → ${formatKm(after)}` });
@@ -143,7 +147,10 @@ export function CityGuide({ city, data, dispatch, onSelect }: Props) {
       )}
       <div className="guide-foot">
         {city.stops.length >= 3 ? (
-          <button type="button" className="text-btn" onClick={optimize}>순서 최적화</button>
+          <>
+            <button type="button" className="text-btn" onClick={optimize}>순서 최적화</button>
+            {shortestFor === city.stops && <span className="guide-reason" role="status">이미 가장 짧은 순서입니다</span>}
+          </>
         ) : (
           <span className="guide-reason">경유지가 3곳 이상이면 순서를 최적화할 수 있습니다.</span>
         )}

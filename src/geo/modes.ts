@@ -26,6 +26,10 @@ export const MODES: Record<Mode, ModeInfo> = {
   walk: { label: '도보', color: '#2e8b57', dash: [2, 4], road: 'foot', timeFactor: 1, estimated: false },
 };
 
+/** 재생 상태 글의 이동 한 토막: "지하철로 서울역 → 명동" */
+const BY_MODE: Record<Mode, string> = { plane: '비행기로', train: '기차로', bus: '버스로', car: '자동차로', subway: '지하철로', walk: '걸어서' };
+export const travelLine = (mode: Mode, from: string, to: string) => `${BY_MODE[mode]} ${from} → ${to}`;
+
 export const GLOBE_MODES: Mode[] = ['plane', 'train', 'bus', 'car', 'subway', 'walk'];
 export const CITY_MODES: Mode[] = ['walk', 'bus', 'subway', 'car'];
 

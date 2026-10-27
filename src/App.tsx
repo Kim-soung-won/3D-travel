@@ -36,6 +36,7 @@ export function App() {
   const [playing, setPlaying] = useState(false);
   const [progress, setProgress] = useState(0);
   const [tripStatus, setTripStatus] = useState('');
+  const [cityLeg, setCityLeg] = useState<number | null>(null);
   // 지구본에서 고른 나라(world-atlas 이름)와 그 나라의 도시 목록
   const [country, setCountry] = useState<string | null>(null);
   const [loadedCountry, setLoadedCountry] = useState<{ key: string; data: CountryCities } | null>(null);
@@ -229,6 +230,7 @@ export function App() {
       setCountry(null);
       setProgress(0);
       setTripStatus('');
+      setCityLeg(null);
       setPlaying((p) => !p);
     },
   };
@@ -271,6 +273,7 @@ export function App() {
                 onReady={reveal}
                 onError={setCurtainError}
                 onProgress={setProgress}
+                onLeg={setCityLeg}
                 onPlayDone={() => setPlaying(false)}
               />
             </Suspense>
@@ -281,7 +284,7 @@ export function App() {
         <GlobeSidebar {...common} schedule={schedule} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity}
           country={countryInfo} hoveredCity={hoveredCity} onHoverCity={setHoveredCity} onAddCity={addCity} onCloseCountry={() => setCountry(null)} />
       ) : (
-        <CitySidebar {...common} schedule={schedule} legs={cityLegs} city={city} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
+        <CitySidebar {...common} schedule={schedule} legs={cityLegs} city={city} playLeg={cityLeg} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
       )}
       <LoadingScreen
         state={curtain}

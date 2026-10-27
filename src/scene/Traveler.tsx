@@ -6,7 +6,7 @@ import { useFrame } from '@react-three/fiber';
 import { useMemo, useRef, useState, type MutableRefObject } from 'react';
 import { Group, Vector3 } from 'three';
 import { samplePath } from '../geo/geo';
-import type { Mode } from '../geo/modes';
+import { travelLine } from '../geo/modes';
 import type { Leg3D } from './Arcs';
 import { StayModel, VisitModel } from './Stays';
 import { Vehicle } from './Vehicles';
@@ -26,8 +26,6 @@ export interface TripStop {
 type Segment =
   | { kind: 'stay'; stop: number; start: number; duration: number }
   | { kind: 'move'; leg: number; start: number; duration: number };
-
-const BY: Record<Mode, string> = { plane: '비행기로', train: '기차로', bus: '버스로', car: '자동차로', subway: '지하철로', walk: '걸어서' };
 
 export function buildTimeline(stops: Pick<TripStop, 'nights'>[], legs: Leg3D[]): Segment[] {
   const segs: Segment[] = [];
@@ -57,7 +55,7 @@ export function statusAt(seg: Segment, local: number, stops: Pick<TripStop, 'nam
   }
   const from = stops[seg.leg];
   const to = stops[seg.leg + 1];
-  return `${from.arrive + from.nights}일차 · ${BY[legs[seg.leg].mode]} ${from.name} → ${to.name}`;
+  return `${from.arrive + from.nights}일차 · ${travelLine(legs[seg.leg].mode, from.name, to.name)}`;
 }
 
 interface TravelerProps {
