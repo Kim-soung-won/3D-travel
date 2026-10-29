@@ -37,6 +37,13 @@ interface CityViewProps {
   onPlayDone: () => void;
 }
 
+/**
+ * 도시 지도 확대·축소 범위.
+ * - 축소: 10이면 넓은 화면에서 가로 약 140km(제주 섬 전체, 수도권). 더 물러나면 도시를 벗어나 지구본 화면과 겹친다.
+ * - 확대: 18이면 건물·골목 단위. 더 당겨도 지도 타일(최대 14)을 늘려 그릴 뿐이라 흐려진다.
+ */
+const CITY_ZOOM = { min: 10, max: 18 };
+
 const EMPTY: GeoJSON.FeatureCollection = { type: 'FeatureCollection', features: [] };
 
 function legsToGeoJSON(legs: LegState[]): GeoJSON.FeatureCollection {
@@ -97,6 +104,8 @@ export default function CityView(props: CityViewProps) {
           style,
           center: [props.center.lon, props.center.lat],
           zoom: 12.5,
+          minZoom: CITY_ZOOM.min,
+          maxZoom: CITY_ZOOM.max,
           pitch: 45,
           bearing: -12,
           attributionControl: { compact: true },

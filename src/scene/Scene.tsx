@@ -51,6 +51,9 @@ function ReadySignal({ onReady }: { onReady: () => void }) {
   return null;
 }
 
+/** 처음 열 때 카메라: 한반도(남한 가운데쯤)를 정면에서 본다. 거리는 CameraRig가 화면에 맞춰 물러난다 */
+const START_CAMERA = latLonToVector3({ lat: 36, lon: 127.8 }, 3.6).toArray();
+
 export function Scene(props: SceneProps) {
   const { waypoints, playing } = props;
   const earthRef = useRef<Mesh>(null);
@@ -115,7 +118,7 @@ export function Scene(props: SceneProps) {
 
   return (
     <>
-      <Canvas camera={{ position: [0.45, 1.0, 3.45], fov: 40, near: 0.01, far: 100 }} dpr={[1, 2]} gl={{ antialias: true }}>
+      <Canvas camera={{ position: START_CAMERA, fov: 40, near: 0.01, far: 100 }} dpr={[1, 2]} gl={{ antialias: true }}>
         <color attach="background" args={['#7bbfbd']} />
         <ReadySignal onReady={props.onReady} />
         <AttentionTracker target={attention} />
