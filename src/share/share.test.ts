@@ -89,10 +89,24 @@ describe('시간 단위 일정 (v3·v4)', () => {
   });
 });
 
+describe('v6 고른 공항', () => {
+  test('고른 공항을 담아 되읽고, IATA 꼴이 아닌 값은 버린다', () => {
+    const w = sampleWaypoints();
+    w[0] = { ...w[0], airports: ['GMP', null] };
+    const back = fromShared(JSON.parse(JSON.stringify(toShared(T(w)))));
+    expect(back.waypoints[0].airports).toEqual(['GMP', null]);
+    expect(back.waypoints[1]).not.toHaveProperty('airports');
+    expect(fromShared({ v: 6, w: [{ n: '가', la: 0, lo: 0, m: 'plane', ap: ['icn', 'x'] }] }).waypoints[0]).not.toHaveProperty('airports');
+  });
+  test('v5 일정은 공항 없이 읽는다', () => {
+    expect(fromShared({ v: 5, w: [{ n: '가', la: 0, lo: 0, m: 'plane' }] }).waypoints[0]).not.toHaveProperty('airports');
+  });
+});
+
 describe('형식 검사', () => {
   test('버전·좌표·수단이 틀리면 거부하고, 숙박은 0~30으로 자른다', () => {
     const ok = toShared(T(sampleWaypoints()));
-    expect(() => fromShared({ ...ok, v: 6 })).toThrow(/버전/);
+    expect(() => fromShared({ ...ok, v: 7 })).toThrow(/버전/);
     expect(fromShared({ v: 5, w: [{ n: '가', la: 0, lo: 0, m: 'train' }] }).waypoints[0].mode).toBe('train');
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 91, lo: 0, m: 'walk' }] })).toThrow(/좌표/);
     expect(() => fromShared({ v: 1, w: [{ n: '가', la: 0, lo: 0, m: 'rocket' }] })).toThrow(/수단/);

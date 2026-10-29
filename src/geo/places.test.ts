@@ -38,17 +38,31 @@ describe('구간 경로', () => {
     expect(leg.kind).toBe('fallback');
     expect(leg.durationS).toBeCloseTo((leg.distanceKm / MODES.subway.speedKmh!) * 3600);
   });
-  test('비행기는 두 도시의 비행 시간을 알면 그 값에 공항 수속·대기 2시간을 더하고, 지상 대안을 적는다', async () => {
+  test('비행기는 공항에서 공항으로: 도심→공항 + 비행 + 공항 수속·대기 2시간 + 공항→도심', async () => {
     const busan = { lat: 35.1796, lon: 129.0756 };
-    const leg = await fetchLeg(SEOUL, busan, 'plane');
+    const offline = vi.fn(async () => {
+      throw new Error('offline');
+    });
+    // 국내선이라 서울은 김포. 김포·김해의 도심 교통은 사전 데이터(공항철도 22분, 경전철·지하철 40분)
+    const leg = await fetchLeg(SEOUL, busan, 'plane', offline as never);
+    expect(offline).not.toHaveBeenCalled();
+    expect(leg.airports?.from.iata).toBe('GMP');
+    expect(leg.airports?.to.iata).toBe('PUS');
     expect(leg.timeKnown).toBe(true);
-    expect(leg.durationS).toBe((55 + 120) * 60);
-    expect(leg.note).toMatch(/공항 수속·대기 2시간/);
+    expect(leg.durationS).toBe((22 + 55 + 120 + 40) * 60);
+    expect(leg.note).toMatch(/GMP→PUS · 공항까지 공항철도 \(서울역\) 22분 \+ 비행 55분 \+ 공항 수속·대기 2시간 \+ 시내까지/);
     expect(leg.note).toMatch(/KTX/);
-    // 비행 시간을 모르면 시속 800km 어림에 공항 시간을 더한다 (화면에는 시간을 보이지 않는다)
-    const unknown = await fetchLeg(SEOUL, { lat: 35.8714, lon: 128.6014 }, 'plane');
-    expect(unknown.timeKnown).toBeFalsy();
-    expect(unknown.durationS).toBeCloseTo((unknown.distanceKm / 800) * 3600 + 120 * 60, 0);
+    expect(leg.coords).toHaveLength(4);
+    // 고른 공항(인천)을 쓴다
+    const icn = await fetchLeg({ ...SEOUL, airports: ['ICN', null] }, busan, 'plane', offline as never);
+    expect(icn.airports?.from.iata).toBe('ICN');
+    expect(icn.durationS).toBe((51 + 55 + 120 + 40) * 60);
+    // 사전 데이터가 없는 도시(대구)는 공항까지 도로로 어림한다. 서버가 안 되면 직선 거리로
+    const daegu = await fetchLeg(SEOUL, { lat: 35.8714, lon: 128.6014 }, 'plane', offline as never);
+    expect(daegu.timeKnown).toBeFalsy();
+    expect(daegu.airports?.to.iata).toBe('TAE');
+    expect(offline).toHaveBeenCalled();
+    expect(daegu.note).toMatch(/시내까지 자동차\(직선 어림\)/);
   });
   test('기차는 지표 직선으로 그리고, 사전 데이터의 기차 시간(서울–부산 KTX 2시간 40분)을 쓴다. 모르면 평균 속도로 어림', async () => {
     const busan = { lat: 35.1796, lon: 129.0756 };

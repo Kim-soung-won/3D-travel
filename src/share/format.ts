@@ -1,8 +1,9 @@
-// 공유·저장 형식 v5. 공유 링크, 파일 내보내기, 브라우저 자동 저장이 모두 이 형식을 쓴다.
+// 공유·저장 형식 v6. 공유 링크, 파일 내보내기, 브라우저 자동 저장이 모두 이 형식을 쓴다.
 // v1 → v2: 경유지 링크(u)가 생겼다.
 // v2 → v3: 시간 단위 일정(첫 도시 도착 st, 출발 시각 lt, 머무는 시간 sm, 하루 시작 ds)이 생겼다.
 // v3 → v4: 도시 안 일정이 여러 날로 나뉘었다. 세부 경유지의 날(d), 날마다 시작 시각(ds가 문자열 하나 → 배열).
 // v4 → v5: 이동 수단에 기차(train)가 생겼다. 예전 앱이 모르는 수단을 "버전이 다르다"고 알리도록 버전을 올렸다.
+// v5 → v6: 비행 구간에서 고른 공항(ap, [출발, 도착] IATA)이 생겼다.
 // 예전 버전은 그대로 읽는다. v3의 ds 문자열은 첫날 시작 시각이 된다.
 // 경로선(도로 좌표)은 담지 않는다. 받는 쪽에서 다시 계산한다. 계획: docs/plan/sharing.md
 import type { Mode } from '../geo/modes';
@@ -11,15 +12,15 @@ import { safeLink } from '../state/link';
 import { newId, sortByDay, type Stop, type Trip, type Waypoint } from '../state/route';
 import { clampStay, isDate, isTime, type TripStart } from '../state/schedule';
 
-export const FORMAT_VERSION = 5;
+export const FORMAT_VERSION = 6;
 /** 읽을 수 있는 버전. 예전 버전을 지우면 이미 퍼진 링크가 깨진다 */
-const READABLE_VERSIONS = [1, 2, 3, 4, 5];
+const READABLE_VERSIONS = [1, 2, 3, 4, 5, 6];
 const MODES: Mode[] = ['plane', 'train', 'bus', 'car', 'subway', 'walk'];
 export const LIMITS = { cities: 100, stopsPerCity: 100, name: 80, area: 80 };
 
 /**
  * 짧은 키: n 이름, a 보조 설명, la 위도, lo 경도, m 다음 구간 수단, u 링크(v2), sm 머무는 시간(분, v3),
- * d 도시 안 날(v4, 2 이상만), ni 숙박, lt 출발 시각(v3), ds 날마다 시작 시각(v4 배열, 빈 칸 null. v3은 문자열 하나), s 세부 경유지. 일정: st 첫 도시 도착 'YYYY-MM-DDTHH:MM' 또는 'THH:MM'(v3)
+ * d 도시 안 날(v4, 2 이상만), ni 숙박, lt 출발 시각(v3), ds 날마다 시작 시각(v4 배열, 빈 칸 null. v3은 문자열 하나), ap 고른 공항 [출발, 도착](v6, 빈 칸 null), s 세부 경유지. 일정: st 첫 도시 도착 'YYYY-MM-DDTHH:MM' 또는 'THH:MM'(v3)
  */
 interface SharedStop {
   n: string;
@@ -35,6 +36,7 @@ interface SharedCity extends SharedStop {
   ni?: number;
   lt?: string;
   ds?: string | (string | null)[];
+  ap?: (string | null)[];
   s?: SharedStop[];
 }
 export interface SharedTrip {
@@ -72,6 +74,14 @@ function readDayStarts(x: unknown): (string | null)[] | undefined {
   return toDayStarts(x.slice(0, MAX_NIGHTS + 1).map((t) => (isTime(t) ? t : null)));
 }
 
+const isIata = (x: unknown): x is string => typeof x === 'string' && /^[A-Z]{3}$/.test(x);
+/** 고른 공항. 둘 다 비면 없음 */
+function readAirports(x: unknown): [string | null, string | null] | undefined {
+  if (!Array.isArray(x)) return undefined;
+  const pair: [string | null, string | null] = [isIata(x[0]) ? x[0] : null, isIata(x[1]) ? x[1] : null];
+  return pair[0] || pair[1] ? pair : undefined;
+}
+
 const startToText = (s: TripStart) => `${isDate(s.date) ? s.date : ''}T${s.time}`;
 function textToStart(x: unknown): TripStart | undefined {
   if (typeof x !== 'string') return undefined;
@@ -86,11 +96,13 @@ export function toShared({ waypoints, start }: Trip): SharedTrip {
     ...(start && isTime(start.time) ? { st: startToText(start) } : {}),
     w: waypoints.map((w) => {
       const ds = toDayStarts(w.dayStarts);
+      const ap = readAirports(w.airports);
       return {
         ...toStop(w),
         ...(w.nights ? { ni: w.nights } : {}),
         ...(isTime(w.leaveAt) ? { lt: w.leaveAt } : {}),
         ...(ds ? { ds } : {}),
+        ...(ap ? { ap } : {}),
         ...(w.stops.length ? { s: w.stops.map(toStop) } : {}),
       };
     }),
@@ -138,11 +150,13 @@ export function fromShared(data: unknown): Trip {
     if (!Array.isArray(rawStops)) throw new TripFormatError(`${i + 1}번 도시: 세부 경유지 형식이 맞지 않습니다`);
     if (rawStops.length > LIMITS.stopsPerCity) throw new TripFormatError(`${i + 1}번 도시: 세부 경유지가 너무 많습니다`);
     const dayStarts = readDayStarts(city.ds);
+    const airports = readAirports(city.ap);
     return {
       ...base,
       nights,
       ...(isTime(city.lt) ? { leaveAt: city.lt } : {}),
       ...(dayStarts ? { dayStarts } : {}),
+      ...(airports ? { airports } : {}),
       // 날 순서가 어긋난 목록은 날 순서로 놓는다
       stops: sortByDay(rawStops.map((s, k) => readStop(s, `${i + 1}번 도시의 ${k + 1}번 세부 경유지`))),
     };

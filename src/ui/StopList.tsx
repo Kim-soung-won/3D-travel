@@ -25,11 +25,13 @@ interface StopListProps {
   groupHead?: (item: Stop, index: number) => ReactNode;
   /** 목록 끝에 붙이는 것 (장소가 없는 뒤쪽 날 등) */
   tail?: ReactNode;
+  /** 구간 설명 아래 붙이는 것 (비행 구간의 공항 고르기 등) */
+  legExtra?: (item: Stop, next: Stop, leg: LegState) => ReactNode;
   /** 구간(항목 → 다음 항목)에서 고를 수 없는 수단과 그 이유 */
   blockedModes?: (item: Stop, next: Stop) => Partial<Record<Mode, string | null>>;
 }
 
-export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRename, onMove, onRemove, onMode, onLink, extra, groupHead, tail, blockedModes }: StopListProps) {
+export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRename, onMove, onRemove, onMode, onLink, extra, groupHead, tail, blockedModes, legExtra }: StopListProps) {
   return (
     <ol className="stops">
       {items.map((w, i) => {
@@ -80,6 +82,7 @@ export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRen
                     )}
                   </span>
                   {leg.note && <span className="leg-note">{leg.note}</span>}
+                  {items[i + 1] && legExtra?.(w, items[i + 1], leg)}
                 </div>
               )}
             </li>

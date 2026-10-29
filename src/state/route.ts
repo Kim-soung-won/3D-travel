@@ -31,6 +31,8 @@ export interface Waypoint extends Stop {
   leaveAt?: string;
   /** 도시 안 날마다 일정 시작 시각 'HH:MM'. 칸이 비면(null) 기본 09:00 */
   dayStarts?: (string | null)[];
+  /** 다음 도시까지 비행할 때 고른 공항 [출발, 도착] IATA. 칸이 비면(null) 기본 공항 (airports.ts) */
+  airports?: [string | null, string | null];
 }
 
 /** 일정 한 벌: 공유·저장 단위 */
@@ -49,7 +51,7 @@ export type RouteAction =
   | { type: 'add'; waypoint: Waypoint }
   | { type: 'remove'; id: string }
   | { type: 'move'; id: string; delta: -1 | 1 }
-  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link' | 'leaveAt' | 'stayMin' | 'dayStarts'>> }
+  | { type: 'update'; id: string; patch: Partial<Pick<Waypoint, 'name' | 'area' | 'mode' | 'nights' | 'link' | 'leaveAt' | 'stayMin' | 'dayStarts' | 'airports'>> }
   | { type: 'clear' }
   | { type: 'load'; waypoints: Waypoint[]; start?: TripStart; label: string }
   | { type: 'setStart'; start: TripStart | undefined }

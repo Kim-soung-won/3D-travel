@@ -5,7 +5,7 @@ import type { CityOption } from '../data/places';
 import { greatCircleArc, latLonToVector3, vector3ToLatLon, type LatLon } from '../geo/geo';
 import type { LegState } from '../hooks/useLegs';
 import type { Waypoint } from '../state/route';
-import { Arcs, type Leg3D } from './Arcs';
+import { AirportDots, Arcs, type Leg3D } from './Arcs';
 import { AttentionTracker, createAttention, type Attention } from './attention';
 import { CameraRig, type Focus } from './CameraRig';
 import { Clouds } from './Clouds';
@@ -65,12 +65,14 @@ export function Scene(props: SceneProps) {
       props.legs.map((leg, i) => {
         const a = waypoints[i];
         const b = waypoints[i + 1];
-        if (leg.mode === 'plane')
-          return {
-            points: greatCircleArc(a, b, 1.004, 96),
-            mode: leg.mode,
-            fallback: false,
-          };
+        if (leg.mode === 'plane') {
+          // 공항이 있으면 도시 → 출발 공항 → (곡선) → 도착 공항 → 도시
+          const ap = leg.airports;
+          const points = ap
+            ? [latLonToVector3(a, 1.004), ...greatCircleArc(ap.from, ap.to, 1.004, 96), latLonToVector3(b, 1.004)]
+            : greatCircleArc(a, b, 1.004, 96);
+          return { points, mode: leg.mode, fallback: false };
+        }
         const points =
           leg.kind === 'road' || leg.kind === 'transit'
             ? leg.coords.map(([lon, lat]) => latLonToVector3({ lat, lon }, 1.003))
@@ -79,6 +81,12 @@ export function Scene(props: SceneProps) {
       }),
     [props.legs, waypoints],
   );
+
+  const airportSpots = useMemo(() => {
+    const seen = new Map<string, LatLon>();
+    for (const leg of props.legs) if (leg.airports) for (const ap of [leg.airports.from, leg.airports.to]) seen.set(ap.iata, ap);
+    return [...seen.values()];
+  }, [props.legs]);
 
   const tripStops = useMemo<TripStop[]>(() => {
     const days = cityDays(waypoints);
@@ -116,6 +124,7 @@ export function Scene(props: SceneProps) {
         <Earth ref={earthRef} onPick={pick} />
         <Clouds attention={attention} />
         <Arcs legs={legs3d} />
+        <AirportDots airports={airportSpots} />
         <CountryLayer
           countryKey={playing ? null : props.country}
           cities={props.countryCities}

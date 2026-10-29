@@ -10,6 +10,7 @@ import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } fro
 import { useCityData } from '../data';
 import { cityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
 import { cityDayCount, computeCityPlan, DEFAULT_CITY_STAY_MIN, DEFAULT_PLACE_STAY_MIN, formatDay, scheduleDayRange, stopDay, type Schedule } from '../state/schedule';
+import { AirportPicker } from './AirportPicker';
 import { CityGuide } from './CityGuide';
 import { CityTimes, DayHead, PlaceTimes, TripStartField } from './TimeFields';
 import { StopList } from './StopList';
@@ -71,7 +72,7 @@ function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReas
         <span>총 거리</span>
         <strong>{formatKm(totalKm)}</strong>
         <span className="muted">구간 {legs.length}개{groundS > 0 && ` · 지상 이동 약 ${formatDuration(groundS)}`}
-          {flightS > 0 && ` · 비행${flightAll ? '' : '(아는 구간만)'} 약 ${formatDuration(flightS)}(공항 대기 포함)`}</span>
+          {flightS > 0 && ` · 비행${flightAll ? '' : '(아는 구간만)'} 약 ${formatDuration(flightS)}(공항 오가는 시간·대기 포함)`}</span>
       </div>
       {playing && status && <p className="trip-status" role="status">{status}</p>}
       {playing && (
@@ -245,6 +246,11 @@ export function GlobeSidebar(props: CommonProps & {
           selectedId={props.selectedId}
           noun="경유지"
           blockedModes={(w, next) => ({ train: trainBlockReason(w, next) })}
+          legExtra={(w, next, leg) =>
+            leg.mode === 'plane' && (
+              <AirportPicker from={w as Waypoint} to={next as Waypoint} leg={leg} onChange={(airports) => dispatch({ type: 'update', id: w.id, patch: { airports } })} />
+            )
+          }
           onSelect={props.onSelect}
           onRename={(id, name) => dispatch({ type: 'update', id, patch: { name } })}
           onMove={(id, delta) => dispatch({ type: 'move', id, delta })}

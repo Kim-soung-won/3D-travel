@@ -3,6 +3,7 @@ import { Line } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { useRef } from 'react';
 import type { Vector3 } from 'three';
+import { latLonToVector3, type LatLon } from '../geo/geo';
 import { MODES, type Mode } from '../geo/modes';
 
 export interface Leg3D {
@@ -38,6 +39,26 @@ export function Arcs({ legs }: { legs: Leg3D[] }) {
           </group>
         );
       })}
+    </>
+  );
+}
+
+/** 비행 구간이 쓰는 공항: 지표의 작은 흰 점(테두리 진한 색). 누를 수 없다 */
+export function AirportDots({ airports }: { airports: LatLon[] }) {
+  return (
+    <>
+      {airports.map((a, i) => (
+        <group key={i} position={latLonToVector3(a, 1.0015)}>
+          <mesh>
+            <sphereGeometry args={[0.0042, 12, 8]} />
+            <meshBasicMaterial color="#2f4b4f" />
+          </mesh>
+          <mesh>
+            <sphereGeometry args={[0.0028, 12, 8]} />
+            <meshBasicMaterial color="#fff6dd" />
+          </mesh>
+        </group>
+      ))}
     </>
   );
 }
