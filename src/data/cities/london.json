@@ -1,0 +1,1088 @@
+{
+  "id": "london",
+  "name": "런던",
+  "country": "영국",
+  "center": {
+    "lat": 51.5074,
+    "lon": -0.1278
+  },
+  "bbox": [
+    -0.215,
+    51.455,
+    0.04,
+    51.565
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-28) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "central",
+      "name": "Central line (센트럴선, 도심 구간)",
+      "color": "#E32017",
+      "stations": [
+        {
+          "name": "노팅 힐 게이트",
+          "lat": 51.509,
+          "lon": -0.1964
+        },
+        {
+          "name": "퀸즈웨이",
+          "lat": 51.5107,
+          "lon": -0.1877
+        },
+        {
+          "name": "랭커스터 게이트",
+          "lat": 51.5119,
+          "lon": -0.1756
+        },
+        {
+          "name": "마블 아치",
+          "lat": 51.5136,
+          "lon": -0.1586
+        },
+        {
+          "name": "본드 스트리트",
+          "lat": 51.5142,
+          "lon": -0.1494
+        },
+        {
+          "name": "옥스퍼드 서커스",
+          "lat": 51.5152,
+          "lon": -0.1415
+        },
+        {
+          "name": "토트넘 코트 로드",
+          "lat": 51.5165,
+          "lon": -0.131
+        },
+        {
+          "name": "홀번",
+          "lat": 51.5174,
+          "lon": -0.1201
+        },
+        {
+          "name": "챈서리 레인",
+          "lat": 51.5185,
+          "lon": -0.1111
+        },
+        {
+          "name": "세인트 폴",
+          "lat": 51.5146,
+          "lon": -0.0973
+        },
+        {
+          "name": "뱅크",
+          "lat": 51.5133,
+          "lon": -0.0886
+        },
+        {
+          "name": "리버풀 스트리트",
+          "lat": 51.5178,
+          "lon": -0.0823
+        },
+        {
+          "name": "베스널 그린",
+          "lat": 51.527,
+          "lon": -0.0549
+        },
+        {
+          "name": "마일 엔드",
+          "lat": 51.5251,
+          "lon": -0.0332
+        },
+        {
+          "name": "스트랫퍼드",
+          "lat": 51.5416,
+          "lon": -0.0034
+        }
+      ]
+    },
+    {
+      "id": "piccadilly",
+      "name": "Piccadilly line (피커딜리선, 도심 구간)",
+      "color": "#003688",
+      "stations": [
+        {
+          "name": "얼스 코트",
+          "lat": 51.492,
+          "lon": -0.1934
+        },
+        {
+          "name": "글로스터 로드",
+          "lat": 51.4945,
+          "lon": -0.1829
+        },
+        {
+          "name": "사우스 켄싱턴",
+          "lat": 51.4941,
+          "lon": -0.1738
+        },
+        {
+          "name": "나이츠브리지",
+          "lat": 51.5015,
+          "lon": -0.1607
+        },
+        {
+          "name": "하이드 파크 코너",
+          "lat": 51.5027,
+          "lon": -0.1527
+        },
+        {
+          "name": "그린 파크",
+          "lat": 51.5067,
+          "lon": -0.1428
+        },
+        {
+          "name": "피커딜리 서커스",
+          "lat": 51.5098,
+          "lon": -0.1342
+        },
+        {
+          "name": "레스터 스퀘어",
+          "lat": 51.5113,
+          "lon": -0.1281
+        },
+        {
+          "name": "코번트 가든",
+          "lat": 51.5129,
+          "lon": -0.1243
+        },
+        {
+          "name": "홀번",
+          "lat": 51.5174,
+          "lon": -0.1201
+        },
+        {
+          "name": "러셀 스퀘어",
+          "lat": 51.523,
+          "lon": -0.1244
+        },
+        {
+          "name": "킹스 크로스 세인트 판크라스",
+          "lat": 51.5308,
+          "lon": -0.1238
+        }
+      ]
+    },
+    {
+      "id": "jubilee",
+      "name": "Jubilee line (주빌리선, 도심 구간)",
+      "color": "#A0A5A9",
+      "stations": [
+        {
+          "name": "세인트 존스 우드",
+          "lat": 51.5347,
+          "lon": -0.174
+        },
+        {
+          "name": "베이커 스트리트",
+          "lat": 51.5226,
+          "lon": -0.1571
+        },
+        {
+          "name": "본드 스트리트",
+          "lat": 51.5142,
+          "lon": -0.1494
+        },
+        {
+          "name": "그린 파크",
+          "lat": 51.5067,
+          "lon": -0.1428
+        },
+        {
+          "name": "웨스트민스터",
+          "lat": 51.501,
+          "lon": -0.1254
+        },
+        {
+          "name": "워털루",
+          "lat": 51.5031,
+          "lon": -0.1132
+        },
+        {
+          "name": "사우스워크",
+          "lat": 51.5041,
+          "lon": -0.1052
+        },
+        {
+          "name": "런던 브리지",
+          "lat": 51.5052,
+          "lon": -0.0864
+        },
+        {
+          "name": "버몬지",
+          "lat": 51.4979,
+          "lon": -0.0637
+        },
+        {
+          "name": "캐나다 워터",
+          "lat": 51.4982,
+          "lon": -0.0502
+        },
+        {
+          "name": "커내리 워프",
+          "lat": 51.5035,
+          "lon": -0.0187
+        },
+        {
+          "name": "노스 그리니치",
+          "lat": 51.5005,
+          "lon": 0.0039
+        }
+      ]
+    },
+    {
+      "id": "northern",
+      "name": "Northern line (노던선, 채링 크로스 지선 도심 구간)",
+      "color": "#000000",
+      "stations": [
+        {
+          "name": "캠던 타운",
+          "lat": 51.5392,
+          "lon": -0.1426
+        },
+        {
+          "name": "모닝턴 크레센트",
+          "lat": 51.5342,
+          "lon": -0.1387
+        },
+        {
+          "name": "유스턴",
+          "lat": 51.5282,
+          "lon": -0.1337
+        },
+        {
+          "name": "워런 스트리트",
+          "lat": 51.5247,
+          "lon": -0.1384
+        },
+        {
+          "name": "구지 스트리트",
+          "lat": 51.5205,
+          "lon": -0.1347
+        },
+        {
+          "name": "토트넘 코트 로드",
+          "lat": 51.5165,
+          "lon": -0.131
+        },
+        {
+          "name": "레스터 스퀘어",
+          "lat": 51.5113,
+          "lon": -0.1281
+        },
+        {
+          "name": "채링 크로스",
+          "lat": 51.5083,
+          "lon": -0.1255
+        },
+        {
+          "name": "엠뱅크먼트",
+          "lat": 51.5074,
+          "lon": -0.1223
+        },
+        {
+          "name": "워털루",
+          "lat": 51.5031,
+          "lon": -0.1132
+        },
+        {
+          "name": "엘리펀트 앤 캐슬",
+          "lat": 51.4943,
+          "lon": -0.1001
+        }
+      ]
+    },
+    {
+      "id": "district",
+      "name": "District line (디스트릭트선, 도심 구간)",
+      "color": "#00782A",
+      "stations": [
+        {
+          "name": "얼스 코트",
+          "lat": 51.492,
+          "lon": -0.1934
+        },
+        {
+          "name": "글로스터 로드",
+          "lat": 51.4945,
+          "lon": -0.1829
+        },
+        {
+          "name": "사우스 켄싱턴",
+          "lat": 51.4941,
+          "lon": -0.1738
+        },
+        {
+          "name": "슬론 스퀘어",
+          "lat": 51.4924,
+          "lon": -0.1565
+        },
+        {
+          "name": "빅토리아",
+          "lat": 51.4965,
+          "lon": -0.1447
+        },
+        {
+          "name": "세인트 제임스 파크",
+          "lat": 51.4994,
+          "lon": -0.1335
+        },
+        {
+          "name": "웨스트민스터",
+          "lat": 51.501,
+          "lon": -0.1254
+        },
+        {
+          "name": "엠뱅크먼트",
+          "lat": 51.5074,
+          "lon": -0.1223
+        },
+        {
+          "name": "템플",
+          "lat": 51.5111,
+          "lon": -0.1141
+        },
+        {
+          "name": "블랙프라이어스",
+          "lat": 51.512,
+          "lon": -0.1039
+        },
+        {
+          "name": "맨션 하우스",
+          "lat": 51.5122,
+          "lon": -0.094
+        },
+        {
+          "name": "캐넌 스트리트",
+          "lat": 51.5113,
+          "lon": -0.0904
+        },
+        {
+          "name": "모뉴먼트",
+          "lat": 51.5108,
+          "lon": -0.0863
+        },
+        {
+          "name": "타워 힐",
+          "lat": 51.5098,
+          "lon": -0.0766
+        },
+        {
+          "name": "올드게이트 이스트",
+          "lat": 51.5152,
+          "lon": -0.0722
+        },
+        {
+          "name": "화이트채플",
+          "lat": 51.5194,
+          "lon": -0.0612
+        }
+      ]
+    },
+    {
+      "id": "victoria",
+      "name": "Victoria line (빅토리아선, 도심 구간)",
+      "color": "#0098D4",
+      "stations": [
+        {
+          "name": "하이버리 앤 이즐링턴",
+          "lat": 51.546,
+          "lon": -0.104
+        },
+        {
+          "name": "킹스 크로스 세인트 판크라스",
+          "lat": 51.5308,
+          "lon": -0.1238
+        },
+        {
+          "name": "유스턴",
+          "lat": 51.5282,
+          "lon": -0.1337
+        },
+        {
+          "name": "워런 스트리트",
+          "lat": 51.5247,
+          "lon": -0.1384
+        },
+        {
+          "name": "옥스퍼드 서커스",
+          "lat": 51.5152,
+          "lon": -0.1415
+        },
+        {
+          "name": "그린 파크",
+          "lat": 51.5067,
+          "lon": -0.1428
+        },
+        {
+          "name": "빅토리아",
+          "lat": 51.4965,
+          "lon": -0.1447
+        },
+        {
+          "name": "핌리코",
+          "lat": 51.4893,
+          "lon": -0.1334
+        },
+        {
+          "name": "복스홀",
+          "lat": 51.4861,
+          "lon": -0.1253
+        },
+        {
+          "name": "스톡웰",
+          "lat": 51.4723,
+          "lon": -0.1229
+        },
+        {
+          "name": "브릭스턴",
+          "lat": 51.4627,
+          "lon": -0.1145
+        }
+      ]
+    },
+    {
+      "id": "bakerloo",
+      "name": "Bakerloo line (베이컬루선, 도심 구간)",
+      "color": "#B36305",
+      "stations": [
+        {
+          "name": "베이커 스트리트",
+          "lat": 51.5226,
+          "lon": -0.1571
+        },
+        {
+          "name": "리젠츠 파크",
+          "lat": 51.5234,
+          "lon": -0.1466
+        },
+        {
+          "name": "옥스퍼드 서커스",
+          "lat": 51.5152,
+          "lon": -0.1415
+        },
+        {
+          "name": "피커딜리 서커스",
+          "lat": 51.5098,
+          "lon": -0.1342
+        },
+        {
+          "name": "채링 크로스",
+          "lat": 51.5083,
+          "lon": -0.1255
+        },
+        {
+          "name": "엠뱅크먼트",
+          "lat": 51.5074,
+          "lon": -0.1223
+        },
+        {
+          "name": "워털루",
+          "lat": 51.5031,
+          "lon": -0.1132
+        },
+        {
+          "name": "램버스 노스",
+          "lat": 51.4991,
+          "lon": -0.1115
+        },
+        {
+          "name": "엘리펀트 앤 캐슬",
+          "lat": 51.4943,
+          "lon": -0.1001
+        }
+      ]
+    },
+    {
+      "id": "elizabeth",
+      "name": "Elizabeth line (엘리자베스선, 도심 구간)",
+      "color": "#6950A1",
+      "stations": [
+        {
+          "name": "패딩턴",
+          "lat": 51.5154,
+          "lon": -0.1755
+        },
+        {
+          "name": "본드 스트리트",
+          "lat": 51.5142,
+          "lon": -0.1494
+        },
+        {
+          "name": "토트넘 코트 로드",
+          "lat": 51.5165,
+          "lon": -0.131
+        },
+        {
+          "name": "패링던",
+          "lat": 51.5203,
+          "lon": -0.1053
+        },
+        {
+          "name": "리버풀 스트리트",
+          "lat": 51.5178,
+          "lon": -0.0823
+        },
+        {
+          "name": "화이트채플",
+          "lat": 51.5194,
+          "lon": -0.0612
+        },
+        {
+          "name": "커내리 워프",
+          "lat": 51.5035,
+          "lon": -0.0187
+        },
+        {
+          "name": "커스텀 하우스",
+          "lat": 51.5097,
+          "lon": 0.0275
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "big-ben",
+      "name": "빅벤·국회의사당",
+      "lat": 51.5007,
+      "lon": -0.1246,
+      "category": "sight",
+      "stayMin": 30,
+      "tags": [
+        "빅벤",
+        "국회의사당",
+        "Big Ben",
+        "Houses of Parliament",
+        "Elizabeth Tower",
+        "웨스트민스터 궁전"
+      ],
+      "summary": "템스강변의 고딕 양식 국회의사당과 시계탑으로, 웨스트민스터 다리에서 보는 모습이 대표 풍경이다."
+    },
+    {
+      "id": "westminster-abbey",
+      "name": "웨스트민스터 사원",
+      "lat": 51.4993,
+      "lon": -0.1273,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "웨스트민스터 사원",
+        "Westminster Abbey",
+        "대관식",
+        "성당"
+      ],
+      "summary": "역대 왕의 대관식이 열리고 많은 명사가 묻힌 고딕 양식 사원."
+    },
+    {
+      "id": "london-eye",
+      "name": "런던 아이",
+      "lat": 51.5033,
+      "lon": -0.1196,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "런던 아이",
+        "London Eye",
+        "대관람차",
+        "사우스뱅크"
+      ],
+      "summary": "템스강 남쪽 강변의 대관람차로, 한 바퀴 약 30분 동안 웨스트민스터 일대를 내려다본다."
+    },
+    {
+      "id": "buckingham",
+      "name": "버킹엄 궁전",
+      "lat": 51.5014,
+      "lon": -0.1419,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "버킹엄 궁전",
+        "Buckingham Palace",
+        "근위병 교대식",
+        "Changing of the Guard"
+      ],
+      "summary": "영국 왕실의 공식 거처로, 정문 앞 근위병 교대식이 유명하다."
+    },
+    {
+      "id": "st-james-park",
+      "name": "세인트 제임스 파크",
+      "lat": 51.5025,
+      "lon": -0.1348,
+      "category": "nature",
+      "stayMin": 40,
+      "tags": [
+        "세인트 제임스 파크",
+        "St James's Park",
+        "펠리컨",
+        "공원"
+      ],
+      "summary": "버킹엄 궁전과 호스 가즈 사이의 호수 공원으로, 펠리컨과 물새가 산다."
+    },
+    {
+      "id": "national-gallery",
+      "name": "트래펄가 광장·내셔널 갤러리",
+      "lat": 51.5089,
+      "lon": -0.1283,
+      "category": "culture",
+      "stayMin": 120,
+      "tags": [
+        "내셔널 갤러리",
+        "트래펄가 광장",
+        "National Gallery",
+        "Trafalgar Square",
+        "미술관",
+        "무료"
+      ],
+      "summary": "넬슨 기념탑이 선 광장 북쪽에 13~20세기 유럽 회화를 무료로 보여주는 미술관이 있다."
+    },
+    {
+      "id": "british-museum",
+      "name": "대영 박물관",
+      "lat": 51.5194,
+      "lon": -0.127,
+      "category": "culture",
+      "stayMin": 180,
+      "tags": [
+        "대영 박물관",
+        "영국 박물관",
+        "British Museum",
+        "로제타석",
+        "무료"
+      ],
+      "summary": "로제타석과 파르테논 조각 등 세계 유물을 무료로 볼 수 있는 블룸즈버리의 박물관."
+    },
+    {
+      "id": "covent-garden",
+      "name": "코번트 가든",
+      "lat": 51.5117,
+      "lon": -0.124,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "코번트 가든",
+        "Covent Garden",
+        "마켓",
+        "거리 공연"
+      ],
+      "summary": "옛 청과 시장 건물에 상점과 카페가 들어서고 광장에서 거리 공연이 열린다."
+    },
+    {
+      "id": "west-end",
+      "name": "웨스트엔드 뮤지컬",
+      "lat": 51.513,
+      "lon": -0.1318,
+      "category": "night",
+      "stayMin": 180,
+      "tags": [
+        "웨스트엔드",
+        "뮤지컬",
+        "West End",
+        "Theatreland",
+        "소호",
+        "공연"
+      ],
+      "summary": "소호와 레스터 스퀘어 주변 극장가에서 저녁마다 뮤지컬과 연극이 열린다."
+    },
+    {
+      "id": "chinatown",
+      "name": "차이나타운",
+      "lat": 51.5113,
+      "lon": -0.131,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "차이나타운",
+        "Chinatown",
+        "제라드 스트리트",
+        "Gerrard Street",
+        "딤섬"
+      ],
+      "summary": "레스터 스퀘어 옆 제라드 스트리트 일대에 중식당과 디저트 가게가 모여 있다."
+    },
+    {
+      "id": "oxford-street",
+      "name": "옥스퍼드 스트리트",
+      "lat": 51.5149,
+      "lon": -0.1446,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "옥스퍼드 스트리트",
+        "Oxford Street",
+        "리젠트 스트리트",
+        "Regent Street",
+        "쇼핑"
+      ],
+      "summary": "백화점과 대형 브랜드 매장이 이어지는 런던 최대의 쇼핑 거리."
+    },
+    {
+      "id": "hyde-park",
+      "name": "하이드 파크",
+      "lat": 51.5073,
+      "lon": -0.1657,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "하이드 파크",
+        "Hyde Park",
+        "서펜타인",
+        "Serpentine",
+        "공원"
+      ],
+      "summary": "서펜타인 호수를 끼고 켄싱턴 가든스와 이어진 도심의 큰 공원."
+    },
+    {
+      "id": "natural-history-museum",
+      "name": "자연사 박물관",
+      "lat": 51.4967,
+      "lon": -0.1764,
+      "category": "culture",
+      "stayMin": 120,
+      "tags": [
+        "자연사 박물관",
+        "Natural History Museum",
+        "공룡",
+        "무료"
+      ],
+      "summary": "성당 같은 로마네스크풍 건물에 공룡 화석과 고래 골격이 전시된 무료 박물관."
+    },
+    {
+      "id": "v-and-a",
+      "name": "빅토리아 앤 앨버트 박물관",
+      "lat": 51.4966,
+      "lon": -0.1722,
+      "category": "culture",
+      "stayMin": 120,
+      "tags": [
+        "V&A",
+        "빅토리아 앤 앨버트",
+        "Victoria and Albert Museum",
+        "디자인",
+        "무료"
+      ],
+      "summary": "장식미술과 디자인을 다루는 세계적인 박물관으로, 안뜰 카페도 유명하다."
+    },
+    {
+      "id": "harrods",
+      "name": "해러즈",
+      "lat": 51.4994,
+      "lon": -0.1632,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "해러즈",
+        "Harrods",
+        "백화점",
+        "나이츠브리지",
+        "푸드홀"
+      ],
+      "summary": "나이츠브리지의 고급 백화점으로, 화려한 푸드홀이 볼거리다."
+    },
+    {
+      "id": "tower-of-london",
+      "name": "런던탑",
+      "lat": 51.5081,
+      "lon": -0.0759,
+      "category": "sight",
+      "stayMin": 120,
+      "tags": [
+        "런던탑",
+        "Tower of London",
+        "왕관 보석",
+        "Crown Jewels",
+        "요먼 워더"
+      ],
+      "summary": "천 년 가까운 역사의 요새이자 감옥으로, 왕실 보석(크라운 주얼)이 전시된다."
+    },
+    {
+      "id": "tower-bridge",
+      "name": "타워 브리지",
+      "lat": 51.5055,
+      "lon": -0.0754,
+      "category": "sight",
+      "stayMin": 45,
+      "tags": [
+        "타워 브리지",
+        "Tower Bridge",
+        "도개교",
+        "유리 바닥"
+      ],
+      "summary": "두 개의 탑이 선 도개교로, 위쪽 보행 통로의 유리 바닥에서 강을 내려다본다."
+    },
+    {
+      "id": "borough-market",
+      "name": "버러 마켓",
+      "lat": 51.5055,
+      "lon": -0.091,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "버러 마켓",
+        "Borough Market",
+        "시장",
+        "길거리 음식"
+      ],
+      "summary": "런던 브리지 옆 오래된 식료품 시장으로, 길거리 음식과 치즈·빵 가게가 많다."
+    },
+    {
+      "id": "tate-modern",
+      "name": "테이트 모던",
+      "lat": 51.5076,
+      "lon": -0.0994,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "테이트 모던",
+        "Tate Modern",
+        "현대미술",
+        "무료",
+        "발전소"
+      ],
+      "summary": "옛 화력발전소를 고친 현대미술관으로, 상설 전시는 무료다."
+    },
+    {
+      "id": "shakespeare-globe",
+      "name": "셰익스피어 글로브 극장",
+      "lat": 51.5081,
+      "lon": -0.0972,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "셰익스피어 글로브",
+        "Shakespeare's Globe",
+        "극장",
+        "연극"
+      ],
+      "summary": "셰익스피어 시대의 원형 극장을 복원해 지금도 야외 공연을 올리는 극장."
+    },
+    {
+      "id": "st-pauls",
+      "name": "세인트 폴 대성당",
+      "lat": 51.5138,
+      "lon": -0.0984,
+      "category": "sight",
+      "stayMin": 75,
+      "tags": [
+        "세인트 폴 대성당",
+        "St Paul's Cathedral",
+        "돔",
+        "크리스토퍼 렌"
+      ],
+      "summary": "크리스토퍼 렌이 설계한 거대한 돔의 성당으로, 돔 위 회랑에서 시티가 보인다."
+    },
+    {
+      "id": "sky-garden",
+      "name": "스카이 가든",
+      "lat": 51.5111,
+      "lon": -0.0835,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "스카이 가든",
+        "Sky Garden",
+        "워키토키",
+        "전망대",
+        "무료 예약"
+      ],
+      "summary": "'워키토키' 빌딩 꼭대기의 실내 정원 전망대로, 미리 예약하면 무료로 들어간다."
+    },
+    {
+      "id": "the-shard",
+      "name": "더 샤드",
+      "lat": 51.5045,
+      "lon": -0.0865,
+      "category": "night",
+      "stayMin": 75,
+      "tags": [
+        "더 샤드",
+        "The Shard",
+        "전망대",
+        "야경"
+      ],
+      "summary": "런던에서 가장 높은 유리 피라미드형 빌딩으로, 전망대와 바에서 야경을 본다."
+    },
+    {
+      "id": "brick-lane",
+      "name": "브릭 레인",
+      "lat": 51.5215,
+      "lon": -0.0717,
+      "category": "food",
+      "stayMin": 75,
+      "tags": [
+        "브릭 레인",
+        "Brick Lane",
+        "커리",
+        "베이글",
+        "쇼디치",
+        "빈티지"
+      ],
+      "summary": "커리 식당과 베이글 가게, 빈티지 상점과 벽화가 많은 이스트 런던 거리."
+    },
+    {
+      "id": "camden-market",
+      "name": "캠던 마켓",
+      "lat": 51.5414,
+      "lon": -0.146,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "캠던 마켓",
+        "Camden Market",
+        "캠던 록",
+        "빈티지",
+        "길거리 음식"
+      ],
+      "summary": "운하 옆 옛 마구간 건물에 빈티지·노점·음식 가게가 모인 시장."
+    },
+    {
+      "id": "kings-cross",
+      "name": "킹스 크로스 9와 3/4 승강장",
+      "lat": 51.532,
+      "lon": -0.124,
+      "category": "sight",
+      "stayMin": 30,
+      "tags": [
+        "킹스 크로스",
+        "9와 3/4 승강장",
+        "Platform 9¾",
+        "해리 포터",
+        "King's Cross"
+      ],
+      "summary": "해리 포터의 9와 3/4 승강장 포토존과 기념품 가게가 있는 기차역."
+    },
+    {
+      "id": "regents-park",
+      "name": "리젠츠 파크",
+      "lat": 51.5313,
+      "lon": -0.157,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "리젠츠 파크",
+        "Regent's Park",
+        "장미 정원",
+        "프림로즈 힐"
+      ],
+      "summary": "장미 정원으로 유명한 왕립 공원으로, 북쪽 프림로즈 힐에서 시내 전망이 보인다."
+    },
+    {
+      "id": "notting-hill",
+      "name": "노팅 힐·포토벨로 마켓",
+      "lat": 51.5155,
+      "lon": -0.205,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "노팅 힐",
+        "포토벨로",
+        "Portobello Road Market",
+        "Notting Hill",
+        "앤티크"
+      ],
+      "summary": "알록달록한 집들 사이로 앤티크 노점이 늘어서는 시장 거리로, 토요일이 가장 붐빈다."
+    },
+    {
+      "id": "greenwich",
+      "name": "그리니치 천문대",
+      "lat": 51.4769,
+      "lon": -0.0005,
+      "category": "sight",
+      "stayMin": 120,
+      "tags": [
+        "그리니치",
+        "본초 자오선",
+        "Royal Observatory",
+        "Greenwich",
+        "커티삭"
+      ],
+      "summary": "경도 0도 본초 자오선이 지나는 왕립 천문대로, 언덕 위에서 커내리 워프가 보인다."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "런던 첫날 핵심 코스",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "buckingham",
+        "st-james-park",
+        "westminster-abbey",
+        "big-ben",
+        "london-eye",
+        "national-gallery",
+        "covent-garden"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "버킹엄 궁전 근위병 교대식에서 시작해 공원을 지나 웨스트민스터와 빅벤, 런던 아이를 보고 트래펄가 광장을 거쳐 코번트 가든까지 걷는다."
+    },
+    {
+      "id": "museum-day",
+      "title": "박물관 하루",
+      "theme": "박물관",
+      "length": "day",
+      "placeIds": [
+        "british-museum",
+        "natural-history-museum",
+        "v-and-a",
+        "harrods",
+        "hyde-park"
+      ],
+      "modes": [
+        "subway",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "오전엔 대영 박물관, 오후엔 사우스 켄싱턴의 자연사 박물관과 V&A를 보고 해러즈 푸드홀을 지나 하이드 파크에서 쉰다."
+    },
+    {
+      "id": "thames-walk",
+      "title": "템스강 남북 산책",
+      "theme": "산책",
+      "length": "half",
+      "placeIds": [
+        "st-pauls",
+        "tate-modern",
+        "shakespeare-globe",
+        "borough-market",
+        "tower-bridge",
+        "tower-of-london"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "세인트 폴에서 밀레니엄 브리지를 건너 테이트 모던과 글로브 극장, 버러 마켓을 지나 타워 브리지와 런던탑까지."
+    },
+    {
+      "id": "east-night",
+      "title": "이스트 런던 먹거리와 야경",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": [
+        "brick-lane",
+        "sky-garden",
+        "the-shard",
+        "west-end"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "subway"
+      ],
+      "summary": "브릭 레인에서 커리와 베이글을 먹고 스카이 가든·더 샤드에서 야경을 본 뒤 웨스트엔드 뮤지컬로 마무리."
+    }
+  ]
+}

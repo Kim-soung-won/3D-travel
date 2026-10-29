@@ -6,6 +6,7 @@ import { countryCenter, countryKeyAt, countryName } from './geo/world';
 import { loadCountryCities, type CityOption, type CountryCities } from './data/places';
 import { useLegs } from './hooks/useLegs';
 import { useSchedule } from './hooks/useSchedule';
+import { cityDayCount, dayLegIndices } from './state/schedule';
 import type { Focus } from './scene/CameraRig';
 import { Scene } from './scene/Scene';
 import { codeFromHash, decodeTrip } from './share/codec';
@@ -37,6 +38,8 @@ export function App() {
   const [progress, setProgress] = useState(0);
   const [tripStatus, setTripStatus] = useState('');
   const [cityLeg, setCityLeg] = useState<number | null>(null);
+  // 도시 안 재생에서 고른 날 (0이면 전체)
+  const [playDay, setPlayDay] = useState(0);
   // 지구본에서 고른 나라(world-atlas 이름)와 그 나라의 도시 목록
   const [country, setCountry] = useState<string | null>(null);
   const [loadedCountry, setLoadedCountry] = useState<{ key: string; data: CountryCities } | null>(null);
@@ -55,10 +58,16 @@ export function App() {
   const globeLegs = useLegs(route.waypoints);
   const cityLegs = useLegs(city?.stops ?? NO_STOPS);
   const schedule = useSchedule(route, globeLegs);
+  const cityDays = city ? cityDayCount(city) : 1;
+  const day = playDay > cityDays ? 0 : playDay;
+  const cityStops = city?.stops ?? NO_STOPS;
+  const playLegs = useMemo(() => dayLegIndices(cityStops, cityDays, day), [cityStops, cityDays, day]);
 
   /** 로딩 화면으로 덮고, 덮인 뒤 화면을 바꾼다 */
   const transition = useCallback((next: View, title: string, subtitle: string) => {
     setPlaying(false);
+    // 되돌리기 알림은 그 화면에서 한 일에만 붙인다. 화면을 옮기면 닫는다
+    dispatch({ type: 'dismissUndo' });
     setCurtainError(null);
     setCurtainText({ title, subtitle });
     setCurtain('covering');
@@ -68,7 +77,7 @@ export function App() {
       setCurtain('covered');
       setView(next);
     }, FADE_MS);
-  }, []);
+  }, [dispatch]);
 
   /** 새 화면이 준비되면 최소 노출 시간을 채운 뒤 걷는다 */
   const reveal = useCallback(() => {
@@ -86,6 +95,7 @@ export function App() {
     if (!w) return;
     setCountry(null);
     setCitySelectedId(null);
+    setPlayDay(0);
     transition({ kind: 'city', id }, w.name, '거리와 길을 불러오는 중…');
   };
   const backToGlobe = useCallback(() => {
@@ -132,12 +142,12 @@ export function App() {
     };
   }, [country]);
   const countryInfo = country
-    ? { name: countryName(country, loadedCountry?.key === country ? loadedCountry.data.ko : undefined), cities: loadedCountry?.key === country ? loadedCountry.data.cities : null }
+    ? { key: country, name: countryName(country, loadedCountry?.key === country ? loadedCountry.data.ko : undefined), cities: loadedCountry?.key === country ? loadedCountry.data.cities : null }
     : null;
   const addCity = useCallback(
     (c: CityOption) => {
       const id = newId();
-      dispatch({ type: 'add', waypoint: { id, name: c.name, area: countryInfo?.name, lat: c.lat, lon: c.lon, mode: 'plane', nights: 1, stops: [] } });
+      dispatch({ type: 'add', waypoint: { id, name: c.name, area: c.area ?? countryInfo?.name, lat: c.lat, lon: c.lon, mode: 'plane', nights: 1, stops: [] } });
       setSelectedId(id);
     },
     [dispatch, countryInfo?.name],
@@ -273,6 +283,7 @@ export function App() {
                 onReady={reveal}
                 onError={setCurtainError}
                 onProgress={setProgress}
+                playLegs={playLegs}
                 onLeg={setCityLeg}
                 onPlayDone={() => setPlaying(false)}
               />
@@ -284,7 +295,7 @@ export function App() {
         <GlobeSidebar {...common} schedule={schedule} status={tripStatus} onShare={() => (setPlaying(false), setShareOpen(true))} legs={globeLegs} selectedId={selectedId} onSelect={selectGlobe} onEnterCity={enterCity}
           country={countryInfo} hoveredCity={hoveredCity} onHoverCity={setHoveredCity} onAddCity={addCity} onCloseCountry={() => setCountry(null)} />
       ) : (
-        <CitySidebar {...common} schedule={schedule} legs={cityLegs} city={city} playLeg={cityLeg} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
+        <CitySidebar {...common} schedule={schedule} legs={cityLegs} city={city} playLeg={cityLeg} playDay={day} playLegs={playLegs} onPlayDay={(d) => (setPlaying(false), setPlayDay(d))} selectedId={citySelectedId} onSelect={setCitySelectedId} onBack={backToGlobe} />
       )}
       <LoadingScreen
         state={curtain}

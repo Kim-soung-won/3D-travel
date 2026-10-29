@@ -1,14 +1,17 @@
 // 사전 데이터(LLM 생성) 상식 검사. 사실 여부는 확인하지 못하지만, 명백히 지어낸 값을 거른다.
 import { describe, expect, test } from 'vitest';
 import { distanceKm } from '../geo/geo';
-import { CITIES, cityDataAt } from './index';
+import { CITIES } from './all';
+import { cityRefAt } from './index';
 import intercity from './intercity.json';
 
 const CATEGORIES = ['sight', 'culture', 'food', 'shopping', 'nature', 'night'];
 const inBox = (bbox: number[], p: { lat: number; lon: number }) => p.lon >= bbox[0] && p.lon <= bbox[2] && p.lat >= bbox[1] && p.lat <= bbox[3];
 
-test('예시 도시 6곳이 모두 있다', () => {
-  expect(CITIES.map((c) => c.id).sort()).toEqual(['busan', 'los-angeles', 'paris', 'san-francisco', 'seoul', 'tokyo']);
+test('사전 데이터 도시 14곳이 모두 있다', () => {
+  expect(CITIES.map((c) => c.id).sort()).toEqual([
+    'bangkok', 'busan', 'jeju', 'kyoto', 'london', 'los-angeles', 'new-york', 'osaka', 'paris', 'san-francisco', 'seoul', 'singapore', 'taipei', 'tokyo',
+  ]);
 });
 
 describe.each(CITIES.map((c) => [c.id, c] as const))('%s', (_, city) => {
@@ -42,14 +45,23 @@ describe.each(CITIES.map((c) => [c.id, c] as const))('%s', (_, city) => {
     }
   });
   test('도시 중심으로 그 도시 데이터를 찾는다', () => {
-    expect(cityDataAt(city.center)?.id).toBe(city.id);
+    expect(cityRefAt(city.center)?.id).toBe(city.id);
   });
 });
 
-test('도시 간 참고값은 있는 도시만 가리킨다', () => {
+test('도시 간 참고값은 있는 도시만 가리키고, 같은 쌍은 한 번만 있다', () => {
   const ids = new Set(CITIES.map((c) => c.id));
+  const pairs = new Set<string>();
   for (const l of intercity.links) {
     expect(ids.has(l.from), l.from).toBe(true);
     expect(ids.has(l.to), l.to).toBe(true);
+    const pair = [l.from, l.to].sort().join('–');
+    expect(pairs.has(pair), pair).toBe(false);
+    pairs.add(pair);
   }
+});
+
+test('도시 범위는 서로 겹치지 않는다 (겹치면 지점이 엉뚱한 도시 데이터로 간다)', () => {
+  const overlap = (a: number[], b: number[]) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+  for (const a of CITIES) for (const b of CITIES) if (a.id < b.id) expect(overlap(a.bbox, b.bbox), `${a.id} ↔ ${b.id}`).toBe(false);
 });

@@ -38,14 +38,17 @@ describe('구간 경로', () => {
     expect(leg.kind).toBe('fallback');
     expect(leg.durationS).toBeCloseTo((leg.distanceKm / MODES.subway.speedKmh!) * 3600);
   });
-  test('비행기는 두 도시의 비행 시간을 알면 그 값을 쓰고, 지상 대안을 적는다', async () => {
+  test('비행기는 두 도시의 비행 시간을 알면 그 값에 공항 수속·대기 2시간을 더하고, 지상 대안을 적는다', async () => {
     const busan = { lat: 35.1796, lon: 129.0756 };
     const leg = await fetchLeg(SEOUL, busan, 'plane');
     expect(leg.timeKnown).toBe(true);
-    expect(leg.durationS).toBe(55 * 60);
+    expect(leg.durationS).toBe((55 + 120) * 60);
+    expect(leg.note).toMatch(/공항 수속·대기 2시간/);
     expect(leg.note).toMatch(/KTX/);
+    // 비행 시간을 모르면 시속 800km 어림에 공항 시간을 더한다 (화면에는 시간을 보이지 않는다)
     const unknown = await fetchLeg(SEOUL, { lat: 35.8714, lon: 128.6014 }, 'plane');
     expect(unknown.timeKnown).toBeFalsy();
+    expect(unknown.durationS).toBeCloseTo((unknown.distanceKm / 800) * 3600 + 120 * 60, 0);
   });
   test('기차는 지표 직선으로 그리고, 사전 데이터의 기차 시간(서울–부산 KTX 2시간 40분)을 쓴다. 모르면 평균 속도로 어림', async () => {
     const busan = { lat: 35.1796, lon: 129.0756 };

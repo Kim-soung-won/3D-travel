@@ -39,7 +39,7 @@ function Suitcase() {
   );
 }
 
-function Hotel({ phase }: { phase: PhaseRef }) {
+function Hotel({ phase, x }: { phase: PhaseRef; x: number }) {
   // 창 네 개가 같은 재질을 써서, 밤에 한꺼번에 불이 켜진다
   const windows = useMemo(() => new MeshToonMaterial({ color: '#cfe0df' }), []);
   useEffect(() => () => windows.dispose(), [windows]);
@@ -47,7 +47,7 @@ function Hotel({ phase }: { phase: PhaseRef }) {
     windows.color.set(isNight(phase.current) ? '#ffd166' : '#cfe0df');
   });
   return (
-    <group position={[-0.55, 0, -0.3]}>
+    <group position={[x, 0, -0.3]}>
       <mesh position={[0, 0.6, 0]}>
         <boxGeometry args={[0.8, 1.2, 0.6]} />
         <meshToonMaterial color="#fffaf0" />
@@ -68,13 +68,13 @@ function Hotel({ phase }: { phase: PhaseRef }) {
 }
 
 /** 숙소 위로 해와 달이 반대편에서 돈다 */
-function SkyCycle({ phase }: { phase: PhaseRef }) {
+function SkyCycle({ phase, x }: { phase: PhaseRef; x: number }) {
   const pivot = useRef<Group>(null);
   useFrame(() => {
     if (pivot.current) pivot.current.rotation.z = -phase.current * Math.PI * 2;
   });
   return (
-    <group position={[-0.2, 0.6, -0.4]}>
+    <group position={[x, 0.6, -0.4]}>
       <group ref={pivot}>
         <mesh position={[0, 1.5, 0]}>
           <sphereGeometry args={[0.2, 14, 10]} />
@@ -89,12 +89,13 @@ function SkyCycle({ phase }: { phase: PhaseRef }) {
   );
 }
 
-export function StayModel({ phase }: { phase: PhaseRef }) {
+/** side: 숙소를 둘 쪽(-1 왼쪽, 1 오른쪽). 떠나는 비행 곡선이 숙소를 뚫지 않게 곡선 반대쪽에 둔다 */
+export function StayModel({ phase, side = -1 }: { phase: PhaseRef; side?: -1 | 1 }) {
   return (
     <group>
-      <Hotel phase={phase} />
-      <SkyCycle phase={phase} />
-      <Traveler x={0.25}>
+      <Hotel phase={phase} x={0.55 * side} />
+      <SkyCycle phase={phase} x={0.2 * side} />
+      <Traveler x={-0.25 * side}>
         <Suitcase />
       </Traveler>
     </group>

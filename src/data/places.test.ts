@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import countriesTopo from 'world-atlas/countries-110m.json';
 import { countryCenter, countryKeyAt, countryName } from '../geo/world';
 import places from './places.json';
-import { loadCountryCities, parseCountry } from './places';
+import { loadCountryCities, parseCountry, searchCountryCities } from './places';
 
 const atlasNames = (countriesTopo as unknown as { objects: { countries: { geometries: { properties: { name: string } }[] } } }).objects.countries.geometries.map((g) => g.properties.name);
 const all = Object.entries(places.countries as unknown as Record<string, Parameters<typeof parseCountry>[0]>).map(([key, raw]) => ({ key, ...parseCountry(raw) }));
@@ -34,6 +34,24 @@ describe('나라별 주요 도시 데이터', () => {
     expect(korea.cities.map((c) => c.name)).toContain('부산광역시');
     const france = await loadCountryCities('France');
     expect(france.cities.find((c) => c.capital)?.name).toBe('파리');
+  });
+
+  it('1:110m 지도에 없는 작은 나라는 가까운 나라 목록에 그 나라 이름과 함께 들어간다', async () => {
+    const malaysia = await loadCountryCities('Malaysia');
+    expect(malaysia.cities.find((c) => c.en === 'Singapore')).toMatchObject({ area: '싱가포르' });
+    const china = await loadCountryCities('China');
+    expect(china.cities.find((c) => c.en === 'Hong Kong')).toMatchObject({ area: '홍콩' });
+    expect(china.cities.find((c) => c.en === 'Beijing')?.area).toBeUndefined();
+  });
+
+  it('검색하면 목록 20곳 밖의 작은 도시도 찾는다 (한국어·영어, 앞부분이 맞으면 먼저)', async () => {
+    const top = (await loadCountryCities('South Korea')).cities.map((c) => c.en);
+    const gyeongju = await searchCountryCities('South Korea', '경주');
+    expect(gyeongju[0].en).toBe('Gyeongju');
+    expect(top).not.toContain('Gyeongju');
+    expect((await searchCountryCities('Japan', 'kyo'))[0].en).toBe('Kyoto'); // 'Tokyo'는 가운데에 kyo가 들어 있어 뒤로
+    expect((await searchCountryCities('France', 'nimes')).map((c) => c.en)).toContain('Nîmes');
+    expect(await searchCountryCities('South Korea', '')).toEqual([]);
   });
 
   it('데이터에 없는 나라 키면 빈 목록이다', async () => {

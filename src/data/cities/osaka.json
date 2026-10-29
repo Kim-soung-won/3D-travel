@@ -1,0 +1,768 @@
+{
+  "id": "osaka",
+  "name": "오사카시",
+  "country": "일본",
+  "center": {
+    "lat": 34.68,
+    "lon": 135.5
+  },
+  "bbox": [
+    135.42,
+    34.638,
+    135.545,
+    34.74
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-28) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "midosuji",
+      "name": "미도스지선 (御堂筋線) 도심 구간",
+      "color": "#E5171F",
+      "stations": [
+        {
+          "name": "新大阪",
+          "lat": 34.7335,
+          "lon": 135.5001
+        },
+        {
+          "name": "西中島南方",
+          "lat": 34.7256,
+          "lon": 135.4996
+        },
+        {
+          "name": "中津",
+          "lat": 34.7095,
+          "lon": 135.4972
+        },
+        {
+          "name": "梅田",
+          "lat": 34.7025,
+          "lon": 135.4985
+        },
+        {
+          "name": "淀屋橋",
+          "lat": 34.6926,
+          "lon": 135.5013
+        },
+        {
+          "name": "本町",
+          "lat": 34.6823,
+          "lon": 135.5
+        },
+        {
+          "name": "心斎橋",
+          "lat": 34.675,
+          "lon": 135.5007
+        },
+        {
+          "name": "なんば",
+          "lat": 34.666,
+          "lon": 135.5013
+        },
+        {
+          "name": "大国町",
+          "lat": 34.6533,
+          "lon": 135.4975
+        },
+        {
+          "name": "動物園前",
+          "lat": 34.6467,
+          "lon": 135.504
+        },
+        {
+          "name": "天王寺",
+          "lat": 34.6466,
+          "lon": 135.514
+        }
+      ]
+    },
+    {
+      "id": "jr-loop",
+      "name": "오사카 순환선 (大阪環状線)",
+      "color": "#F37021",
+      "loop": true,
+      "stations": [
+        {
+          "name": "大阪",
+          "lat": 34.7024,
+          "lon": 135.4959
+        },
+        {
+          "name": "天満",
+          "lat": 34.7054,
+          "lon": 135.5124
+        },
+        {
+          "name": "桜ノ宮",
+          "lat": 34.7058,
+          "lon": 135.5226
+        },
+        {
+          "name": "京橋",
+          "lat": 34.6966,
+          "lon": 135.5341
+        },
+        {
+          "name": "大阪城公園",
+          "lat": 34.688,
+          "lon": 135.5345
+        },
+        {
+          "name": "森ノ宮",
+          "lat": 34.681,
+          "lon": 135.5335
+        },
+        {
+          "name": "玉造",
+          "lat": 34.6703,
+          "lon": 135.534
+        },
+        {
+          "name": "鶴橋",
+          "lat": 34.6655,
+          "lon": 135.53
+        },
+        {
+          "name": "桃谷",
+          "lat": 34.659,
+          "lon": 135.5263
+        },
+        {
+          "name": "寺田町",
+          "lat": 34.6488,
+          "lon": 135.5233
+        },
+        {
+          "name": "天王寺",
+          "lat": 34.6466,
+          "lon": 135.514
+        },
+        {
+          "name": "新今宮",
+          "lat": 34.6505,
+          "lon": 135.5014
+        },
+        {
+          "name": "今宮",
+          "lat": 34.6566,
+          "lon": 135.493
+        },
+        {
+          "name": "芦原橋",
+          "lat": 34.6628,
+          "lon": 135.4874
+        },
+        {
+          "name": "大正",
+          "lat": 34.6686,
+          "lon": 135.479
+        },
+        {
+          "name": "弁天町",
+          "lat": 34.6697,
+          "lon": 135.4615
+        },
+        {
+          "name": "西九条",
+          "lat": 34.6828,
+          "lon": 135.4661
+        },
+        {
+          "name": "野田",
+          "lat": 34.691,
+          "lon": 135.477
+        },
+        {
+          "name": "福島",
+          "lat": 34.697,
+          "lon": 135.487
+        }
+      ]
+    },
+    {
+      "id": "chuo",
+      "name": "주오선 (中央線) 오사카항~모리노미야",
+      "color": "#019A66",
+      "stations": [
+        {
+          "name": "大阪港",
+          "lat": 34.6546,
+          "lon": 135.4339
+        },
+        {
+          "name": "朝潮橋",
+          "lat": 34.6638,
+          "lon": 135.451
+        },
+        {
+          "name": "弁天町",
+          "lat": 34.6697,
+          "lon": 135.4615
+        },
+        {
+          "name": "九条",
+          "lat": 34.6733,
+          "lon": 135.474
+        },
+        {
+          "name": "阿波座",
+          "lat": 34.6822,
+          "lon": 135.4882
+        },
+        {
+          "name": "本町",
+          "lat": 34.6823,
+          "lon": 135.5
+        },
+        {
+          "name": "堺筋本町",
+          "lat": 34.6823,
+          "lon": 135.5065
+        },
+        {
+          "name": "谷町四丁目",
+          "lat": 34.682,
+          "lon": 135.5175
+        },
+        {
+          "name": "森ノ宮",
+          "lat": 34.681,
+          "lon": 135.5335
+        }
+      ]
+    },
+    {
+      "id": "sakaisuji",
+      "name": "사카이스지선 (堺筋線) 도심 구간",
+      "color": "#814721",
+      "stations": [
+        {
+          "name": "天神橋筋六丁目",
+          "lat": 34.71,
+          "lon": 135.5113
+        },
+        {
+          "name": "扇町",
+          "lat": 34.7036,
+          "lon": 135.5114
+        },
+        {
+          "name": "南森町",
+          "lat": 34.6982,
+          "lon": 135.5118
+        },
+        {
+          "name": "北浜",
+          "lat": 34.6918,
+          "lon": 135.5065
+        },
+        {
+          "name": "堺筋本町",
+          "lat": 34.6823,
+          "lon": 135.5065
+        },
+        {
+          "name": "長堀橋",
+          "lat": 34.6735,
+          "lon": 135.5065
+        },
+        {
+          "name": "日本橋",
+          "lat": 34.6667,
+          "lon": 135.5063
+        },
+        {
+          "name": "恵美須町",
+          "lat": 34.652,
+          "lon": 135.5055
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "osaka-castle",
+      "name": "오사카성 (천수각·니시노마루 정원)",
+      "lat": 34.6873,
+      "lon": 135.5262,
+      "category": "sight",
+      "stayMin": 120,
+      "tags": [
+        "오사카성",
+        "천수각",
+        "도요토미 히데요시",
+        "大阪城",
+        "Osaka Castle"
+      ],
+      "summary": "도요토미 히데요시가 세운 성을 복원한 천수각과 넓은 해자·석벽 공원."
+    },
+    {
+      "id": "osaka-museum-history",
+      "name": "오사카 역사박물관",
+      "lat": 34.6827,
+      "lon": 135.5208,
+      "category": "culture",
+      "stayMin": 75,
+      "tags": [
+        "역사박물관",
+        "나니와궁",
+        "大阪歴史博物館",
+        "Osaka Museum of History"
+      ],
+      "summary": "고대 나니와궁부터 근대 상업도시까지 오사카의 역사를 층별로 보여주는 박물관."
+    },
+    {
+      "id": "dotonbori",
+      "name": "도톤보리 (글리코 간판)",
+      "lat": 34.6687,
+      "lon": 135.5013,
+      "category": "night",
+      "stayMin": 90,
+      "tags": [
+        "도톤보리",
+        "글리코",
+        "에비스바시",
+        "道頓堀",
+        "Dotonbori"
+      ],
+      "summary": "운하를 따라 거대 간판과 네온이 늘어선 오사카 먹자골목의 중심."
+    },
+    {
+      "id": "hozenji",
+      "name": "호젠지 요코초",
+      "lat": 34.668,
+      "lon": 135.503,
+      "category": "culture",
+      "stayMin": 30,
+      "tags": [
+        "호젠지",
+        "이끼 부동명왕",
+        "골목",
+        "法善寺横丁",
+        "Hozenji Yokocho"
+      ],
+      "summary": "이끼 낀 부동명왕상과 돌길 골목에 작은 음식점이 모인 도톤보리 옆 옛 골목."
+    },
+    {
+      "id": "ura-namba",
+      "name": "우라난바 이자카야 골목",
+      "lat": 34.664,
+      "lon": 135.504,
+      "category": "night",
+      "stayMin": 90,
+      "tags": [
+        "우라난바",
+        "이자카야",
+        "선술집",
+        "裏なんば",
+        "Ura Namba"
+      ],
+      "summary": "난바역 뒤편 좁은 골목에 작은 선술집이 빽빽한 밤 술집 거리."
+    },
+    {
+      "id": "kuromon",
+      "name": "구로몬 시장",
+      "lat": 34.6654,
+      "lon": 135.5066,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "구로몬시장",
+        "해산물",
+        "길거리음식",
+        "黒門市場",
+        "Kuromon Market"
+      ],
+      "summary": "'오사카의 부엌'이라 불리는 시장으로 해산물·와규 꼬치를 서서 먹을 수 있다."
+    },
+    {
+      "id": "den-den-town",
+      "name": "덴덴타운 (닛폰바시)",
+      "lat": 34.66,
+      "lon": 135.506,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "덴덴타운",
+        "전자상가",
+        "애니메이션",
+        "でんでんタウン",
+        "Den Den Town"
+      ],
+      "summary": "전자제품·애니메이션·피규어 가게가 모인 오사카의 오타쿠 거리."
+    },
+    {
+      "id": "shinsaibashi",
+      "name": "신사이바시스지 상점가",
+      "lat": 34.6735,
+      "lon": 135.5015,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "신사이바시",
+        "아케이드",
+        "드럭스토어",
+        "心斎橋筋",
+        "Shinsaibashi"
+      ],
+      "summary": "지붕 덮인 긴 아케이드에 브랜드숍과 드럭스토어가 이어진 쇼핑 거리."
+    },
+    {
+      "id": "amerikamura",
+      "name": "아메리카무라",
+      "lat": 34.672,
+      "lon": 135.4985,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "아메리카무라",
+        "아메무라",
+        "빈티지",
+        "アメリカ村",
+        "Amerikamura"
+      ],
+      "summary": "구제옷·스트리트 패션 가게와 작은 광장이 있는 젊은이의 거리."
+    },
+    {
+      "id": "namba-parks",
+      "name": "난바 파크스",
+      "lat": 34.6614,
+      "lon": 135.502,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "난바파크스",
+        "옥상정원",
+        "쇼핑몰",
+        "なんばパークス",
+        "Namba Parks"
+      ],
+      "summary": "계단식 옥상 정원이 있는 난바역 남쪽의 대형 쇼핑몰."
+    },
+    {
+      "id": "shinsekai",
+      "name": "신세카이·쓰텐카쿠",
+      "lat": 34.6525,
+      "lon": 135.5063,
+      "category": "sight",
+      "stayMin": 90,
+      "tags": [
+        "신세카이",
+        "쓰텐카쿠",
+        "쿠시카츠",
+        "新世界",
+        "通天閣",
+        "Shinsekai",
+        "Tsutenkaku"
+      ],
+      "summary": "쓰텐카쿠 타워 아래 쿠시카츠 집이 늘어선 레트로한 옛 번화가."
+    },
+    {
+      "id": "tennoji-park",
+      "name": "덴노지 공원·덴시바",
+      "lat": 34.65,
+      "lon": 135.51,
+      "category": "nature",
+      "stayMin": 45,
+      "tags": [
+        "덴노지공원",
+        "덴시바",
+        "잔디광장",
+        "天王寺公園",
+        "Tennoji Park"
+      ],
+      "summary": "덴노지역 앞 잔디광장과 정원, 동물원이 이어진 도심 공원."
+    },
+    {
+      "id": "shitennoji",
+      "name": "시텐노지",
+      "lat": 34.6542,
+      "lon": 135.5164,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "시텐노지",
+        "쇼토쿠태자",
+        "오중탑",
+        "四天王寺",
+        "Shitennoji"
+      ],
+      "summary": "쇼토쿠 태자가 세웠다고 전하는 일본에서 가장 오래된 축에 드는 절."
+    },
+    {
+      "id": "abeno-harukas",
+      "name": "아베노 하루카스 300 전망대",
+      "lat": 34.6458,
+      "lon": 135.5139,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "아베노하루카스",
+        "전망대",
+        "야경",
+        "あべのハルカス",
+        "Abeno Harukas"
+      ],
+      "summary": "300m 높이 초고층 빌딩 꼭대기에서 오사카 평야의 야경을 내려다본다."
+    },
+    {
+      "id": "korea-town",
+      "name": "쓰루하시 코리아타운",
+      "lat": 34.662,
+      "lon": 135.536,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "코리아타운",
+        "쓰루하시",
+        "야키니쿠",
+        "김치",
+        "鶴橋",
+        "Tsuruhashi Korea Town"
+      ],
+      "summary": "쓰루하시역 주변 야키니쿠 골목과 한국 식료품 상점가."
+    },
+    {
+      "id": "umeda-sky",
+      "name": "우메다 스카이빌딩 공중정원",
+      "lat": 34.7053,
+      "lon": 135.4906,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "우메다스카이빌딩",
+        "공중정원",
+        "전망대",
+        "梅田スカイビル",
+        "Umeda Sky Building"
+      ],
+      "summary": "두 빌딩을 꼭대기에서 잇는 야외 원형 전망대에서 보는 야경."
+    },
+    {
+      "id": "grand-front",
+      "name": "그랜드 프런트 오사카·우메다 백화점가",
+      "lat": 34.7045,
+      "lon": 135.495,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "우메다",
+        "그랜드프런트",
+        "한큐백화점",
+        "グランフロント大阪",
+        "Grand Front Osaka"
+      ],
+      "summary": "오사카역·우메다역 주변 백화점과 복합몰이 지하상가로 이어진 쇼핑 중심지."
+    },
+    {
+      "id": "nakazakicho",
+      "name": "나카자키초 골목",
+      "lat": 34.7075,
+      "lon": 135.504,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "나카자키초",
+        "카페",
+        "잡화",
+        "中崎町",
+        "Nakazakicho"
+      ],
+      "summary": "오래된 목조 주택을 고친 카페·잡화점이 모인 우메다 동쪽 골목."
+    },
+    {
+      "id": "tenjinbashi",
+      "name": "덴진바시스지 상점가",
+      "lat": 34.701,
+      "lon": 135.5115,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "덴진바시스지",
+        "상점가",
+        "고로케",
+        "天神橋筋商店街",
+        "Tenjinbashisuji"
+      ],
+      "summary": "남북으로 2km 넘게 이어지는 일본에서 가장 긴 축에 드는 아케이드 상점가."
+    },
+    {
+      "id": "tenmangu",
+      "name": "오사카 덴만구",
+      "lat": 34.6958,
+      "lon": 135.5124,
+      "category": "culture",
+      "stayMin": 30,
+      "tags": [
+        "덴만구",
+        "덴진마쓰리",
+        "학문의 신",
+        "大阪天満宮",
+        "Osaka Tenmangu"
+      ],
+      "summary": "학문의 신을 모시는 신사로 여름 덴진 마쓰리의 중심이다."
+    },
+    {
+      "id": "sakuranomiya",
+      "name": "겐모쿠 사쿠라노미야 공원 (오카와 강변)",
+      "lat": 34.702,
+      "lon": 135.5225,
+      "category": "nature",
+      "stayMin": 45,
+      "tags": [
+        "사쿠라노미야",
+        "벚꽃",
+        "강변산책",
+        "桜之宮公園",
+        "Sakuranomiya"
+      ],
+      "summary": "오카와 강을 따라 벚나무가 늘어선 강변 산책로."
+    },
+    {
+      "id": "nakanoshima",
+      "name": "나카노시마 공원",
+      "lat": 34.6925,
+      "lon": 135.5075,
+      "category": "nature",
+      "stayMin": 45,
+      "tags": [
+        "나카노시마",
+        "장미정원",
+        "중앙공회당",
+        "中之島公園",
+        "Nakanoshima Park"
+      ],
+      "summary": "두 강 사이 섬에 장미 정원과 붉은 벽돌 중앙공회당이 있는 공원."
+    },
+    {
+      "id": "nakanoshima-museum",
+      "name": "국립국제미술관",
+      "lat": 34.6913,
+      "lon": 135.4918,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "국립국제미술관",
+        "현대미술",
+        "나카노시마",
+        "国立国際美術館",
+        "National Museum of Art Osaka"
+      ],
+      "summary": "은빛 철골 구조물 아래 지하에 자리한 현대미술관."
+    },
+    {
+      "id": "kaiyukan",
+      "name": "가이유칸 (오사카 수족관)",
+      "lat": 34.6545,
+      "lon": 135.429,
+      "category": "culture",
+      "stayMin": 150,
+      "tags": [
+        "가이유칸",
+        "수족관",
+        "고래상어",
+        "海遊館",
+        "Kaiyukan"
+      ],
+      "summary": "고래상어가 헤엄치는 거대한 중앙 수조를 나선형으로 내려가며 보는 수족관."
+    },
+    {
+      "id": "usj",
+      "name": "유니버설 스튜디오 재팬",
+      "lat": 34.6654,
+      "lon": 135.4323,
+      "category": "sight",
+      "stayMin": 480,
+      "tags": [
+        "유니버설스튜디오",
+        "USJ",
+        "닌텐도월드",
+        "ユニバーサル・スタジオ・ジャパン",
+        "Universal Studios Japan"
+      ],
+      "summary": "슈퍼 닌텐도 월드와 해리포터 구역이 있는 오사카만의 테마파크."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "처음 만나는 오사카 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "osaka-castle",
+        "kuromon",
+        "shinsaibashi",
+        "dotonbori",
+        "umeda-sky"
+      ],
+      "modes": [
+        "subway",
+        "walk",
+        "walk",
+        "subway"
+      ],
+      "summary": "오전엔 오사카성을 돌고 구로몬 시장에서 점심, 신사이바시와 도톤보리를 걸은 뒤 우메다 공중정원에서 야경으로 마무리한다."
+    },
+    {
+      "id": "north-walk",
+      "title": "강변과 상점가 북쪽 산책",
+      "theme": "산책",
+      "length": "day",
+      "placeIds": [
+        "osaka-castle",
+        "sakuranomiya",
+        "tenmangu",
+        "tenjinbashi",
+        "nakazakicho",
+        "umeda-sky"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "오사카성에서 오카와 강변을 따라 올라가 덴만구와 긴 상점가, 나카자키초 골목을 지나 우메다까지 걷는다."
+    },
+    {
+      "id": "night-view",
+      "title": "미나미 야경",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": [
+        "abeno-harukas",
+        "shinsekai",
+        "dotonbori",
+        "hozenji"
+      ],
+      "modes": [
+        "walk",
+        "subway",
+        "walk"
+      ],
+      "summary": "하루카스 전망대에서 야경을 보고 신세카이 네온을 지나 도톤보리와 호젠지 골목에서 밤을 보낸다."
+    },
+    {
+      "id": "food-tour",
+      "title": "난바 먹거리와 골목",
+      "theme": "먹거리",
+      "length": "half",
+      "placeIds": [
+        "kuromon",
+        "den-den-town",
+        "shinsekai",
+        "ura-namba",
+        "dotonbori"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "subway",
+        "walk"
+      ],
+      "summary": "구로몬 시장 해산물, 신세카이 쿠시카츠, 우라난바 선술집을 거쳐 도톤보리 다코야키로 끝낸다."
+    }
+  ]
+}

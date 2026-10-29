@@ -184,6 +184,12 @@ export const cityDayCount = (w: Pick<Waypoint, 'nights'>) => nightsOf(w) + 1;
 /** 세부 경유지가 속한 날(1부터). 숙박을 줄여 없어진 날이면 마지막 날로 본다 */
 export const stopDay = (s: Pick<Stop, 'day'>, count: number) => Math.max(1, Math.min(count, Math.round(s.day ?? 1)));
 
+/** 도시 안 재생에서 돌릴 구간 번호. day가 0이면 전체, 아니면 그날 안의 구간만(날이 바뀌는 구간은 뺀다) */
+export function dayLegIndices(stops: Pick<Stop, 'day'>[], count: number, day: number): number[] {
+  const all = stops.slice(1).map((_, i) => i);
+  return day ? all.filter((i) => stopDay(stops[i], count) === day && stopDay(stops[i + 1], count) === day) : all;
+}
+
 export interface DayPlan {
   /** 도시 안 몇째 날 (1부터) */
   day: number;

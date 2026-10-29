@@ -25,9 +25,11 @@ interface StopListProps {
   groupHead?: (item: Stop, index: number) => ReactNode;
   /** 목록 끝에 붙이는 것 (장소가 없는 뒤쪽 날 등) */
   tail?: ReactNode;
+  /** 구간(항목 → 다음 항목)에서 고를 수 없는 수단과 그 이유 */
+  blockedModes?: (item: Stop, next: Stop) => Partial<Record<Mode, string | null>>;
 }
 
-export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRename, onMove, onRemove, onMode, onLink, extra, groupHead, tail }: StopListProps) {
+export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRename, onMove, onRemove, onMode, onLink, extra, groupHead, tail, blockedModes }: StopListProps) {
   return (
     <ol className="stops">
       {items.map((w, i) => {
@@ -65,7 +67,8 @@ export function StopList({ items, legs, modes, selectedId, noun, onSelect, onRen
               {extra?.(w)}
               {leg && (
                 <div className="leg">
-                  <ModePicker value={w.mode} options={modes} onChange={(m) => onMode(w.id, m)} legLabel={`${i + 1}→${i + 2} 구간`} />
+                  <ModePicker value={w.mode} options={modes} onChange={(m) => onMode(w.id, m)} legLabel={`${i + 1}→${i + 2} 구간`}
+                    blocked={items[i + 1] && blockedModes?.(w, items[i + 1])} />
                   <span className="leg-info">
                     {leg.loading ? (
                       '경로 찾는 중…'

@@ -1,0 +1,796 @@
+{
+  "id": "bangkok",
+  "name": "방콕",
+  "country": "태국",
+  "center": {
+    "lat": 13.745,
+    "lon": 100.535
+  },
+  "bbox": [
+    100.485,
+    13.7,
+    100.606,
+    13.818
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-28) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "bts-sukhumvit",
+      "name": "BTS 수쿰윗선 (도심 구간)",
+      "color": "#7FBF3F",
+      "stations": [
+        {
+          "name": "모칫/짜뚜짝공원",
+          "lat": 13.8026,
+          "lon": 100.5538
+        },
+        {
+          "name": "사판콰이",
+          "lat": 13.7938,
+          "lon": 100.5497
+        },
+        {
+          "name": "아리",
+          "lat": 13.7796,
+          "lon": 100.5446
+        },
+        {
+          "name": "사남파오",
+          "lat": 13.7726,
+          "lon": 100.542
+        },
+        {
+          "name": "전승기념탑",
+          "lat": 13.7628,
+          "lon": 100.5372
+        },
+        {
+          "name": "파야타이",
+          "lat": 13.7568,
+          "lon": 100.5338
+        },
+        {
+          "name": "랏차테위",
+          "lat": 13.7519,
+          "lon": 100.5316
+        },
+        {
+          "name": "시암",
+          "lat": 13.7456,
+          "lon": 100.5341
+        },
+        {
+          "name": "칫롬",
+          "lat": 13.7441,
+          "lon": 100.543
+        },
+        {
+          "name": "플른칫",
+          "lat": 13.743,
+          "lon": 100.549
+        },
+        {
+          "name": "나나",
+          "lat": 13.7405,
+          "lon": 100.555
+        },
+        {
+          "name": "아속/수쿰윗",
+          "lat": 13.737,
+          "lon": 100.5604
+        },
+        {
+          "name": "프롬퐁",
+          "lat": 13.7305,
+          "lon": 100.5697
+        },
+        {
+          "name": "통로",
+          "lat": 13.7242,
+          "lon": 100.5785
+        },
+        {
+          "name": "에까마이",
+          "lat": 13.7196,
+          "lon": 100.5851
+        },
+        {
+          "name": "프라카농",
+          "lat": 13.7154,
+          "lon": 100.5917
+        },
+        {
+          "name": "온눗",
+          "lat": 13.7056,
+          "lon": 100.6011
+        }
+      ]
+    },
+    {
+      "id": "bts-silom",
+      "name": "BTS 실롬선 (도심 구간)",
+      "color": "#00785A",
+      "stations": [
+        {
+          "name": "국립경기장",
+          "lat": 13.7466,
+          "lon": 100.5291
+        },
+        {
+          "name": "시암",
+          "lat": 13.7456,
+          "lon": 100.5341
+        },
+        {
+          "name": "랏차담리",
+          "lat": 13.7395,
+          "lon": 100.5394
+        },
+        {
+          "name": "살라댕/실롬",
+          "lat": 13.7286,
+          "lon": 100.5343
+        },
+        {
+          "name": "총논시",
+          "lat": 13.7238,
+          "lon": 100.5294
+        },
+        {
+          "name": "세인트루이스",
+          "lat": 13.721,
+          "lon": 100.526
+        },
+        {
+          "name": "수라삭",
+          "lat": 13.7194,
+          "lon": 100.5216
+        },
+        {
+          "name": "사판탁신",
+          "lat": 13.7187,
+          "lon": 100.5142
+        },
+        {
+          "name": "끄룽톤부리",
+          "lat": 13.721,
+          "lon": 100.5027
+        },
+        {
+          "name": "웡위안야이",
+          "lat": 13.7212,
+          "lon": 100.4958
+        }
+      ]
+    },
+    {
+      "id": "mrt-blue",
+      "name": "MRT 블루라인 (도심 구간)",
+      "color": "#1E4F9C",
+      "stations": [
+        {
+          "name": "사남차이",
+          "lat": 13.7442,
+          "lon": 100.4941
+        },
+        {
+          "name": "삼욧",
+          "lat": 13.7466,
+          "lon": 100.5016
+        },
+        {
+          "name": "왓망꼰",
+          "lat": 13.7429,
+          "lon": 100.5103
+        },
+        {
+          "name": "후아람퐁",
+          "lat": 13.7377,
+          "lon": 100.517
+        },
+        {
+          "name": "삼얀",
+          "lat": 13.7325,
+          "lon": 100.5297
+        },
+        {
+          "name": "살라댕/실롬",
+          "lat": 13.7293,
+          "lon": 100.5367
+        },
+        {
+          "name": "룸피니",
+          "lat": 13.7256,
+          "lon": 100.5456
+        },
+        {
+          "name": "크롱떠이",
+          "lat": 13.7222,
+          "lon": 100.5537
+        },
+        {
+          "name": "퀸시리킷 국립컨벤션센터",
+          "lat": 13.7231,
+          "lon": 100.5601
+        },
+        {
+          "name": "아속/수쿰윗",
+          "lat": 13.7385,
+          "lon": 100.5609
+        },
+        {
+          "name": "펫차부리",
+          "lat": 13.7487,
+          "lon": 100.5633
+        },
+        {
+          "name": "팔람 9",
+          "lat": 13.7573,
+          "lon": 100.565
+        },
+        {
+          "name": "타일랜드 컬처럴 센터",
+          "lat": 13.766,
+          "lon": 100.57
+        },
+        {
+          "name": "훼이꽝",
+          "lat": 13.7786,
+          "lon": 100.5737
+        },
+        {
+          "name": "수티산",
+          "lat": 13.7895,
+          "lon": 100.574
+        },
+        {
+          "name": "랏차다피섹",
+          "lat": 13.799,
+          "lon": 100.5744
+        },
+        {
+          "name": "랏프라오",
+          "lat": 13.8061,
+          "lon": 100.573
+        },
+        {
+          "name": "파혼요틴",
+          "lat": 13.8139,
+          "lon": 100.5609
+        },
+        {
+          "name": "모칫/짜뚜짝공원",
+          "lat": 13.803,
+          "lon": 100.5537
+        }
+      ]
+    },
+    {
+      "id": "arl",
+      "name": "공항철도 ARL (도심 구간)",
+      "color": "#C0272D",
+      "stations": [
+        {
+          "name": "파야타이",
+          "lat": 13.7565,
+          "lon": 100.5348
+        },
+        {
+          "name": "랏차쁘라롭",
+          "lat": 13.755,
+          "lon": 100.542
+        },
+        {
+          "name": "막까산",
+          "lat": 13.751,
+          "lon": 100.561
+        },
+        {
+          "name": "람캄행",
+          "lat": 13.743,
+          "lon": 100.6
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "grand-palace",
+      "name": "왕궁·왓프라깨우",
+      "lat": 13.75,
+      "lon": 100.4913,
+      "category": "sight",
+      "stayMin": 120,
+      "tags": [
+        "왕궁",
+        "에메랄드 사원",
+        "왓프라깨우",
+        "พระบรมมหาราชวัง",
+        "Grand Palace",
+        "Wat Phra Kaew"
+      ],
+      "summary": "에메랄드 불상을 모신 왓프라깨우와 옛 왕궁 건물이 모인 방콕 대표 명소다."
+    },
+    {
+      "id": "wat-pho",
+      "name": "왓포",
+      "lat": 13.7465,
+      "lon": 100.493,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "왓포",
+        "와불",
+        "타이 마사지",
+        "วัดโพธิ์",
+        "Wat Pho"
+      ],
+      "summary": "길이 46m의 거대한 와불과 타이 마사지 학교로 알려진 사원이다."
+    },
+    {
+      "id": "wat-arun",
+      "name": "왓아룬",
+      "lat": 13.7437,
+      "lon": 100.4888,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "왓아룬",
+        "새벽 사원",
+        "วัดอรุณ",
+        "Wat Arun",
+        "Temple of Dawn"
+      ],
+      "summary": "짜오프라야강 서쪽에 도자기 조각으로 장식한 높은 탑이 선 새벽 사원이다."
+    },
+    {
+      "id": "national-museum",
+      "name": "방콕 국립박물관",
+      "lat": 13.7576,
+      "lon": 100.4925,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "국립박물관",
+        "พิพิธภัณฑสถานแห่งชาติ พระนคร",
+        "Bangkok National Museum"
+      ],
+      "summary": "옛 부왕궁 자리에서 태국 역사와 불교 미술을 보여 주는 박물관이다."
+    },
+    {
+      "id": "phra-sumen-fort",
+      "name": "프라수멘 요새·산띠차이쁘라깐 공원",
+      "lat": 13.7638,
+      "lon": 100.4955,
+      "category": "nature",
+      "stayMin": 30,
+      "tags": [
+        "프라수멘 요새",
+        "강변 공원",
+        "ป้อมพระสุเมรุ",
+        "Phra Sumen Fort",
+        "Santichaiprakan Park"
+      ],
+      "summary": "하얀 옛 요새 옆 강변 공원에서 짜오프라야강과 라마 8세교를 바라본다."
+    },
+    {
+      "id": "khaosan-road",
+      "name": "카오산 로드",
+      "lat": 13.759,
+      "lon": 100.4974,
+      "category": "night",
+      "stayMin": 90,
+      "tags": [
+        "카오산",
+        "배낭여행자 거리",
+        "ถนนข้าวสาร",
+        "Khao San Road"
+      ],
+      "summary": "노점과 바, 게스트하우스가 늘어선 배낭여행자의 거리로 밤에 가장 붐빈다."
+    },
+    {
+      "id": "democracy-monument",
+      "name": "민주기념탑",
+      "lat": 13.7568,
+      "lon": 100.5018,
+      "category": "sight",
+      "stayMin": 15,
+      "tags": [
+        "민주기념탑",
+        "อนุสาวรีย์ประชาธิปไตย",
+        "Democracy Monument"
+      ],
+      "summary": "랏차담는 대로 한가운데 선 1932년 입헌혁명 기념탑이다."
+    },
+    {
+      "id": "wat-saket",
+      "name": "왓사켓 (골든 마운트)",
+      "lat": 13.7538,
+      "lon": 100.5067,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "왓사켓",
+        "골든 마운트",
+        "ภูเขาทอง",
+        "Wat Saket",
+        "Golden Mount"
+      ],
+      "summary": "인공 언덕 꼭대기 황금 탑에 오르면 구시가지가 한눈에 보인다."
+    },
+    {
+      "id": "pak-khlong-talat",
+      "name": "빡크롱딸랏 꽃시장",
+      "lat": 13.7428,
+      "lon": 100.497,
+      "category": "shopping",
+      "stayMin": 45,
+      "tags": [
+        "꽃시장",
+        "빡크롱딸랏",
+        "ปากคลองตลาด",
+        "Pak Khlong Talat",
+        "Flower Market"
+      ],
+      "summary": "밤낮없이 꽃과 화환을 도매로 파는 방콕 최대의 꽃시장이다."
+    },
+    {
+      "id": "yaowarat",
+      "name": "야오와랏 차이나타운",
+      "lat": 13.7398,
+      "lon": 100.5098,
+      "category": "food",
+      "stayMin": 120,
+      "tags": [
+        "차이나타운",
+        "야오와랏",
+        "길거리 음식",
+        "เยาวราช",
+        "Yaowarat",
+        "Chinatown"
+      ],
+      "summary": "해가 지면 네온 간판 아래 해산물과 국수 노점이 길을 채우는 차이나타운이다."
+    },
+    {
+      "id": "talad-noi",
+      "name": "딸랏노이",
+      "lat": 13.7319,
+      "lon": 100.5135,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "딸랏노이",
+        "골목",
+        "벽화",
+        "ตลาดน้อย",
+        "Talad Noi"
+      ],
+      "summary": "차이나타운 남쪽 강가의 낡은 정비소와 벽화 골목이 이어지는 동네다."
+    },
+    {
+      "id": "jim-thompson-house",
+      "name": "짐 톰슨의 집",
+      "lat": 13.7493,
+      "lon": 100.5283,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "짐 톰슨",
+        "타이 실크",
+        "บ้านจิม ทอมป์สัน",
+        "Jim Thompson House"
+      ],
+      "summary": "타이 실크 사업가 짐 톰슨이 전통 목조 가옥을 옮겨 지은 집과 정원이다."
+    },
+    {
+      "id": "bacc",
+      "name": "방콕 예술문화센터 (BACC)",
+      "lat": 13.7468,
+      "lon": 100.5302,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "BACC",
+        "현대미술",
+        "หอศิลปวัฒนธรรมแห่งกรุงเทพมหานคร",
+        "Bangkok Art and Culture Centre"
+      ],
+      "summary": "시암 입구 나선형 전시관에서 태국 현대미술을 무료로 볼 수 있다."
+    },
+    {
+      "id": "mbk-center",
+      "name": "MBK 센터",
+      "lat": 13.7446,
+      "lon": 100.53,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "MBK",
+        "마분콩",
+        "มาบุญครอง",
+        "MBK Center"
+      ],
+      "summary": "휴대폰·잡화·기념품 가게가 빽빽한 서민형 대형 쇼핑몰이다."
+    },
+    {
+      "id": "siam-paragon",
+      "name": "시암 파라곤",
+      "lat": 13.7462,
+      "lon": 100.5347,
+      "category": "shopping",
+      "stayMin": 120,
+      "tags": [
+        "시암 파라곤",
+        "시암",
+        "푸드홀",
+        "สยามพารากอน",
+        "Siam Paragon"
+      ],
+      "summary": "명품관과 큰 푸드홀, 수족관이 함께 있는 시암의 대표 쇼핑몰이다."
+    },
+    {
+      "id": "central-world",
+      "name": "센트럴월드",
+      "lat": 13.7466,
+      "lon": 100.5393,
+      "category": "shopping",
+      "stayMin": 120,
+      "tags": [
+        "센트럴월드",
+        "เซ็นทรัลเวิลด์",
+        "CentralWorld"
+      ],
+      "summary": "라차프라송 교차로에 있는 태국 최대급 쇼핑몰로 앞 광장에서 행사가 자주 열린다."
+    },
+    {
+      "id": "erawan-shrine",
+      "name": "에라완 사당",
+      "lat": 13.7445,
+      "lon": 100.5404,
+      "category": "culture",
+      "stayMin": 20,
+      "tags": [
+        "에라완",
+        "브라흐마",
+        "ศาลพระพรหม",
+        "Erawan Shrine"
+      ],
+      "summary": "번화한 교차로 모퉁이에서 사람들이 꽃과 춤으로 소원을 비는 힌두 사당이다."
+    },
+    {
+      "id": "lumphini-park",
+      "name": "룸피니 공원",
+      "lat": 13.7307,
+      "lon": 100.5418,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "룸피니 공원",
+        "왕도마뱀",
+        "สวนลุมพินี",
+        "Lumphini Park"
+      ],
+      "summary": "호수와 산책로가 있는 도심 공원으로 아침저녁 운동하는 사람과 왕도마뱀이 많다."
+    },
+    {
+      "id": "benjakitti-park",
+      "name": "벤짜끼띠 숲공원",
+      "lat": 13.73,
+      "lon": 100.558,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "벤짜끼띠",
+        "숲공원",
+        "สวนเบญจกิติ",
+        "Benjakitti Park"
+      ],
+      "summary": "옛 담배공장 터를 습지 숲으로 바꾼 공원으로 고가 산책로를 걸을 수 있다."
+    },
+    {
+      "id": "terminal21",
+      "name": "터미널21 아속",
+      "lat": 13.7377,
+      "lon": 100.5604,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "터미널21",
+        "아속",
+        "푸드코트",
+        "เทอร์มินอล 21",
+        "Terminal 21"
+      ],
+      "summary": "층마다 세계 도시를 주제로 꾸몄고 값싼 푸드코트로 유명한 쇼핑몰이다."
+    },
+    {
+      "id": "thonglor",
+      "name": "통로",
+      "lat": 13.73,
+      "lon": 100.583,
+      "category": "night",
+      "stayMin": 120,
+      "tags": [
+        "통로",
+        "수쿰윗 55",
+        "바",
+        "ทองหล่อ",
+        "Thong Lo"
+      ],
+      "summary": "세련된 식당·카페·바가 골목마다 들어선 수쿰윗의 유행 거리다."
+    },
+    {
+      "id": "mahanakhon-skywalk",
+      "name": "마하나콘 스카이워크",
+      "lat": 13.7234,
+      "lon": 100.5282,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "마하나콘",
+        "전망대",
+        "유리 바닥",
+        "มหานคร",
+        "King Power Mahanakhon",
+        "SkyWalk"
+      ],
+      "summary": "78층 유리 바닥 전망대에서 방콕 시내를 내려다보는 초고층 빌딩이다."
+    },
+    {
+      "id": "sky-bar",
+      "name": "르부아 스카이바",
+      "lat": 13.7215,
+      "lon": 100.5168,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "스카이바",
+        "르부아",
+        "루프톱 바",
+        "สกายบาร์",
+        "Sky Bar",
+        "lebua"
+      ],
+      "summary": "스테이트 타워 꼭대기 원형 루프톱 바에서 강과 도심 야경을 본다."
+    },
+    {
+      "id": "iconsiam",
+      "name": "아이콘시암",
+      "lat": 13.7266,
+      "lon": 100.5103,
+      "category": "shopping",
+      "stayMin": 120,
+      "tags": [
+        "아이콘시암",
+        "수상시장 푸드코트",
+        "ไอคอนสยาม",
+        "ICONSIAM"
+      ],
+      "summary": "강 서쪽의 초대형 쇼핑몰로 실내 수상시장 콘셉트 푸드코트가 있다."
+    },
+    {
+      "id": "asiatique",
+      "name": "아시아티크 더 리버프런트",
+      "lat": 13.7046,
+      "lon": 100.503,
+      "category": "night",
+      "stayMin": 120,
+      "tags": [
+        "아시아티크",
+        "야시장",
+        "대관람차",
+        "เอเชียทีค",
+        "Asiatique"
+      ],
+      "summary": "옛 부두 창고를 고친 강변 야시장으로 대관람차가 상징이다."
+    },
+    {
+      "id": "chatuchak-market",
+      "name": "짜뚜짝 주말시장",
+      "lat": 13.7999,
+      "lon": 100.5505,
+      "category": "shopping",
+      "stayMin": 180,
+      "tags": [
+        "짜뚜짝",
+        "주말시장",
+        "ตลาดนัดจตุจักร",
+        "Chatuchak Weekend Market"
+      ],
+      "summary": "주말에만 열리는 수천 개 점포의 거대한 시장으로 옷·잡화·먹거리가 다 있다."
+    },
+    {
+      "id": "or-tor-kor-market",
+      "name": "어떠꺼 시장",
+      "lat": 13.798,
+      "lon": 100.548,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "어떠꺼",
+        "과일 시장",
+        "ตลาด อ.ต.ก.",
+        "Or Tor Kor Market"
+      ],
+      "summary": "짜뚜짝 옆 깔끔한 신선시장으로 열대과일과 반찬을 맛보기 좋다."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "처음 만나는 방콕 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "grand-palace",
+        "wat-pho",
+        "yaowarat",
+        "siam-paragon",
+        "mahanakhon-skywalk"
+      ],
+      "modes": [
+        "walk",
+        "subway",
+        "subway",
+        "subway"
+      ],
+      "summary": "왕궁과 왓포를 걸어서 보고 MRT로 차이나타운에 들렀다가 시암에서 쇼핑하고 마하나콘 전망대에서 마무리한다."
+    },
+    {
+      "id": "old-town",
+      "title": "구시가지 반나절",
+      "theme": "구시가지",
+      "length": "half",
+      "placeIds": [
+        "wat-saket",
+        "democracy-monument",
+        "khaosan-road",
+        "phra-sumen-fort"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "골든 마운트에서 구시가지를 내려다본 뒤 민주기념탑과 카오산 로드를 지나 강변 요새 공원까지 걷는다."
+    },
+    {
+      "id": "shopping",
+      "title": "시장과 쇼핑몰 하루",
+      "theme": "쇼핑",
+      "length": "day",
+      "placeIds": [
+        "chatuchak-market",
+        "or-tor-kor-market",
+        "mbk-center",
+        "siam-paragon",
+        "central-world",
+        "terminal21"
+      ],
+      "modes": [
+        "walk",
+        "subway",
+        "walk",
+        "walk",
+        "subway"
+      ],
+      "summary": "주말 짜뚜짝 시장과 어떠꺼에서 시작해 BTS로 시암 일대 쇼핑몰을 돌고 터미널21 푸드코트로 끝낸다."
+    },
+    {
+      "id": "night",
+      "title": "공원 노을과 차이나타운 밤",
+      "theme": "야경·야식",
+      "length": "half",
+      "placeIds": [
+        "lumphini-park",
+        "mahanakhon-skywalk",
+        "yaowarat"
+      ],
+      "modes": [
+        "walk",
+        "subway"
+      ],
+      "summary": "룸피니 공원에서 해 질 녘을 보내고 마하나콘에서 야경을 본 뒤 MRT로 야오와랏 노점 거리로 간다."
+    }
+  ]
+}

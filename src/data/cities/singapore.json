@@ -1,0 +1,899 @@
+{
+  "id": "singapore",
+  "name": "싱가포르",
+  "country": "싱가포르",
+  "center": {
+    "lat": 1.29,
+    "lon": 103.85
+  },
+  "bbox": [
+    103.805,
+    1.245,
+    103.9,
+    1.356
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-28) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "sg-ns",
+      "name": "남북선 North South Line (도심 구간)",
+      "color": "#D42E12",
+      "stations": [
+        {
+          "name": "비샨",
+          "lat": 1.351,
+          "lon": 103.8486
+        },
+        {
+          "name": "브래들",
+          "lat": 1.3405,
+          "lon": 103.8469
+        },
+        {
+          "name": "토아파요",
+          "lat": 1.3327,
+          "lon": 103.8474
+        },
+        {
+          "name": "노베나",
+          "lat": 1.3204,
+          "lon": 103.8438
+        },
+        {
+          "name": "뉴턴",
+          "lat": 1.3138,
+          "lon": 103.838
+        },
+        {
+          "name": "오차드",
+          "lat": 1.3043,
+          "lon": 103.832
+        },
+        {
+          "name": "서머셋",
+          "lat": 1.3006,
+          "lon": 103.8389
+        },
+        {
+          "name": "도비갓",
+          "lat": 1.2989,
+          "lon": 103.8456
+        },
+        {
+          "name": "시티홀",
+          "lat": 1.2931,
+          "lon": 103.852
+        },
+        {
+          "name": "래플스 플레이스",
+          "lat": 1.284,
+          "lon": 103.8515
+        },
+        {
+          "name": "마리나베이",
+          "lat": 1.2762,
+          "lon": 103.8546
+        },
+        {
+          "name": "마리나사우스피어",
+          "lat": 1.2712,
+          "lon": 103.8631
+        }
+      ]
+    },
+    {
+      "id": "sg-ew",
+      "name": "동서선 East West Line (도심 구간)",
+      "color": "#009645",
+      "stations": [
+        {
+          "name": "레드힐",
+          "lat": 1.2896,
+          "lon": 103.8168
+        },
+        {
+          "name": "티옹바루",
+          "lat": 1.2862,
+          "lon": 103.827
+        },
+        {
+          "name": "아웃트램파크",
+          "lat": 1.2803,
+          "lon": 103.8395
+        },
+        {
+          "name": "탄종파가",
+          "lat": 1.2765,
+          "lon": 103.8455
+        },
+        {
+          "name": "래플스 플레이스",
+          "lat": 1.284,
+          "lon": 103.8515
+        },
+        {
+          "name": "시티홀",
+          "lat": 1.2931,
+          "lon": 103.852
+        },
+        {
+          "name": "부기스",
+          "lat": 1.3008,
+          "lon": 103.8559
+        },
+        {
+          "name": "라벤더",
+          "lat": 1.3072,
+          "lon": 103.863
+        },
+        {
+          "name": "칼랑",
+          "lat": 1.3114,
+          "lon": 103.8714
+        },
+        {
+          "name": "알주니드",
+          "lat": 1.3164,
+          "lon": 103.8829
+        },
+        {
+          "name": "파야레바",
+          "lat": 1.3177,
+          "lon": 103.8926
+        }
+      ]
+    },
+    {
+      "id": "sg-ne",
+      "name": "북동선 North East Line (도심 구간)",
+      "color": "#9900AA",
+      "stations": [
+        {
+          "name": "하버프런트",
+          "lat": 1.2653,
+          "lon": 103.822
+        },
+        {
+          "name": "아웃트램파크",
+          "lat": 1.2804,
+          "lon": 103.8394
+        },
+        {
+          "name": "차이나타운",
+          "lat": 1.2844,
+          "lon": 103.8443
+        },
+        {
+          "name": "클락키",
+          "lat": 1.2886,
+          "lon": 103.8465
+        },
+        {
+          "name": "도비갓",
+          "lat": 1.299,
+          "lon": 103.8459
+        },
+        {
+          "name": "리틀인디아",
+          "lat": 1.3066,
+          "lon": 103.8494
+        },
+        {
+          "name": "패러파크",
+          "lat": 1.3124,
+          "lon": 103.8541
+        },
+        {
+          "name": "분켕",
+          "lat": 1.3196,
+          "lon": 103.8618
+        }
+      ]
+    },
+    {
+      "id": "sg-cc",
+      "name": "환상선 Circle Line (도심 구간)",
+      "color": "#FA9E0D",
+      "stations": [
+        {
+          "name": "도비갓",
+          "lat": 1.2992,
+          "lon": 103.8455
+        },
+        {
+          "name": "브라스바사",
+          "lat": 1.2967,
+          "lon": 103.8506
+        },
+        {
+          "name": "에스플러네이드",
+          "lat": 1.2934,
+          "lon": 103.8556
+        },
+        {
+          "name": "프롬나드",
+          "lat": 1.2931,
+          "lon": 103.861
+        },
+        {
+          "name": "니콜하이웨이",
+          "lat": 1.2999,
+          "lon": 103.8636
+        },
+        {
+          "name": "스타디움",
+          "lat": 1.3029,
+          "lon": 103.8753
+        },
+        {
+          "name": "마운트배튼",
+          "lat": 1.3062,
+          "lon": 103.8833
+        },
+        {
+          "name": "다코타",
+          "lat": 1.3083,
+          "lon": 103.8888
+        },
+        {
+          "name": "파야레바",
+          "lat": 1.3177,
+          "lon": 103.8926
+        }
+      ]
+    },
+    {
+      "id": "sg-dt",
+      "name": "다운타운선 Downtown Line (도심 구간)",
+      "color": "#005EC4",
+      "stations": [
+        {
+          "name": "보태닉가든스",
+          "lat": 1.3225,
+          "lon": 103.8155
+        },
+        {
+          "name": "스티븐스",
+          "lat": 1.32,
+          "lon": 103.826
+        },
+        {
+          "name": "뉴턴",
+          "lat": 1.3127,
+          "lon": 103.8378
+        },
+        {
+          "name": "리틀인디아",
+          "lat": 1.3067,
+          "lon": 103.8494
+        },
+        {
+          "name": "로쵸",
+          "lat": 1.3039,
+          "lon": 103.8526
+        },
+        {
+          "name": "부기스",
+          "lat": 1.2993,
+          "lon": 103.856
+        },
+        {
+          "name": "프롬나드",
+          "lat": 1.2939,
+          "lon": 103.8606
+        },
+        {
+          "name": "베이프런트",
+          "lat": 1.2817,
+          "lon": 103.8592
+        },
+        {
+          "name": "다운타운",
+          "lat": 1.2794,
+          "lon": 103.8527
+        },
+        {
+          "name": "텔록아이어",
+          "lat": 1.2821,
+          "lon": 103.8486
+        },
+        {
+          "name": "차이나타운",
+          "lat": 1.2843,
+          "lon": 103.8436
+        },
+        {
+          "name": "포트캐닝",
+          "lat": 1.2925,
+          "lon": 103.8444
+        },
+        {
+          "name": "벤쿨렌",
+          "lat": 1.2985,
+          "lon": 103.8504
+        },
+        {
+          "name": "잘란베사르",
+          "lat": 1.3051,
+          "lon": 103.8556
+        },
+        {
+          "name": "벤더미어",
+          "lat": 1.3138,
+          "lon": 103.8628
+        }
+      ]
+    },
+    {
+      "id": "sg-te",
+      "name": "톰슨-이스트코스트선 Thomson-East Coast Line (도심 구간)",
+      "color": "#9D5B25",
+      "stations": [
+        {
+          "name": "스티븐스",
+          "lat": 1.32,
+          "lon": 103.826
+        },
+        {
+          "name": "네이피어",
+          "lat": 1.3067,
+          "lon": 103.8186
+        },
+        {
+          "name": "오차드 불러바드",
+          "lat": 1.3022,
+          "lon": 103.8243
+        },
+        {
+          "name": "오차드",
+          "lat": 1.303,
+          "lon": 103.8316
+        },
+        {
+          "name": "그레이트 월드",
+          "lat": 1.2934,
+          "lon": 103.8318
+        },
+        {
+          "name": "하벨록",
+          "lat": 1.2884,
+          "lon": 103.8337
+        },
+        {
+          "name": "아웃트램파크",
+          "lat": 1.2799,
+          "lon": 103.8393
+        },
+        {
+          "name": "맥스웰",
+          "lat": 1.2805,
+          "lon": 103.8441
+        },
+        {
+          "name": "셴턴웨이",
+          "lat": 1.2771,
+          "lon": 103.848
+        },
+        {
+          "name": "마리나베이",
+          "lat": 1.2765,
+          "lon": 103.8545
+        },
+        {
+          "name": "마리나사우스",
+          "lat": 1.2712,
+          "lon": 103.8633
+        },
+        {
+          "name": "가든스 바이 더 베이",
+          "lat": 1.2794,
+          "lon": 103.8681
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "marina-bay-sands",
+      "name": "마리나 베이 샌즈",
+      "lat": 1.2834,
+      "lon": 103.8607,
+      "category": "sight",
+      "stayMin": 90,
+      "tags": [
+        "마리나 베이 샌즈",
+        "스카이파크",
+        "전망대",
+        "濱海灣金沙",
+        "Marina Bay Sands"
+      ],
+      "summary": "세 개의 탑 위에 배 모양 스카이파크를 얹은 싱가포르의 상징 건물이다."
+    },
+    {
+      "id": "gardens-by-the-bay",
+      "name": "가든스 바이 더 베이",
+      "lat": 1.2816,
+      "lon": 103.8636,
+      "category": "nature",
+      "stayMin": 150,
+      "tags": [
+        "가든스 바이 더 베이",
+        "슈퍼트리",
+        "플라워 돔",
+        "클라우드 포레스트",
+        "濱海灣花園",
+        "Gardens by the Bay"
+      ],
+      "summary": "거대한 슈퍼트리 숲과 두 개의 유리 온실이 있는 바닷가 정원이다."
+    },
+    {
+      "id": "spectra",
+      "name": "스펙트라 빛·물 쇼",
+      "lat": 1.284,
+      "lon": 103.8597,
+      "category": "night",
+      "stayMin": 30,
+      "tags": [
+        "스펙트라",
+        "레이저 쇼",
+        "분수 쇼",
+        "Spectra",
+        "Light and Water Show"
+      ],
+      "summary": "저녁마다 마리나 베이 샌즈 앞 이벤트 광장에서 열리는 무료 분수·레이저 쇼다."
+    },
+    {
+      "id": "merlion-park",
+      "name": "멀라이언 공원",
+      "lat": 1.2868,
+      "lon": 103.8545,
+      "category": "sight",
+      "stayMin": 30,
+      "tags": [
+        "멀라이언",
+        "사자상",
+        "魚尾獅公園",
+        "Merlion Park"
+      ],
+      "summary": "물을 뿜는 반인반어 사자상 너머로 마리나 베이 샌즈가 보이는 강 하구 공원이다."
+    },
+    {
+      "id": "esplanade",
+      "name": "에스플러네이드",
+      "lat": 1.2898,
+      "lon": 103.8555,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "에스플러네이드",
+        "두리안 건물",
+        "공연장",
+        "濱海藝術中心",
+        "Esplanade"
+      ],
+      "summary": "두리안을 닮은 지붕의 공연장으로 바깥 무대에서 무료 공연이 자주 열린다."
+    },
+    {
+      "id": "singapore-flyer",
+      "name": "싱가포르 플라이어",
+      "lat": 1.2893,
+      "lon": 103.8631,
+      "category": "sight",
+      "stayMin": 45,
+      "tags": [
+        "싱가포르 플라이어",
+        "대관람차",
+        "新加坡摩天觀景輪",
+        "Singapore Flyer"
+      ],
+      "summary": "마리나 베이 일대를 한 바퀴 30분 동안 내려다보는 대관람차다."
+    },
+    {
+      "id": "national-gallery",
+      "name": "내셔널 갤러리 싱가포르",
+      "lat": 1.2903,
+      "lon": 103.8515,
+      "category": "culture",
+      "stayMin": 120,
+      "tags": [
+        "내셔널 갤러리",
+        "미술관",
+        "新加坡國家美術館",
+        "National Gallery Singapore"
+      ],
+      "summary": "옛 시청과 대법원 건물을 이어 만든 동남아시아 미술관이다."
+    },
+    {
+      "id": "raffles-hotel",
+      "name": "래플스 호텔",
+      "lat": 1.2949,
+      "lon": 103.8545,
+      "category": "sight",
+      "stayMin": 45,
+      "tags": [
+        "래플스 호텔",
+        "싱가포르 슬링",
+        "萊佛士酒店",
+        "Raffles Hotel"
+      ],
+      "summary": "1887년 문을 연 식민지풍 호텔로 싱가포르 슬링 칵테일이 태어난 곳이다."
+    },
+    {
+      "id": "national-museum",
+      "name": "싱가포르 국립박물관",
+      "lat": 1.2966,
+      "lon": 103.8485,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "국립박물관",
+        "新加坡國家博物館",
+        "National Museum of Singapore"
+      ],
+      "summary": "흰 돔 건물에서 싱가포르의 역사를 보여 주는 가장 오래된 박물관이다."
+    },
+    {
+      "id": "fort-canning-park",
+      "name": "포트캐닝 공원",
+      "lat": 1.2945,
+      "lon": 103.846,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "포트캐닝",
+        "언덕 공원",
+        "나선형 터널",
+        "福康寧公園",
+        "Fort Canning Park"
+      ],
+      "summary": "옛 왕궁과 요새 터였던 도심 언덕 공원으로 나무 터널 계단이 사진 명소다."
+    },
+    {
+      "id": "clarke-quay",
+      "name": "클락키",
+      "lat": 1.2906,
+      "lon": 103.8465,
+      "category": "night",
+      "stayMin": 90,
+      "tags": [
+        "클락키",
+        "강변 술집",
+        "克拉碼頭",
+        "Clarke Quay"
+      ],
+      "summary": "싱가포르강 옆 옛 창고를 식당과 바로 바꾼 밤 문화 거리다."
+    },
+    {
+      "id": "boat-quay",
+      "name": "보트키",
+      "lat": 1.287,
+      "lon": 103.8495,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "보트키",
+        "강변 식당",
+        "駁船碼頭",
+        "Boat Quay"
+      ],
+      "summary": "고층 빌딩 아래 낮은 상점가에 강변 식당과 바가 이어진다."
+    },
+    {
+      "id": "chinatown",
+      "name": "차이나타운",
+      "lat": 1.2833,
+      "lon": 103.8443,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "차이나타운",
+        "파고다 스트리트",
+        "牛車水",
+        "Chinatown"
+      ],
+      "summary": "숍하우스 거리에 기념품 가게와 노점이 이어지는 옛 중국인 거리다."
+    },
+    {
+      "id": "buddha-tooth-relic-temple",
+      "name": "불아사",
+      "lat": 1.2814,
+      "lon": 103.8443,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "불아사",
+        "부처 치아 사원",
+        "佛牙寺龍華院",
+        "Buddha Tooth Relic Temple"
+      ],
+      "summary": "부처의 치아 사리를 모셨다는 당나라 양식의 붉은 사원이다."
+    },
+    {
+      "id": "maxwell-food-centre",
+      "name": "맥스웰 푸드센터",
+      "lat": 1.2804,
+      "lon": 103.8447,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "맥스웰",
+        "호커센터",
+        "치킨라이스",
+        "麥士威熟食中心",
+        "Maxwell Food Centre"
+      ],
+      "summary": "하이난 치킨라이스로 유명한 차이나타운의 호커센터다."
+    },
+    {
+      "id": "lau-pa-sat",
+      "name": "라우파삿",
+      "lat": 1.2807,
+      "lon": 103.8505,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "라우파삿",
+        "사테",
+        "호커센터",
+        "老巴剎",
+        "Lau Pa Sat"
+      ],
+      "summary": "빅토리아풍 철골 시장 건물의 호커센터로 밤에는 옆길에 사테 노점이 선다."
+    },
+    {
+      "id": "tiong-bahru-market",
+      "name": "티옹바루 마켓",
+      "lat": 1.285,
+      "lon": 103.8326,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "티옹바루",
+        "호커센터",
+        "아침 식사",
+        "中峇魯巴剎",
+        "Tiong Bahru Market"
+      ],
+      "summary": "1930년대 아파트 동네의 시장 겸 호커센터로 현지식 아침을 먹기 좋다."
+    },
+    {
+      "id": "little-india",
+      "name": "리틀인디아",
+      "lat": 1.3067,
+      "lon": 103.8517,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "리틀인디아",
+        "세랑군 로드",
+        "힌두 사원",
+        "小印度",
+        "Little India"
+      ],
+      "summary": "향신료 가게와 화려한 힌두 사원이 있는 인도계 주민의 거리다."
+    },
+    {
+      "id": "tekka-centre",
+      "name": "테카 센터",
+      "lat": 1.3064,
+      "lon": 103.8505,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "테카 센터",
+        "브리야니",
+        "호커센터",
+        "竹腳中心",
+        "Tekka Centre"
+      ],
+      "summary": "리틀인디아 입구의 시장 겸 호커센터로 브리야니와 인도 음식이 많다."
+    },
+    {
+      "id": "kampong-glam",
+      "name": "캄퐁글람·술탄 모스크",
+      "lat": 1.3023,
+      "lon": 103.859,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "캄퐁글람",
+        "술탄 모스크",
+        "甘榜格南",
+        "Kampong Glam",
+        "Sultan Mosque"
+      ],
+      "summary": "황금 돔의 술탄 모스크를 중심으로 한 말레이·아랍계 옛 동네다."
+    },
+    {
+      "id": "haji-lane",
+      "name": "하지 레인",
+      "lat": 1.3007,
+      "lon": 103.8587,
+      "category": "shopping",
+      "stayMin": 45,
+      "tags": [
+        "하지 레인",
+        "벽화 골목",
+        "哈芝巷",
+        "Haji Lane"
+      ],
+      "summary": "벽화와 작은 옷가게·카페가 몰린 캄퐁글람의 좁은 골목이다."
+    },
+    {
+      "id": "orchard-road",
+      "name": "오차드 로드",
+      "lat": 1.304,
+      "lon": 103.8318,
+      "category": "shopping",
+      "stayMin": 120,
+      "tags": [
+        "오차드 로드",
+        "아이온 오차드",
+        "쇼핑",
+        "烏節路",
+        "Orchard Road",
+        "ION Orchard"
+      ],
+      "summary": "대형 쇼핑몰이 2km 넘게 늘어선 싱가포르의 대표 쇼핑 거리다."
+    },
+    {
+      "id": "botanic-gardens",
+      "name": "싱가포르 보태닉 가든",
+      "lat": 1.3138,
+      "lon": 103.8159,
+      "category": "nature",
+      "stayMin": 120,
+      "tags": [
+        "보태닉 가든",
+        "식물원",
+        "난초 정원",
+        "新加坡植物園",
+        "Singapore Botanic Gardens"
+      ],
+      "summary": "세계유산으로 지정된 열대 식물원으로 국립 난초 정원이 있다."
+    },
+    {
+      "id": "newton-food-centre",
+      "name": "뉴턴 푸드센터",
+      "lat": 1.312,
+      "lon": 103.8395,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "뉴턴",
+        "호커센터",
+        "칠리크랩",
+        "紐頓熟食中心",
+        "Newton Food Centre"
+      ],
+      "summary": "저녁에 해산물과 사테를 먹으러 가는 야외형 호커센터다."
+    },
+    {
+      "id": "vivocity",
+      "name": "비보시티",
+      "lat": 1.2643,
+      "lon": 103.8222,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "비보시티",
+        "하버프런트",
+        "怡豐城",
+        "VivoCity"
+      ],
+      "summary": "센토사로 건너가는 길목의 바닷가 대형 쇼핑몰이다."
+    },
+    {
+      "id": "mount-faber",
+      "name": "마운트 페이버",
+      "lat": 1.2717,
+      "lon": 103.8197,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "마운트 페이버",
+        "케이블카",
+        "花柏山",
+        "Mount Faber"
+      ],
+      "summary": "항구와 센토사를 내려다보는 언덕 공원으로 케이블카가 출발한다."
+    },
+    {
+      "id": "sentosa",
+      "name": "센토사 (리조트 월드)",
+      "lat": 1.254,
+      "lon": 103.8238,
+      "category": "sight",
+      "stayMin": 240,
+      "tags": [
+        "센토사",
+        "유니버설 스튜디오",
+        "리조트 월드",
+        "聖淘沙",
+        "Sentosa",
+        "Resorts World"
+      ],
+      "summary": "테마파크와 해변, 수족관이 모인 리조트 섬이다."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "처음 만나는 싱가포르 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "buddha-tooth-relic-temple",
+        "chinatown",
+        "maxwell-food-centre",
+        "merlion-park",
+        "marina-bay-sands",
+        "gardens-by-the-bay"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "subway",
+        "walk",
+        "walk"
+      ],
+      "summary": "차이나타운의 사원과 거리를 걷고 맥스웰에서 점심을 먹은 뒤 마리나 베이를 따라 가든스 바이 더 베이까지 간다."
+    },
+    {
+      "id": "heritage",
+      "title": "리틀인디아·캄퐁글람 반나절",
+      "theme": "다문화 거리",
+      "length": "half",
+      "placeIds": [
+        "tekka-centre",
+        "little-india",
+        "kampong-glam",
+        "haji-lane"
+      ],
+      "modes": [
+        "walk",
+        "subway",
+        "walk"
+      ],
+      "summary": "테카 센터에서 인도 음식을 먹고 리틀인디아를 걸은 뒤 다운타운선으로 캄퐁글람과 하지 레인에 간다."
+    },
+    {
+      "id": "night-view",
+      "title": "강변과 마리나 베이 야경",
+      "theme": "야경",
+      "length": "half",
+      "placeIds": [
+        "clarke-quay",
+        "boat-quay",
+        "merlion-park",
+        "spectra"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "클락키와 보트키 강변을 걷다 멀라이언을 지나 마리나 베이 샌즈 앞 스펙트라 쇼로 마무리한다."
+    },
+    {
+      "id": "green-sentosa",
+      "title": "식물원에서 센토사까지 하루",
+      "theme": "자연·휴양",
+      "length": "day",
+      "placeIds": [
+        "botanic-gardens",
+        "orchard-road",
+        "fort-canning-park",
+        "vivocity",
+        "sentosa"
+      ],
+      "modes": [
+        "subway",
+        "subway",
+        "subway",
+        "walk"
+      ],
+      "summary": "아침 식물원과 오차드 쇼핑, 포트캐닝 공원을 거쳐 하버프런트에서 보드워크를 걸어 센토사로 건너간다."
+    }
+  ]
+}

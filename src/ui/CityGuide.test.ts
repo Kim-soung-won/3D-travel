@@ -1,5 +1,5 @@
 import { expect, test } from 'vitest';
-import { CITIES } from '../data';
+import { CITIES } from '../data/all';
 import { searchPlaces, suggestMode } from './CityGuide';
 
 const seoul = CITIES.find((c) => c.id === 'seoul')!;

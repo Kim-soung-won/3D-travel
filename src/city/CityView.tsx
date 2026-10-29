@@ -30,6 +30,8 @@ interface CityViewProps {
   onReady: () => void;
   onError: (message: string) => void;
   onProgress: (t: number) => void;
+  /** 재생할 구간 번호(날을 골라 재생할 때 그날 구간만). 같은 입력이면 같은 배열이어야 한다 */
+  playLegs: number[];
   /** 재생 중 지금 달리는 구간 번호. 구간이 바뀔 때만 부른다 */
   onLeg: (i: number) => void;
   onPlayDone: () => void;
@@ -101,9 +103,9 @@ export default function CityView(props: CityViewProps) {
         });
         map.current = m;
         m.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
-        m.on('load', () => {
-          const data = cityDataAt(latest.current.center);
-          if (data) {
+        m.on('load', async () => {
+          const data = await cityDataAt(latest.current.center);
+          if (data && map.current === m) {
             m.addSource('transit', { type: 'geojson', data: transitToGeoJSON(data) });
             m.addLayer({ id: 'transit-lines', type: 'line', source: 'transit', filter: ['==', ['geometry-type'], 'LineString'], paint: { 'line-color': ['get', 'color'], 'line-width': 2.5, 'line-opacity': 0.45 } });
             m.addLayer({
@@ -237,8 +239,9 @@ export default function CityView(props: CityViewProps) {
   // 재생: 구간마다 수단 아이콘이 도로를 따라 움직이고 지도가 따라간다
   useEffect(() => {
     const m = map.current;
-    if (!props.playing || !m || !props.legs.length) return;
-    const legs = props.legs;
+    const order = props.playLegs.filter((i) => props.legs[i]);
+    if (!props.playing || !m || !order.length) return;
+    const legs = order.map((i) => props.legs[i]);
     const durations = legs.map((l) => Math.min(9, Math.max(3, l.durationS / 240))); // 실제 4분 ≈ 1초, 구간당 3~9초
     const total = durations.reduce((a, b) => a + b, 0);
     const el = document.createElement('div');
@@ -262,7 +265,7 @@ export default function CityView(props: CityViewProps) {
       const pos = along(legs[i].coords, (t - acc) / durations[i]);
       if (i !== shownLeg) {
         shownLeg = i;
-        latest.current.onLeg(i);
+        latest.current.onLeg(order[i]);
       }
       if (shownMode !== legs[i].mode) {
         shownMode = legs[i].mode;
@@ -280,7 +283,7 @@ export default function CityView(props: CityViewProps) {
       vehicle.current?.remove();
       vehicle.current = null;
     };
-  }, [props.playing, props.legs]);
+  }, [props.playing, props.legs, props.playLegs]);
 
   return (
     <div className="city-map">

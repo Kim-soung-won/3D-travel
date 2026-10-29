@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { computeCityPlan, computeSchedule, formatClock, formatOffset, formatSpan, formatWhen, isDate, localTime, scheduleDayRange, zonedToUtc } from './schedule';
+import { computeCityPlan, computeSchedule, dayLegIndices, formatClock, formatOffset, formatSpan, formatWhen, isDate, localTime, scheduleDayRange, zonedToUtc } from './schedule';
 
 const SEOUL = 'Asia/Seoul';
 const LA = 'America/Los_Angeles';
@@ -87,6 +87,16 @@ describe('도시 안 일정 (날마다)', () => {
     expect(day.begin).toBe(22 * 60);
     expect(formatClock(day.leaveAt!)).toBe('다음 날 01:00');
   });
+});
+
+it('도시 안 재생: 고른 날의 구간만, 날이 바뀌는 구간은 전체 재생에만', () => {
+  const stops = [{}, { day: 1 }, { day: 2 }, { day: 2 }, { day: 3 }];
+  expect(dayLegIndices(stops, 3, 0)).toEqual([0, 1, 2, 3]);
+  expect(dayLegIndices(stops, 3, 1)).toEqual([0]);
+  expect(dayLegIndices(stops, 3, 2)).toEqual([2]);
+  expect(dayLegIndices(stops, 3, 3)).toEqual([]);
+  // 숙박을 줄여 없어진 날의 장소는 마지막 날로 센다
+  expect(dayLegIndices(stops, 2, 2)).toEqual([2, 3]);
 });
 
 it('기간을 짧게 쓴다', () => {

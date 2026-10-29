@@ -1,35 +1,328 @@
 {
-  "source": "AI 생성 데이터 (Claude, 2026-10-21) — 미검증. 직항 기준 대략적인 비행·이동 시간이며 탑승·대기 시간은 포함하지 않는다",
+  "source": "AI 생성 데이터 (Claude, 2026-10-21·2026-10-28 추가) — 미검증. 직항 기준 대략적인 비행·이동 시간이며 탑승·대기 시간은 포함하지 않는다",
   "links": [
     {
       "from": "seoul",
       "to": "busan",
       "flightMin": 55,
       "ground": [
-        { "mode": "train", "name": "KTX", "minutes": 160 },
-        { "mode": "bus", "name": "고속버스", "minutes": 260 },
-        { "mode": "car", "name": "자동차", "minutes": 270 }
+        {
+          "mode": "train",
+          "name": "KTX",
+          "minutes": 160
+        },
+        {
+          "mode": "bus",
+          "name": "고속버스",
+          "minutes": 260
+        },
+        {
+          "mode": "car",
+          "name": "자동차",
+          "minutes": 270
+        }
       ],
       "note": "김포–김해 기준"
     },
-    { "from": "seoul", "to": "tokyo", "flightMin": 140, "note": "인천–나리타 기준. 김포–하네다는 조금 짧다" },
-    { "from": "busan", "to": "tokyo", "flightMin": 125, "note": "김해–나리타 기준" },
-    { "from": "seoul", "to": "san-francisco", "flightMin": 630 },
-    { "from": "seoul", "to": "los-angeles", "flightMin": 660 },
-    { "from": "seoul", "to": "paris", "flightMin": 840 },
-    { "from": "tokyo", "to": "san-francisco", "flightMin": 600 },
-    { "from": "tokyo", "to": "los-angeles", "flightMin": 600 },
-    { "from": "tokyo", "to": "paris", "flightMin": 870 },
+    {
+      "from": "seoul",
+      "to": "tokyo",
+      "flightMin": 140,
+      "note": "인천–나리타 기준. 김포–하네다는 조금 짧다"
+    },
+    {
+      "from": "busan",
+      "to": "tokyo",
+      "flightMin": 125,
+      "note": "김해–나리타 기준"
+    },
+    {
+      "from": "seoul",
+      "to": "san-francisco",
+      "flightMin": 630
+    },
+    {
+      "from": "seoul",
+      "to": "los-angeles",
+      "flightMin": 660
+    },
+    {
+      "from": "seoul",
+      "to": "paris",
+      "flightMin": 840
+    },
+    {
+      "from": "tokyo",
+      "to": "san-francisco",
+      "flightMin": 600
+    },
+    {
+      "from": "tokyo",
+      "to": "los-angeles",
+      "flightMin": 600
+    },
+    {
+      "from": "tokyo",
+      "to": "paris",
+      "flightMin": 870
+    },
     {
       "from": "san-francisco",
       "to": "los-angeles",
       "flightMin": 85,
       "ground": [
-        { "mode": "car", "name": "자동차 (I-5)", "minutes": 360 },
-        { "mode": "bus", "name": "장거리 버스", "minutes": 450 }
+        {
+          "mode": "car",
+          "name": "자동차 (I-5)",
+          "minutes": 360
+        },
+        {
+          "mode": "bus",
+          "name": "장거리 버스",
+          "minutes": 450
+        }
       ]
     },
-    { "from": "san-francisco", "to": "paris", "flightMin": 650 },
-    { "from": "los-angeles", "to": "paris", "flightMin": 660 }
+    {
+      "from": "san-francisco",
+      "to": "paris",
+      "flightMin": 650
+    },
+    {
+      "from": "los-angeles",
+      "to": "paris",
+      "flightMin": 660
+    },
+    {
+      "from": "seoul",
+      "to": "jeju",
+      "flightMin": 65,
+      "note": "김포–제주 기준. 하루 수십 편"
+    },
+    {
+      "from": "busan",
+      "to": "jeju",
+      "flightMin": 55,
+      "note": "김해–제주 기준. 부산항에서 제주행 여객선도 있다"
+    },
+    {
+      "from": "seoul",
+      "to": "osaka",
+      "flightMin": 95,
+      "note": "인천–간사이 기준. 김포–간사이 직항도 있다"
+    },
+    {
+      "from": "busan",
+      "to": "osaka",
+      "flightMin": 80,
+      "note": "김해–간사이 기준. 부산–오사카 여객선(약 18시간)도 있다"
+    },
+    {
+      "from": "tokyo",
+      "to": "osaka",
+      "flightMin": 70,
+      "ground": [
+        {
+          "mode": "train",
+          "name": "도카이도 신칸센 노조미",
+          "minutes": 150
+        },
+        {
+          "mode": "bus",
+          "name": "고속버스 (야간)",
+          "minutes": 480
+        },
+        {
+          "mode": "car",
+          "name": "자동차 (도메이·신메이신)",
+          "minutes": 510
+        }
+      ],
+      "note": "하네다–이타미 기준. 신칸센은 도쿄–신오사카"
+    },
+    {
+      "from": "tokyo",
+      "to": "kyoto",
+      "ground": [
+        {
+          "mode": "train",
+          "name": "도카이도 신칸센 노조미",
+          "minutes": 135
+        },
+        {
+          "mode": "bus",
+          "name": "고속버스 (야간)",
+          "minutes": 450
+        },
+        {
+          "mode": "car",
+          "name": "자동차 (도메이·신메이신)",
+          "minutes": 480
+        }
+      ]
+    },
+    {
+      "from": "osaka",
+      "to": "kyoto",
+      "ground": [
+        {
+          "mode": "train",
+          "name": "JR 교토선 신쾌속",
+          "minutes": 30
+        },
+        {
+          "mode": "train",
+          "name": "한큐 교토선 특급 (우메다–가와라마치)",
+          "minutes": 45
+        },
+        {
+          "mode": "car",
+          "name": "자동차 (메이신)",
+          "minutes": 60
+        }
+      ],
+      "note": "신칸센(신오사카–교토)은 약 15분"
+    },
+    {
+      "from": "seoul",
+      "to": "new-york",
+      "flightMin": 840,
+      "note": "인천–JFK 기준"
+    },
+    {
+      "from": "tokyo",
+      "to": "new-york",
+      "flightMin": 760,
+      "note": "나리타·하네다–JFK 기준"
+    },
+    {
+      "from": "new-york",
+      "to": "san-francisco",
+      "flightMin": 360
+    },
+    {
+      "from": "new-york",
+      "to": "los-angeles",
+      "flightMin": 345
+    },
+    {
+      "from": "new-york",
+      "to": "paris",
+      "flightMin": 450,
+      "note": "JFK–샤를드골 기준. 돌아오는 편은 약 1시간 더 걸린다"
+    },
+    {
+      "from": "new-york",
+      "to": "london",
+      "flightMin": 420,
+      "note": "JFK–히스로 기준. 돌아오는 편은 약 1시간 더 걸린다"
+    },
+    {
+      "from": "seoul",
+      "to": "london",
+      "flightMin": 840,
+      "note": "인천–히스로 기준"
+    },
+    {
+      "from": "tokyo",
+      "to": "london",
+      "flightMin": 870,
+      "note": "하네다–히스로 기준"
+    },
+    {
+      "from": "london",
+      "to": "paris",
+      "flightMin": 75,
+      "ground": [
+        {
+          "mode": "train",
+          "name": "유로스타",
+          "minutes": 140
+        },
+        {
+          "mode": "bus",
+          "name": "장거리 버스 (해협 터널·페리)",
+          "minutes": 480
+        }
+      ],
+      "note": "유로스타는 세인트판크라스–파리 북역"
+    },
+    {
+      "from": "london",
+      "to": "san-francisco",
+      "flightMin": 660
+    },
+    {
+      "from": "london",
+      "to": "los-angeles",
+      "flightMin": 660
+    },
+    {
+      "from": "seoul",
+      "to": "bangkok",
+      "flightMin": 345,
+      "note": "인천–수완나품 기준"
+    },
+    {
+      "from": "busan",
+      "to": "bangkok",
+      "flightMin": 340,
+      "note": "김해–수완나품 기준"
+    },
+    {
+      "from": "seoul",
+      "to": "singapore",
+      "flightMin": 390,
+      "note": "인천–창이 기준"
+    },
+    {
+      "from": "seoul",
+      "to": "taipei",
+      "flightMin": 150,
+      "note": "인천–타오위안 기준. 김포–쑹산 직항도 있다"
+    },
+    {
+      "from": "busan",
+      "to": "taipei",
+      "flightMin": 135,
+      "note": "김해–타오위안 기준"
+    },
+    {
+      "from": "tokyo",
+      "to": "bangkok",
+      "flightMin": 400
+    },
+    {
+      "from": "tokyo",
+      "to": "singapore",
+      "flightMin": 430
+    },
+    {
+      "from": "tokyo",
+      "to": "taipei",
+      "flightMin": 200,
+      "note": "하네다–쑹산 또는 나리타–타오위안 기준"
+    },
+    {
+      "from": "osaka",
+      "to": "taipei",
+      "flightMin": 170,
+      "note": "간사이–타오위안 기준"
+    },
+    {
+      "from": "bangkok",
+      "to": "singapore",
+      "flightMin": 140
+    },
+    {
+      "from": "bangkok",
+      "to": "taipei",
+      "flightMin": 225
+    },
+    {
+      "from": "singapore",
+      "to": "taipei",
+      "flightMin": 280
+    }
   ]
 }

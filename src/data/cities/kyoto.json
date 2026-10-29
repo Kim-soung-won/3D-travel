@@ -1,0 +1,712 @@
+{
+  "id": "kyoto",
+  "name": "교토시",
+  "country": "일본",
+  "center": {
+    "lat": 35.005,
+    "lon": 135.76
+  },
+  "bbox": [
+    135.665,
+    34.96,
+    135.805,
+    35.05
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-28) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "karasuma",
+      "name": "가라스마선 (烏丸線) 기타오지~교토",
+      "color": "#3BA341",
+      "stations": [
+        {
+          "name": "北大路",
+          "lat": 35.0441,
+          "lon": 135.7586
+        },
+        {
+          "name": "鞍馬口",
+          "lat": 35.0381,
+          "lon": 135.759
+        },
+        {
+          "name": "今出川",
+          "lat": 35.03,
+          "lon": 135.7595
+        },
+        {
+          "name": "丸太町",
+          "lat": 35.0175,
+          "lon": 135.7597
+        },
+        {
+          "name": "烏丸御池",
+          "lat": 35.0105,
+          "lon": 135.7597
+        },
+        {
+          "name": "四条",
+          "lat": 35.0035,
+          "lon": 135.7597
+        },
+        {
+          "name": "五条",
+          "lat": 34.996,
+          "lon": 135.7597
+        },
+        {
+          "name": "京都",
+          "lat": 34.9858,
+          "lon": 135.7588
+        }
+      ]
+    },
+    {
+      "id": "tozai",
+      "name": "도자이선 (東西線) 니조~게아게",
+      "color": "#E85E25",
+      "stations": [
+        {
+          "name": "二条",
+          "lat": 35.011,
+          "lon": 135.7417
+        },
+        {
+          "name": "二条城前",
+          "lat": 35.0105,
+          "lon": 135.7487
+        },
+        {
+          "name": "烏丸御池",
+          "lat": 35.0105,
+          "lon": 135.7597
+        },
+        {
+          "name": "京都市役所前",
+          "lat": 35.0105,
+          "lon": 135.768
+        },
+        {
+          "name": "三条 (三条京阪)",
+          "lat": 35.009,
+          "lon": 135.7722
+        },
+        {
+          "name": "東山",
+          "lat": 35.009,
+          "lon": 135.78
+        },
+        {
+          "name": "蹴上",
+          "lat": 35.0045,
+          "lon": 135.79
+        }
+      ]
+    },
+    {
+      "id": "keihan",
+      "name": "게이한 본선 (京阪本線) 데마치야나기~후시미이나리",
+      "color": "#1D3F8C",
+      "stations": [
+        {
+          "name": "出町柳",
+          "lat": 35.0302,
+          "lon": 135.7728
+        },
+        {
+          "name": "神宮丸太町",
+          "lat": 35.0167,
+          "lon": 135.772
+        },
+        {
+          "name": "三条 (三条京阪)",
+          "lat": 35.009,
+          "lon": 135.7722
+        },
+        {
+          "name": "祇園四条",
+          "lat": 35.0035,
+          "lon": 135.772
+        },
+        {
+          "name": "清水五条",
+          "lat": 34.9958,
+          "lon": 135.7703
+        },
+        {
+          "name": "七条",
+          "lat": 34.9887,
+          "lon": 135.77
+        },
+        {
+          "name": "東福寺",
+          "lat": 34.98,
+          "lon": 135.77
+        },
+        {
+          "name": "鳥羽街道",
+          "lat": 34.973,
+          "lon": 135.77
+        },
+        {
+          "name": "伏見稲荷",
+          "lat": 34.967,
+          "lon": 135.7695
+        }
+      ]
+    },
+    {
+      "id": "jr-nara",
+      "name": "JR 나라선 (奈良線) 교토~이나리",
+      "color": "#A0522D",
+      "stations": [
+        {
+          "name": "京都",
+          "lat": 34.9858,
+          "lon": 135.7588
+        },
+        {
+          "name": "東福寺",
+          "lat": 34.98,
+          "lon": 135.77
+        },
+        {
+          "name": "稲荷",
+          "lat": 34.967,
+          "lon": 135.771
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "fushimi-inari",
+      "name": "후시미 이나리 신사 (센본도리이)",
+      "lat": 34.9671,
+      "lon": 135.7727,
+      "category": "sight",
+      "stayMin": 120,
+      "tags": [
+        "후시미이나리",
+        "센본도리이",
+        "도리이",
+        "伏見稲荷大社",
+        "Fushimi Inari"
+      ],
+      "summary": "붉은 도리이 수천 개가 산길을 따라 터널처럼 이어진 이나리 신사의 총본산."
+    },
+    {
+      "id": "tofukuji",
+      "name": "도후쿠지 (쓰텐쿄)",
+      "lat": 34.9764,
+      "lon": 135.7737,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "도후쿠지",
+        "단풍",
+        "쓰텐쿄",
+        "東福寺",
+        "Tofukuji"
+      ],
+      "summary": "계곡을 건너는 목조 회랑 쓰텐쿄에서 보는 단풍으로 이름난 선종 사찰."
+    },
+    {
+      "id": "sanjusangendo",
+      "name": "산주산겐도",
+      "lat": 34.9879,
+      "lon": 135.7716,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "산주산겐도",
+        "천수관음",
+        "렌게오인",
+        "三十三間堂",
+        "Sanjusangendo"
+      ],
+      "summary": "긴 목조 본당 안에 천수관음상 1001구가 늘어선 사찰."
+    },
+    {
+      "id": "kyoto-national-museum",
+      "name": "교토 국립박물관",
+      "lat": 34.99,
+      "lon": 135.773,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "국립박물관",
+        "불상",
+        "국보",
+        "京都国立博物館",
+        "Kyoto National Museum"
+      ],
+      "summary": "교토 사찰의 불상·회화·공예 국보를 모아 보여주는 박물관."
+    },
+    {
+      "id": "kiyomizu",
+      "name": "기요미즈데라",
+      "lat": 34.9949,
+      "lon": 135.785,
+      "category": "sight",
+      "stayMin": 90,
+      "tags": [
+        "기요미즈데라",
+        "청수사",
+        "무대",
+        "清水寺",
+        "Kiyomizu-dera"
+      ],
+      "summary": "절벽 위 나무 무대에서 교토 시내를 내려다보는 히가시야마의 대표 사찰."
+    },
+    {
+      "id": "sannenzaka",
+      "name": "산넨자카·니넨자카",
+      "lat": 34.9965,
+      "lon": 135.781,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "산넨자카",
+        "니넨자카",
+        "돌길",
+        "三年坂",
+        "二年坂",
+        "Sannenzaka"
+      ],
+      "summary": "전통 목조 상점과 찻집이 돌계단 길을 따라 늘어선 옛 거리."
+    },
+    {
+      "id": "maruyama-park",
+      "name": "마루야마 공원",
+      "lat": 35.0035,
+      "lon": 135.7815,
+      "category": "nature",
+      "stayMin": 30,
+      "tags": [
+        "마루야마공원",
+        "수양벚꽃",
+        "円山公園",
+        "Maruyama Park"
+      ],
+      "summary": "야사카 신사 뒤편 수양벚나무로 유명한 교토에서 오래된 공원."
+    },
+    {
+      "id": "yasaka",
+      "name": "야사카 신사",
+      "lat": 35.0037,
+      "lon": 135.7785,
+      "category": "culture",
+      "stayMin": 30,
+      "tags": [
+        "야사카신사",
+        "기온마쓰리",
+        "八坂神社",
+        "Yasaka Shrine"
+      ],
+      "summary": "기온 거리 끝 주홍색 누문이 서 있는 기온 마쓰리의 신사."
+    },
+    {
+      "id": "gion",
+      "name": "기온 하나미코지",
+      "lat": 35.0025,
+      "lon": 135.775,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "기온",
+        "하나미코지",
+        "게이코",
+        "祇園",
+        "花見小路",
+        "Gion"
+      ],
+      "summary": "찻집 건물이 이어진 돌길로 저녁 등불이 켜지면 옛 화류가 분위기가 짙어진다."
+    },
+    {
+      "id": "pontocho",
+      "name": "폰토초",
+      "lat": 35.0055,
+      "lon": 135.771,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "폰토초",
+        "골목",
+        "가모가와 노료유카",
+        "先斗町",
+        "Pontocho"
+      ],
+      "summary": "가모강과 나란한 좁은 골목에 등불 켜진 음식점이 늘어선 밤거리."
+    },
+    {
+      "id": "nishiki",
+      "name": "니시키 시장",
+      "lat": 35.005,
+      "lon": 135.765,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "니시키시장",
+        "교토의 부엌",
+        "절임",
+        "錦市場",
+        "Nishiki Market"
+      ],
+      "summary": "'교토의 부엌'이라 불리는 좁고 긴 시장으로 절임·두부·꼬치를 맛볼 수 있다."
+    },
+    {
+      "id": "teramachi",
+      "name": "데라마치·신쿄고쿠 상점가",
+      "lat": 35.006,
+      "lon": 135.768,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "데라마치",
+        "신쿄고쿠",
+        "아케이드",
+        "寺町通",
+        "新京極",
+        "Teramachi"
+      ],
+      "summary": "시조 북쪽으로 이어지는 지붕 덮인 쇼핑 아케이드."
+    },
+    {
+      "id": "kyoto-gosho",
+      "name": "교토 고쇼",
+      "lat": 35.0254,
+      "lon": 135.7621,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "교토고쇼",
+        "교토어소",
+        "황궁",
+        "京都御所",
+        "Kyoto Imperial Palace"
+      ],
+      "summary": "넓은 교토 교엔 안에 자리한 옛 천황의 궁궐."
+    },
+    {
+      "id": "nijo-castle",
+      "name": "니조성",
+      "lat": 35.0142,
+      "lon": 135.748,
+      "category": "sight",
+      "stayMin": 90,
+      "tags": [
+        "니조성",
+        "니노마루궁전",
+        "휘파람 마루",
+        "二条城",
+        "Nijo Castle"
+      ],
+      "summary": "도쿠가와 쇼군의 교토 거처로 걸으면 소리 나는 마루 복도가 유명하다."
+    },
+    {
+      "id": "shimogamo",
+      "name": "시모가모 신사 (다다스노모리)",
+      "lat": 35.039,
+      "lon": 135.7728,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "시모가모신사",
+        "다다스노모리",
+        "下鴨神社",
+        "Shimogamo Shrine"
+      ],
+      "summary": "원시림 다다스노모리 숲길 끝에 있는 교토에서 가장 오래된 축의 신사."
+    },
+    {
+      "id": "kamogawa-delta",
+      "name": "가모가와 델타 (데마치야나기)",
+      "lat": 35.0303,
+      "lon": 135.7715,
+      "category": "nature",
+      "stayMin": 30,
+      "tags": [
+        "가모가와",
+        "델타",
+        "징검다리",
+        "鴨川デルタ",
+        "Kamogawa Delta"
+      ],
+      "summary": "두 강이 만나는 삼각주에 거북 모양 징검돌이 놓인 강변 쉼터."
+    },
+    {
+      "id": "heian-jingu",
+      "name": "헤이안 신궁",
+      "lat": 35.016,
+      "lon": 135.7824,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "헤이안신궁",
+        "대도리이",
+        "平安神宮",
+        "Heian Shrine"
+      ],
+      "summary": "거대한 붉은 도리이와 넓은 신원이 있는 메이지 시대에 세운 신궁."
+    },
+    {
+      "id": "nanzenji",
+      "name": "난젠지 (수로각)",
+      "lat": 35.0113,
+      "lon": 135.794,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "난젠지",
+        "수로각",
+        "산몬",
+        "南禅寺",
+        "Nanzenji"
+      ],
+      "summary": "거대한 산문과 붉은 벽돌 수로각이 있는 선종 대본산."
+    },
+    {
+      "id": "philosophers-path",
+      "name": "철학의 길",
+      "lat": 35.02,
+      "lon": 135.7948,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "철학의길",
+        "벚꽃",
+        "수로산책",
+        "哲学の道",
+        "Philosopher's Path"
+      ],
+      "summary": "난젠지 부근에서 긴카쿠지까지 수로를 따라 이어지는 약 2km 산책로."
+    },
+    {
+      "id": "ginkakuji",
+      "name": "긴카쿠지",
+      "lat": 35.027,
+      "lon": 135.7983,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "긴카쿠지",
+        "은각사",
+        "모래정원",
+        "銀閣寺",
+        "Ginkakuji"
+      ],
+      "summary": "은각과 모래를 쌓아 만든 정원이 있는 히가시야마 문화의 사찰."
+    },
+    {
+      "id": "kinkakuji",
+      "name": "긴카쿠지 (금각사)",
+      "lat": 35.0394,
+      "lon": 135.7292,
+      "category": "sight",
+      "stayMin": 60,
+      "tags": [
+        "킨카쿠지",
+        "금각사",
+        "로쿠온지",
+        "金閣寺",
+        "Kinkakuji"
+      ],
+      "summary": "연못 위에 금박 누각이 비치는 교토의 대표 풍경."
+    },
+    {
+      "id": "toji",
+      "name": "도지 (오중탑)",
+      "lat": 34.9805,
+      "lon": 135.7477,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "도지",
+        "오중탑",
+        "고보대사",
+        "東寺",
+        "Toji"
+      ],
+      "summary": "일본에서 가장 높은 목조 오중탑이 서 있는 교토역 남서쪽 사찰."
+    },
+    {
+      "id": "railway-museum",
+      "name": "교토 철도박물관",
+      "lat": 34.987,
+      "lon": 135.7425,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "철도박물관",
+        "증기기관차",
+        "신칸센",
+        "京都鉄道博物館",
+        "Kyoto Railway Museum"
+      ],
+      "summary": "증기기관차부터 신칸센까지 실제 차량을 전시한 대형 철도 박물관."
+    },
+    {
+      "id": "kyoto-tower",
+      "name": "교토 타워",
+      "lat": 34.9875,
+      "lon": 135.7593,
+      "category": "night",
+      "stayMin": 40,
+      "tags": [
+        "교토타워",
+        "전망대",
+        "야경",
+        "京都タワー",
+        "Kyoto Tower"
+      ],
+      "summary": "교토역 앞에 선 촛대 모양 타워로 시내 야경을 한눈에 본다."
+    },
+    {
+      "id": "ramen-koji",
+      "name": "교토역 라멘코지",
+      "lat": 34.9853,
+      "lon": 135.759,
+      "category": "food",
+      "stayMin": 45,
+      "tags": [
+        "라멘",
+        "교토역",
+        "라멘코지",
+        "京都拉麺小路",
+        "Kyoto Ramen Koji"
+      ],
+      "summary": "교토역 빌딩 위층에 전국 라멘집이 모인 식당가."
+    },
+    {
+      "id": "arashiyama-bamboo",
+      "name": "아라시야마 대나무숲",
+      "lat": 35.017,
+      "lon": 135.6717,
+      "category": "nature",
+      "stayMin": 45,
+      "tags": [
+        "아라시야마",
+        "대나무숲",
+        "치쿠린",
+        "嵐山",
+        "竹林の小径",
+        "Arashiyama Bamboo Grove"
+      ],
+      "summary": "하늘을 덮는 대나무 사이로 난 오솔길."
+    },
+    {
+      "id": "tenryuji",
+      "name": "덴류지",
+      "lat": 35.0158,
+      "lon": 135.6738,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "덴류지",
+        "소겐치 정원",
+        "세계유산",
+        "天龍寺",
+        "Tenryuji"
+      ],
+      "summary": "아라시야마 산을 배경으로 한 연못 정원이 있는 선종 사찰."
+    },
+    {
+      "id": "togetsukyo",
+      "name": "도게쓰쿄",
+      "lat": 35.0129,
+      "lon": 135.6777,
+      "category": "sight",
+      "stayMin": 30,
+      "tags": [
+        "도게쓰쿄",
+        "가쓰라강",
+        "渡月橋",
+        "Togetsukyo"
+      ],
+      "summary": "가쓰라강을 가로지르는 아라시야마의 상징 같은 목조 다리."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "처음 만나는 교토 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "fushimi-inari",
+        "kiyomizu",
+        "sannenzaka",
+        "yasaka",
+        "gion",
+        "pontocho"
+      ],
+      "modes": [
+        "subway",
+        "walk",
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "아침 일찍 후시미 이나리 도리이를 걷고 기요미즈데라에서 산넨자카·야사카 신사를 지나 기온과 폰토초에서 저녁을 보낸다."
+    },
+    {
+      "id": "higashiyama-north",
+      "title": "철학의 길 산책",
+      "theme": "산책",
+      "length": "half",
+      "placeIds": [
+        "ginkakuji",
+        "philosophers-path",
+        "nanzenji",
+        "heian-jingu"
+      ],
+      "modes": [
+        "walk",
+        "walk",
+        "walk"
+      ],
+      "summary": "긴카쿠지에서 수로를 따라 난젠지까지 걸어 내려가 헤이안 신궁에서 마친다."
+    },
+    {
+      "id": "arashiyama",
+      "title": "금각사와 아라시야마",
+      "theme": "자연",
+      "length": "half",
+      "placeIds": [
+        "kinkakuji",
+        "tenryuji",
+        "arashiyama-bamboo",
+        "togetsukyo"
+      ],
+      "modes": [
+        "bus",
+        "walk",
+        "walk"
+      ],
+      "summary": "금각사를 보고 버스로 아라시야마로 건너가 덴류지 정원과 대나무숲, 도게쓰쿄를 걷는다."
+    },
+    {
+      "id": "old-capital",
+      "title": "궁궐·성과 강변",
+      "theme": "역사",
+      "length": "day",
+      "placeIds": [
+        "nijo-castle",
+        "kyoto-gosho",
+        "shimogamo",
+        "kamogawa-delta",
+        "nishiki",
+        "pontocho"
+      ],
+      "modes": [
+        "subway",
+        "walk",
+        "walk",
+        "subway",
+        "walk"
+      ],
+      "summary": "니조성과 교토 고쇼를 보고 시모가모 신사 숲길과 가모강 델타를 지나 니시키 시장과 폰토초로 내려온다."
+    }
+  ]
+}

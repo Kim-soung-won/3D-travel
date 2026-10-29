@@ -1,0 +1,787 @@
+{
+  "id": "taipei",
+  "name": "타이베이시",
+  "country": "대만",
+  "center": {
+    "lat": 25.047,
+    "lon": 121.535
+  },
+  "bbox": [
+    121.495,
+    25.01,
+    121.582,
+    25.106
+  ],
+  "source": "AI 생성 데이터 (Claude, 2026-10-28) — 미검증. 좌표·노선은 대략값",
+  "lines": [
+    {
+      "id": "tp-red",
+      "name": "淡水信義線 (단수이신이선, 도심 구간)",
+      "color": "#E3002C",
+      "stations": [
+        {
+          "name": "스린",
+          "lat": 25.0937,
+          "lon": 121.5262
+        },
+        {
+          "name": "젠탄",
+          "lat": 25.0846,
+          "lon": 121.5249
+        },
+        {
+          "name": "위안산",
+          "lat": 25.0715,
+          "lon": 121.52
+        },
+        {
+          "name": "민취안시루",
+          "lat": 25.0628,
+          "lon": 121.5193
+        },
+        {
+          "name": "솽롄",
+          "lat": 25.0578,
+          "lon": 121.5206
+        },
+        {
+          "name": "중산",
+          "lat": 25.0527,
+          "lon": 121.5205
+        },
+        {
+          "name": "타이베이처잔",
+          "lat": 25.0463,
+          "lon": 121.5174
+        },
+        {
+          "name": "타이다이위안",
+          "lat": 25.0417,
+          "lon": 121.5163
+        },
+        {
+          "name": "중정기념당",
+          "lat": 25.0327,
+          "lon": 121.5181
+        },
+        {
+          "name": "둥먼",
+          "lat": 25.0339,
+          "lon": 121.5287
+        },
+        {
+          "name": "다안썬린궁위안",
+          "lat": 25.0331,
+          "lon": 121.5353
+        },
+        {
+          "name": "다안",
+          "lat": 25.033,
+          "lon": 121.5434
+        },
+        {
+          "name": "신이안허",
+          "lat": 25.0333,
+          "lon": 121.5527
+        },
+        {
+          "name": "타이베이 101/스마오",
+          "lat": 25.033,
+          "lon": 121.5637
+        },
+        {
+          "name": "샹산",
+          "lat": 25.0328,
+          "lon": 121.5706
+        }
+      ]
+    },
+    {
+      "id": "tp-blue",
+      "name": "板南線 (반난선, 도심 구간)",
+      "color": "#0070BD",
+      "stations": [
+        {
+          "name": "룽산쓰",
+          "lat": 25.0353,
+          "lon": 121.5
+        },
+        {
+          "name": "시먼",
+          "lat": 25.042,
+          "lon": 121.5081
+        },
+        {
+          "name": "타이베이처잔",
+          "lat": 25.046,
+          "lon": 121.517
+        },
+        {
+          "name": "산다오쓰",
+          "lat": 25.0447,
+          "lon": 121.523
+        },
+        {
+          "name": "중샤오신성",
+          "lat": 25.0423,
+          "lon": 121.533
+        },
+        {
+          "name": "중샤오푸싱",
+          "lat": 25.0416,
+          "lon": 121.5437
+        },
+        {
+          "name": "중샤오둔화",
+          "lat": 25.0414,
+          "lon": 121.5512
+        },
+        {
+          "name": "궈푸기념관",
+          "lat": 25.0413,
+          "lon": 121.5578
+        },
+        {
+          "name": "스정푸",
+          "lat": 25.0412,
+          "lon": 121.5654
+        },
+        {
+          "name": "융춘",
+          "lat": 25.0408,
+          "lon": 121.5764
+        }
+      ]
+    },
+    {
+      "id": "tp-green",
+      "name": "松山新店線 (쑹산신뎬선, 도심 구간)",
+      "color": "#008659",
+      "stations": [
+        {
+          "name": "쑹산",
+          "lat": 25.05,
+          "lon": 121.5778
+        },
+        {
+          "name": "난징싼민",
+          "lat": 25.0516,
+          "lon": 121.564
+        },
+        {
+          "name": "타이베이샤오쥐단",
+          "lat": 25.0518,
+          "lon": 121.5515
+        },
+        {
+          "name": "난징푸싱",
+          "lat": 25.0521,
+          "lon": 121.544
+        },
+        {
+          "name": "쑹장난징",
+          "lat": 25.052,
+          "lon": 121.533
+        },
+        {
+          "name": "중산",
+          "lat": 25.0526,
+          "lon": 121.5203
+        },
+        {
+          "name": "베이먼",
+          "lat": 25.0494,
+          "lon": 121.5103
+        },
+        {
+          "name": "시먼",
+          "lat": 25.0421,
+          "lon": 121.5079
+        },
+        {
+          "name": "샤오난먼",
+          "lat": 25.0355,
+          "lon": 121.5113
+        },
+        {
+          "name": "중정기념당",
+          "lat": 25.0326,
+          "lon": 121.5182
+        },
+        {
+          "name": "구팅",
+          "lat": 25.0263,
+          "lon": 121.5228
+        },
+        {
+          "name": "타이뎬다러우",
+          "lat": 25.0207,
+          "lon": 121.5283
+        },
+        {
+          "name": "궁관",
+          "lat": 25.0147,
+          "lon": 121.5343
+        }
+      ]
+    },
+    {
+      "id": "tp-orange",
+      "name": "中和新蘆線 (중허신루선, 도심 구간)",
+      "color": "#F8B61C",
+      "stations": [
+        {
+          "name": "다차오터우",
+          "lat": 25.0634,
+          "lon": 121.5131
+        },
+        {
+          "name": "민취안시루",
+          "lat": 25.0623,
+          "lon": 121.5194
+        },
+        {
+          "name": "중산궈샤오",
+          "lat": 25.0626,
+          "lon": 121.5265
+        },
+        {
+          "name": "싱톈궁",
+          "lat": 25.0597,
+          "lon": 121.5331
+        },
+        {
+          "name": "쑹장난징",
+          "lat": 25.0519,
+          "lon": 121.533
+        },
+        {
+          "name": "중샤오신성",
+          "lat": 25.0423,
+          "lon": 121.5328
+        },
+        {
+          "name": "둥먼",
+          "lat": 25.0339,
+          "lon": 121.5287
+        },
+        {
+          "name": "구팅",
+          "lat": 25.0263,
+          "lon": 121.5228
+        },
+        {
+          "name": "딩시",
+          "lat": 25.0136,
+          "lon": 121.5155
+        }
+      ]
+    },
+    {
+      "id": "tp-brown",
+      "name": "文湖線 (원후선, 도심 구간)",
+      "color": "#C48C31",
+      "stations": [
+        {
+          "name": "커지다러우",
+          "lat": 25.0262,
+          "lon": 121.5436
+        },
+        {
+          "name": "다안",
+          "lat": 25.0329,
+          "lon": 121.5435
+        },
+        {
+          "name": "중샤오푸싱",
+          "lat": 25.0418,
+          "lon": 121.544
+        },
+        {
+          "name": "난징푸싱",
+          "lat": 25.0521,
+          "lon": 121.544
+        },
+        {
+          "name": "중산궈중",
+          "lat": 25.0608,
+          "lon": 121.5442
+        },
+        {
+          "name": "쑹산지창",
+          "lat": 25.063,
+          "lon": 121.5519
+        },
+        {
+          "name": "다즈",
+          "lat": 25.0794,
+          "lon": 121.5469
+        },
+        {
+          "name": "젠난루",
+          "lat": 25.0848,
+          "lon": 121.5555
+        }
+      ]
+    }
+  ],
+  "places": [
+    {
+      "id": "taipei-101",
+      "name": "타이베이 101",
+      "lat": 25.0339,
+      "lon": 121.5645,
+      "category": "sight",
+      "stayMin": 90,
+      "tags": [
+        "타이베이 101",
+        "전망대",
+        "台北101",
+        "Taipei 101"
+      ],
+      "summary": "대나무 마디 모양의 초고층 빌딩으로 89층 전망대에서 도시를 내려다본다."
+    },
+    {
+      "id": "elephant-mountain",
+      "name": "샹산 (코끼리산)",
+      "lat": 25.027,
+      "lon": 121.5765,
+      "category": "nature",
+      "stayMin": 90,
+      "tags": [
+        "샹산",
+        "코끼리산",
+        "야경",
+        "象山",
+        "Elephant Mountain"
+      ],
+      "summary": "계단을 20분쯤 오르면 타이베이 101과 신이 지구가 정면으로 보이는 야경 명소다."
+    },
+    {
+      "id": "eslite-xinyi",
+      "name": "청핀 신이점",
+      "lat": 25.0393,
+      "lon": 121.5656,
+      "category": "shopping",
+      "stayMin": 60,
+      "tags": [
+        "청핀",
+        "서점",
+        "誠品信義店",
+        "Eslite Xinyi"
+      ],
+      "summary": "대만 대표 서점 체인의 큰 매장으로 책과 생활 잡화를 함께 판다."
+    },
+    {
+      "id": "songshan-cultural-park",
+      "name": "쑹산 문화창의공원",
+      "lat": 25.0437,
+      "lon": 121.5606,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "쑹산 문창원",
+        "담배공장",
+        "松山文創園區",
+        "Songshan Cultural and Creative Park"
+      ],
+      "summary": "일제강점기 담배공장을 전시장과 디자인 상점으로 바꾼 문화공원이다."
+    },
+    {
+      "id": "east-district",
+      "name": "둥취 (중샤오둔화)",
+      "lat": 25.0415,
+      "lon": 121.55,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "둥취",
+        "중샤오둔화",
+        "東區",
+        "East District"
+      ],
+      "summary": "백화점과 골목 상점, 카페가 모인 타이베이 동쪽 번화가다."
+    },
+    {
+      "id": "linjiang-night-market",
+      "name": "린장제 야시장",
+      "lat": 25.0301,
+      "lon": 121.5544,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "린장제",
+        "퉁화 야시장",
+        "臨江街夜市",
+        "Linjiang Street Night Market"
+      ],
+      "summary": "신이 지구 남쪽 주택가 골목에 서는 현지인 위주의 야시장이다."
+    },
+    {
+      "id": "raohe-night-market",
+      "name": "라오허제 야시장",
+      "lat": 25.051,
+      "lon": 121.5775,
+      "category": "night",
+      "stayMin": 90,
+      "tags": [
+        "라오허제",
+        "후추빵",
+        "饒河街觀光夜市",
+        "Raohe Night Market"
+      ],
+      "summary": "츠유궁 앞에서 시작하는 일직선 야시장으로 후자오빙(후추빵)이 유명하다."
+    },
+    {
+      "id": "cks-memorial-hall",
+      "name": "중정기념당",
+      "lat": 25.0346,
+      "lon": 121.5217,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "중정기념당",
+        "장제스",
+        "근위병 교대",
+        "中正紀念堂",
+        "Chiang Kai-shek Memorial Hall"
+      ],
+      "summary": "파란 지붕의 거대한 기념당으로 정시마다 근위병 교대식이 열린다."
+    },
+    {
+      "id": "yongkang-street",
+      "name": "융캉제",
+      "lat": 25.033,
+      "lon": 121.5297,
+      "category": "food",
+      "stayMin": 90,
+      "tags": [
+        "융캉제",
+        "딘타이펑",
+        "망고빙수",
+        "우육면",
+        "永康街",
+        "Yongkang Street"
+      ],
+      "summary": "딘타이펑 본점 근처로 우육면·망고빙수 가게가 모인 먹자골목이다."
+    },
+    {
+      "id": "daan-park",
+      "name": "다안 삼림공원",
+      "lat": 25.03,
+      "lon": 121.5355,
+      "category": "nature",
+      "stayMin": 60,
+      "tags": [
+        "다안 공원",
+        "삼림공원",
+        "大安森林公園",
+        "Daan Forest Park"
+      ],
+      "summary": "도심 한가운데 넓은 잔디와 숲, 연못이 있는 타이베이의 센트럴파크다."
+    },
+    {
+      "id": "huashan-1914",
+      "name": "화산 1914 문화창의산업원구",
+      "lat": 25.0441,
+      "lon": 121.5294,
+      "category": "culture",
+      "stayMin": 60,
+      "tags": [
+        "화산 1914",
+        "양조장",
+        "華山1914文化創意產業園區",
+        "Huashan 1914 Creative Park"
+      ],
+      "summary": "옛 양조장 건물에서 전시와 공연, 소품 가게가 열리는 문화공간이다."
+    },
+    {
+      "id": "presidential-office",
+      "name": "총통부",
+      "lat": 25.04,
+      "lon": 121.5119,
+      "category": "sight",
+      "stayMin": 30,
+      "tags": [
+        "총통부",
+        "總統府",
+        "Presidential Office Building"
+      ],
+      "summary": "붉은 벽돌과 높은 탑의 일제강점기 건물로 지금도 총통 집무실이다."
+    },
+    {
+      "id": "peace-park",
+      "name": "228 평화공원",
+      "lat": 25.0402,
+      "lon": 121.5154,
+      "category": "nature",
+      "stayMin": 45,
+      "tags": [
+        "228 공원",
+        "평화공원",
+        "二二八和平公園",
+        "228 Peace Memorial Park"
+      ],
+      "summary": "228 사건을 기리는 기념관과 연못이 있는 타이베이역 남쪽 공원이다."
+    },
+    {
+      "id": "ximending",
+      "name": "시먼딩",
+      "lat": 25.0421,
+      "lon": 121.5078,
+      "category": "shopping",
+      "stayMin": 120,
+      "tags": [
+        "시먼딩",
+        "청년 거리",
+        "西門町",
+        "Ximending"
+      ],
+      "summary": "보행자 거리에 옷가게·노점·영화관이 몰린 젊은이들의 번화가다."
+    },
+    {
+      "id": "longshan-temple",
+      "name": "룽산쓰",
+      "lat": 25.0372,
+      "lon": 121.4999,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "룽산쓰",
+        "용산사",
+        "사원",
+        "艋舺龍山寺",
+        "Longshan Temple"
+      ],
+      "summary": "1738년 세워진 타이베이에서 가장 오래된 사원 중 하나로 참배객이 늘 붐빈다."
+    },
+    {
+      "id": "bopiliao",
+      "name": "보피랴오 옛 거리",
+      "lat": 25.036,
+      "lon": 121.501,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "보피랴오",
+        "옛 거리",
+        "剝皮寮歷史街區",
+        "Bopiliao Historic Block"
+      ],
+      "summary": "청나라와 일제강점기 붉은 벽돌 상가가 남아 있는 완화의 옛 거리다."
+    },
+    {
+      "id": "dihua-street",
+      "name": "디화제",
+      "lat": 25.056,
+      "lon": 121.51,
+      "category": "shopping",
+      "stayMin": 90,
+      "tags": [
+        "디화제",
+        "건어물",
+        "차",
+        "迪化街",
+        "Dihua Street"
+      ],
+      "summary": "바로크풍 옛 상가에 건어물·차·한약재 가게와 카페가 섞인 다다오청 거리다."
+    },
+    {
+      "id": "dadaocheng-wharf",
+      "name": "다다오청 부두",
+      "lat": 25.0567,
+      "lon": 121.5085,
+      "category": "sight",
+      "stayMin": 45,
+      "tags": [
+        "다다오청 부두",
+        "노을",
+        "大稻埕碼頭",
+        "Dadaocheng Wharf"
+      ],
+      "summary": "단수이강 강변에서 노을을 보며 컨테이너 노점의 맥주를 마시는 곳이다."
+    },
+    {
+      "id": "ningxia-night-market",
+      "name": "닝샤 야시장",
+      "lat": 25.056,
+      "lon": 121.5153,
+      "category": "night",
+      "stayMin": 60,
+      "tags": [
+        "닝샤 야시장",
+        "굴전",
+        "寧夏夜市",
+        "Ningxia Night Market"
+      ],
+      "summary": "짧은 길에 오래된 노포 노점이 모인 먹거리 중심 야시장이다."
+    },
+    {
+      "id": "xingtian-temple",
+      "name": "싱톈궁",
+      "lat": 25.063,
+      "lon": 121.534,
+      "category": "culture",
+      "stayMin": 30,
+      "tags": [
+        "싱톈궁",
+        "관우",
+        "行天宮",
+        "Xingtian Temple"
+      ],
+      "summary": "관우를 모신 사원으로 향을 피우지 않고 조용히 참배한다."
+    },
+    {
+      "id": "fine-arts-museum",
+      "name": "타이베이 시립미술관",
+      "lat": 25.0725,
+      "lon": 121.5246,
+      "category": "culture",
+      "stayMin": 90,
+      "tags": [
+        "시립미술관",
+        "현대미술",
+        "臺北市立美術館",
+        "Taipei Fine Arts Museum"
+      ],
+      "summary": "위안산 근처 공원 안에 있는 대만 첫 현대미술관이다."
+    },
+    {
+      "id": "baoan-temple",
+      "name": "다룽둥 바오안궁",
+      "lat": 25.0731,
+      "lon": 121.5155,
+      "category": "culture",
+      "stayMin": 45,
+      "tags": [
+        "바오안궁",
+        "보안궁",
+        "大龍峒保安宮",
+        "Dalongdong Baoan Temple"
+      ],
+      "summary": "정교한 목조각과 벽화로 유명한 의술의 신을 모신 사원이다."
+    },
+    {
+      "id": "shilin-night-market",
+      "name": "스린 야시장",
+      "lat": 25.088,
+      "lon": 121.5241,
+      "category": "night",
+      "stayMin": 120,
+      "tags": [
+        "스린 야시장",
+        "지파이",
+        "士林夜市",
+        "Shilin Night Market"
+      ],
+      "summary": "타이베이에서 가장 큰 야시장으로 지하 먹거리 구역과 골목 상점이 넓게 퍼져 있다."
+    },
+    {
+      "id": "national-palace-museum",
+      "name": "국립고궁박물원",
+      "lat": 25.1024,
+      "lon": 121.5485,
+      "category": "culture",
+      "stayMin": 180,
+      "tags": [
+        "고궁박물원",
+        "취옥백채",
+        "國立故宮博物院",
+        "National Palace Museum"
+      ],
+      "summary": "청나라 황실 소장품 수십만 점을 돌아가며 전시하는 세계적 박물관이다."
+    },
+    {
+      "id": "gongguan",
+      "name": "궁관 (대만대학 앞)",
+      "lat": 25.0145,
+      "lon": 121.534,
+      "category": "food",
+      "stayMin": 60,
+      "tags": [
+        "궁관",
+        "대만대학",
+        "버블티",
+        "公館",
+        "Gongguan"
+      ],
+      "summary": "대만대학 정문 앞 대학가로 값싼 식당과 음료 가게가 많다."
+    }
+  ],
+  "routes": [
+    {
+      "id": "first-day",
+      "title": "처음 만나는 타이베이 하루",
+      "theme": "첫 방문",
+      "length": "day",
+      "placeIds": [
+        "longshan-temple",
+        "cks-memorial-hall",
+        "yongkang-street",
+        "taipei-101",
+        "elephant-mountain"
+      ],
+      "modes": [
+        "subway",
+        "walk",
+        "subway",
+        "walk"
+      ],
+      "summary": "룽산쓰에서 시작해 중정기념당과 융캉제를 들르고 타이베이 101을 본 뒤 샹산에서 야경으로 마무리한다."
+    },
+    {
+      "id": "old-streets",
+      "title": "완화 옛 거리와 시먼딩 반나절",
+      "theme": "옛 거리",
+      "length": "half",
+      "placeIds": [
+        "bopiliao",
+        "longshan-temple",
+        "ximending",
+        "presidential-office",
+        "peace-park"
+      ],
+      "modes": [
+        "walk",
+        "subway",
+        "walk",
+        "walk"
+      ],
+      "summary": "보피랴오와 룽산쓰의 옛 거리를 보고 반난선 한 정거장으로 시먼딩에 간 뒤 총통부와 228 공원까지 걷는다."
+    },
+    {
+      "id": "sunset-night-market",
+      "title": "다다오청 노을과 야시장",
+      "theme": "야시장",
+      "length": "half",
+      "placeIds": [
+        "dihua-street",
+        "dadaocheng-wharf",
+        "ningxia-night-market"
+      ],
+      "modes": [
+        "walk",
+        "walk"
+      ],
+      "summary": "오후에 디화제 상점을 구경하고 다다오청 부두에서 노을을 본 뒤 닝샤 야시장에서 저녁을 먹는다."
+    },
+    {
+      "id": "museum-day",
+      "title": "박물관과 스린 야시장 하루",
+      "theme": "박물관",
+      "length": "day",
+      "placeIds": [
+        "national-palace-museum",
+        "fine-arts-museum",
+        "baoan-temple",
+        "shilin-night-market"
+      ],
+      "modes": [
+        "bus",
+        "walk",
+        "subway"
+      ],
+      "summary": "고궁박물원에서 오전을 보내고 시립미술관과 바오안궁을 거쳐 스린 야시장에서 저녁을 먹는다."
+    }
+  ]
+}

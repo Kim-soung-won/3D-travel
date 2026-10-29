@@ -43,7 +43,8 @@ const placeStop = (p: Place, mode: Mode): Stop => ({ id: newId(), name: p.name, 
 
 interface Props {
   city: Waypoint;
-  data: CityData | null;
+  /** 불러오는 중이면 undefined, 데이터가 없는 도시면 null */
+  data: CityData | null | undefined;
   dispatch: Dispatch<RouteAction>;
   onSelect: (id: string) => void;
 }
@@ -54,6 +55,7 @@ export function CityGuide({ city, data, dispatch, onSelect }: Props) {
   const [shortestFor, setShortestFor] = useState<Stop[] | null>(null);
   const results = useMemo(() => (data ? searchPlaces(data.places, query).slice(0, 6) : []), [data, query]);
 
+  if (data === undefined) return <p className="guide-none">명소·추천 루트를 불러오는 중…</p>;
   if (!data)
     return <p className="guide-none">이 도시는 사전 데이터가 없어 검색·추천을 쓸 수 없습니다. 지도를 클릭해 추가하세요.</p>;
 

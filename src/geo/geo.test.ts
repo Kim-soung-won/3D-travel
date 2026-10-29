@@ -1,5 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { distanceKm, formatKm, formatLatLon, greatCircleArc, latLonToVector3, samplePath, vector3ToLatLon } from './geo';
+import { TRAIN_MAX_SEA_KM, trainBlockReason } from './routing';
+import { longestSeaKm } from './world';
 
 const SEOUL = { lat: 37.5665, lon: 126.978 };
 const NEW_YORK = { lat: 40.7128, lon: -74.006 };
@@ -58,5 +60,31 @@ describe('대권 곡선', () => {
     const arc = greatCircleArc(SEOUL, NEW_YORK, 1, 32);
     expect(samplePath(arc, 0).position.distanceTo(arc[0])).toBeCloseTo(0);
     expect(samplePath(arc, 1).position.distanceTo(arc[32])).toBeCloseTo(0);
+  });
+});
+
+describe('기차로 갈 수 있는 구간 (바다 건너기)', () => {
+  const BUSAN = { lat: 35.1796, lon: 129.0756 };
+  const TOKYO = { lat: 35.6812, lon: 139.7671 };
+  const JEJU = { lat: 33.4996, lon: 126.5312 };
+  const HIROSHIMA = { lat: 34.3853, lon: 132.4553 };
+  const FUKUOKA = { lat: 33.5902, lon: 130.4017 };
+  const LONDON = { lat: 51.5074, lon: -0.1278 };
+  const PARIS = { lat: 48.8566, lon: 2.3522 };
+
+  test('가장 긴 바다 구간: 서울–부산은 땅, 서울–도쿄는 대한해협과 동해를 건넌다', () => {
+    expect(longestSeaKm(SEOUL, BUSAN)).toBeLessThan(20);
+    expect(longestSeaKm(SEOUL, TOKYO)).toBeGreaterThan(300);
+    // 간몬 해협(혼슈–규슈)은 1km 남짓이다. 해안선이 거칠어 조금 길게 잡혀도 짧아야 한다
+    expect(longestSeaKm(HIROSHIMA, FUKUOKA)).toBeLessThan(TRAIN_MAX_SEA_KM);
+  });
+
+  test('바다를 길게 건너면 기차를 막고, 사전 데이터에 기차 시간이 있는 구간(유로스타)은 통과시킨다', () => {
+    expect(trainBlockReason(SEOUL, BUSAN)).toBeNull();
+    expect(trainBlockReason(SEOUL, TOKYO)).toMatch(/바다를 약 \d+km 건너는 구간/);
+    expect(trainBlockReason(SEOUL, JEJU)).not.toBeNull();
+    // 런던–파리 직선은 영국 해협을 약 90km 건너지만, 실제로는 해저 터널로 기차가 다닌다
+    expect(longestSeaKm(LONDON, PARIS)).toBeGreaterThan(TRAIN_MAX_SEA_KM);
+    expect(trainBlockReason(LONDON, PARIS)).toBeNull();
   });
 });

@@ -1,5 +1,5 @@
 // Natural Earth 1:110m(world-atlas, 퍼블릭 도메인)으로 대륙 텍스처를 그리고, 좌표가 속한 나라를 찾는다.
-import { geoArea, geoCentroid, geoContains, geoDistance, geoEquirectangular, geoGraticule10, geoPath } from 'd3-geo';
+import { geoArea, geoCentroid, geoContains, geoDistance, geoEquirectangular, geoGraticule10, geoInterpolate, geoPath } from 'd3-geo';
 import type { Feature, FeatureCollection, Geometry, MultiPolygon, Polygon } from 'geojson';
 import { feature, mesh } from 'topojson-client';
 import type { Topology } from 'topojson-specification';
@@ -89,6 +89,25 @@ const KOREAN_NAMES: Record<string, string> = {
 /** 좌표가 속한 나라의 키(world-atlas 영어 이름). 바다면 null */
 export function countryKeyAt({ lat, lon }: LatLon): string | null {
   return countries.features.find((f) => geoContains(f, [lon, lat]))?.properties.name ?? null;
+}
+
+const EARTH_KM = 6371;
+
+/**
+ * 두 지점을 잇는 대권에서 가장 길게 이어지는 바다 구간(km). 기차로 갈 수 있는지 가늠하는 데 쓴다.
+ * 해안선이 1:110m라 해안 가까이는 수 km 어긋나고, 작은 섬·좁은 해협은 없을 수 있다.
+ */
+export function longestSeaKm(a: LatLon, b: LatLon): number {
+  const total = geoDistance([a.lon, a.lat], [b.lon, b.lat]) * EARTH_KM;
+  const steps = Math.max(2, Math.ceil(total / Math.max(5, total / 400)));
+  const at = geoInterpolate([a.lon, a.lat], [b.lon, b.lat]);
+  let run = 0;
+  let longest = 0;
+  for (let i = 0; i <= steps; i++) {
+    if (geoContains(land, at(i / steps))) run = 0;
+    else longest = Math.max(longest, (run += total / steps));
+  }
+  return longest;
 }
 
 /** 나라 키의 한국어 이름. 짧게 부르는 이름(중국, 미국)을 먼저 쓰고, 없으면 도시 데이터의 이름(fallback) */

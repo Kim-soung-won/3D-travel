@@ -18,7 +18,9 @@
   - 형식은 `types.ts`를 따른다. 환승역은 노선이 달라도 이름 문자열이 같아야 한다(환승 판단 기준).
   - 고치거나 도시를 추가하면 `data.test.ts`가 통과해야 하고, 확실하지 않은 역·구간은 넣지 않는다.
   - 화면에서 데이터 출처 안내(`DATA_NOTICE`)를 빼지 않는다.
-- **나라별 도시 목록(`src/data/places.json`):** LLM 데이터가 아니라 Natural Earth(퍼블릭 도메인)에서 `scripts/build-places.mjs`로 만든다. 손으로 고치지 말고 스크립트를 고쳐 다시 만든다. 나라 키는 지구본 클릭 판정에 쓰는 world-atlas 이름이다.
+  - 도시 데이터 본문은 도시마다 따로 불러온다(`index.ts`의 `loadCityData`·`useCityData`). 첫 번들에는 범위(`?ref`)만 들어간다. 앱 코드에서 `cities/*.json`을 직접 import하지 않는다. 테스트는 `all.ts`를 쓴다.
+  - 도시 범위(bbox)는 서로 겹치지 않아야 한다(`data.test.ts`).
+- **나라별 도시 목록(`src/data/places.json`, `places-all.json`):** LLM 데이터가 아니라 Natural Earth(퍼블릭 도메인)에서 `scripts/build-places.mjs`로 만든다. 손으로 고치지 말고 스크립트를 고쳐 다시 만든다. 나라 키는 지구본 클릭 판정에 쓰는 world-atlas 이름이다. 지도에 없는 작은 나라의 도시는 가까운 나라에 붙이고 7번째 칸에 원래 나라 이름을 적는다.
 - **시간 계산(`src/state/schedule.ts`):** 시각은 절대 시각(UTC ms)으로 계산하고 보일 때만 현지 시각으로 바꾼다. 시간대는 `src/geo/timezone.ts`(좌표 → IANA 이름)를 쓰고, 시간대 계산은 `Intl`만 쓴다. 고치면 `schedule.test.ts`의 시차·서머타임·날짜 변경선 예시가 통과해야 한다.
 - **공유·저장 형식(`src/share/format.ts`):** 링크·파일·자동 저장이 같은 형식(지금 v5, v1~v4도 읽음)을 쓴다.
   - 경유지 링크는 남에게서 받은 값이므로 `src/state/link.ts`의 `safeLink`(http·https만)를 거쳐서만 저장하고 그린다.

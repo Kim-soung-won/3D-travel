@@ -1,12 +1,13 @@
 // 패널: 지구 화면이면 도시 단위 경유지, 도시 화면이면 그 도시의 세부 경유지를 다룬다.
 // 지우기는 확인 창 대신 즉시 실행하고 되돌리기를 준다.
-import { useEffect, useMemo, useRef, type Dispatch, type ReactNode } from 'react';
-import { PLACES_NOTICE, type CityOption } from '../data/places';
+import { useEffect, useMemo, useRef, useState, type Dispatch, type ReactNode } from 'react';
+import { PLACES_NOTICE, searchCountryCities, type CityOption } from '../data/places';
 import { distanceKm, formatKm } from '../geo/geo';
 import { CITY_MODES, formatDuration, GLOBE_MODES, travelLine } from '../geo/modes';
+import { trainBlockReason } from '../geo/routing';
 import type { LegState } from '../hooks/useLegs';
 import { sampleWaypoints, type RouteAction, type RouteState, type Waypoint } from '../state/route';
-import { cityDataAt } from '../data';
+import { useCityData } from '../data';
 import { cityDays, formatDayRange, formatTrip, MAX_NIGHTS, nightsOf, totalNights } from '../state/itinerary';
 import { cityDayCount, computeCityPlan, DEFAULT_CITY_STAY_MIN, DEFAULT_PLACE_STAY_MIN, formatDay, scheduleDayRange, stopDay, type Schedule } from '../state/schedule';
 import { CityGuide } from './CityGuide';
@@ -49,24 +50,28 @@ function Undo({ route, dispatch }: Pick<CommonProps, 'route' | 'dispatch'>) {
   );
 }
 
-function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReason, status }: {
+function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReason, status, picker, blocked }: {
   legs: LegState[]; count: number; playing: boolean; progress: number; onTogglePlay: () => void; onClear: () => void; minReason: string;
   /** 재생 중 지금 상태 한 줄 */
   status?: string;
+  /** 재생 단추 옆에 두는 것 (도시 안 재생의 날 고르기) */
+  picker?: ReactNode;
+  /** 재생할 수 없는 이유 (경유지 수 말고 다른 이유) */
+  blocked?: string;
 }) {
   const totalKm = legs.reduce((a, l) => a + l.distanceKm, 0);
   const groundS = legs.filter((l) => l.mode !== 'plane').reduce((a, l) => a + l.durationS, 0);
   const flights = legs.filter((l) => l.mode === 'plane');
   const flightS = flights.filter((l) => l.timeKnown).reduce((a, l) => a + l.durationS, 0);
   const flightAll = flights.every((l) => l.timeKnown);
-  const canPlay = count >= 2 && !legs.some((l) => l.loading);
+  const canPlay = count >= 2 && !legs.some((l) => l.loading) && !blocked;
   return (
     <footer className="panel-foot">
       <div className="total">
         <span>총 거리</span>
         <strong>{formatKm(totalKm)}</strong>
         <span className="muted">구간 {legs.length}개{groundS > 0 && ` · 지상 이동 약 ${formatDuration(groundS)}`}
-          {flightS > 0 && ` · 비행${flightAll ? '' : '(아는 구간만)'} 약 ${formatDuration(flightS)}`}</span>
+          {flightS > 0 && ` · 비행${flightAll ? '' : '(아는 구간만)'} 약 ${formatDuration(flightS)}(공항 대기 포함)`}</span>
       </div>
       {playing && status && <p className="trip-status" role="status">{status}</p>}
       {playing && (
@@ -78,10 +83,12 @@ function Footer({ legs, count, playing, progress, onTogglePlay, onClear, minReas
         <button type="button" className="btn primary" disabled={!canPlay && !playing} onClick={onTogglePlay}>
           {playing ? '■ 정지' : '▶ 여행 재생'}
         </button>
+        {picker}
         {count > 0 && <button type="button" className="btn ghost danger-text" onClick={onClear}>모두 지우기</button>}
       </div>
       {count < 2 && <p className="reason">{minReason}</p>}
       {count >= 2 && legs.some((l) => l.loading) && <p className="reason">경로를 찾는 중이라 잠시 뒤 재생할 수 있습니다.</p>}
+      {count >= 2 && blocked && <p className="reason">{blocked}</p>}
     </footer>
   );
 }
@@ -107,6 +114,8 @@ function formatPop(n: number): string {
 }
 
 export interface CountryPanel {
+  /** world-atlas 나라 키 */
+  key: string;
   name: string;
   /** 불러오는 중이면 null */
   cities: CityOption[] | null;
@@ -121,18 +130,48 @@ function CountryPicker({ country, waypoints, hovered, onHover, onAdd, onClose }:
     if (hovered !== null) rows.current.get(hovered)?.scrollIntoView({ block: 'nearest' });
   }, [hovered]);
   const inTrip = (c: CityOption) => waypoints.some((w) => distanceKm(w, c) < 15);
-  const { cities } = country;
+  // 검색: 그 나라의 모든 도시에서 이름으로 찾는다. 찾는 동안·결과에서는 지구본 점과 잇지 않는다
+  const [query, setQuery] = useState('');
+  const [found, setFound] = useState<{ query: string; cities: CityOption[] } | null>(null);
+  useEffect(() => setQuery(''), [country.key]);
+  useEffect(() => {
+    const q = query.trim();
+    if (!q) return;
+    let alive = true;
+    searchCountryCities(country.key, q).then((cities) => alive && setFound({ query: q, cities }));
+    return () => {
+      alive = false;
+    };
+  }, [country.key, query]);
+  const q = query.trim();
+  const searching = q.length > 0;
+  const results = searching ? (found?.query === q ? found.cities : null) : null;
+  const cities = searching ? results : country.cities;
   return (
     <section className="country" aria-label={`${country.name}의 도시`}>
       <div className="country-head">
         <h2>{country.name}</h2>
-        {cities && cities.length > 0 && <span className="country-count">도시 {cities.length}곳</span>}
+        {!searching && cities && cities.length > 0 && <span className="country-count">도시 {cities.length}곳</span>}
         <button type="button" className="icon-btn" aria-label="나라 선택 닫기" onClick={onClose}>×</button>
       </div>
+      {country.cities !== null && country.cities.length > 0 && (
+        <label className="guide-search country-search">
+          <span className="sr-only">{country.name}의 도시 이름 검색</span>
+          <input
+            type="search"
+            value={query}
+            placeholder="도시 이름 검색 (한국어·영어)"
+            onChange={(e) => setQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && results?.[0]) onAdd(results[0]);
+            }}
+          />
+        </label>
+      )}
       {cities === null ? (
-        <p className="reason">도시 목록을 불러오는 중…</p>
+        <p className="reason">{searching ? '찾는 중…' : '도시 목록을 불러오는 중…'}</p>
       ) : cities.length === 0 ? (
-        <p className="reason">이 지역은 도시 데이터가 없습니다. 다른 나라를 고르세요.</p>
+        <p className="reason">{searching ? `"${q}"에 맞는 도시가 ${country.name}에 없습니다.` : '이 지역은 도시 데이터가 없습니다. 다른 나라를 고르세요.'}</p>
       ) : (
         <ul className="country-cities" onMouseLeave={() => onHover(null)}>
           {cities.map((c, i) => (
@@ -143,16 +182,16 @@ function CountryPicker({ country, waypoints, hovered, onHover, onAdd, onClose }:
                   if (el) rows.current.set(i, el);
                   else rows.current.delete(i);
                 }}
-                className={hovered === i ? 'is-hovered' : undefined}
+                className={!searching && hovered === i ? 'is-hovered' : undefined}
                 onClick={() => onAdd(c)}
-                onMouseEnter={() => onHover(i)}
-                onFocus={() => onHover(i)}
+                onMouseEnter={() => !searching && onHover(i)}
+                onFocus={() => !searching && onHover(i)}
                 aria-label={`${c.name} 경유지에 추가`}
               >
                 <span className="guide-name">{c.name}</span>
-                {c.capital && <span className="capital">수도</span>}
+                {c.capital && !c.area && <span className="capital">수도</span>}
                 <span className="city-en">{c.en !== c.name ? c.en : ''}</span>
-                <span className="city-meta">{inTrip(c) ? '일정에 있음 · ' : ''}인구 {formatPop(c.pop)}</span>
+                <span className="city-meta">{inTrip(c) ? '일정에 있음 · ' : ''}{c.area ? `${c.area} · ` : ''}인구 {formatPop(c.pop)}</span>
                 <span className="city-add" aria-hidden="true">+ 추가</span>
               </button>
             </li>
@@ -205,6 +244,7 @@ export function GlobeSidebar(props: CommonProps & {
           modes={GLOBE_MODES}
           selectedId={props.selectedId}
           noun="경유지"
+          blockedModes={(w, next) => ({ train: trainBlockReason(w, next) })}
           onSelect={props.onSelect}
           onRename={(id, name) => dispatch({ type: 'update', id, patch: { name } })}
           onMove={(id, delta) => dispatch({ type: 'move', id, delta })}
@@ -247,7 +287,15 @@ export function GlobeSidebar(props: CommonProps & {
   );
 }
 
-export function CitySidebar(props: CommonProps & { city: Waypoint; playLeg: number | null; onBack: () => void }) {
+export function CitySidebar(props: CommonProps & {
+  city: Waypoint;
+  playLeg: number | null;
+  /** 재생할 날 (0이면 전체)과 그날 재생할 구간 */
+  playDay: number;
+  playLegs: number[];
+  onPlayDay: (day: number) => void;
+  onBack: () => void;
+}) {
   const { route, dispatch, city, schedule } = props;
   // 도시 안 일정: 머무는 날마다 시작 시각부터 장소마다 머무는 시간과 구간 이동 시간을 더한다. 첫날은 도착, 마지막 날은 출발에 잇는다
   const cityIndex = route.waypoints.findIndex((w) => w.id === city.id);
@@ -257,7 +305,7 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; playLeg: numb
     [city, props.legs, time],
   );
   const count = cityDayCount(city);
-  const cityData = cityDataAt(city);
+  const cityData = useCityData(city);
   // 날 이름: 날짜를 정했으면 "10/24(토)", 아니면 여행 전체의 "3일차". 시간대를 찾기 전에는 숙박 수로 어림한다
   const firstTripDay = cityDays(route.waypoints)[cityIndex]?.arrive ?? 1;
   const dayLabels = plans.map((p, k) => (schedule && p.date ? formatDay(p.date, schedule.base, schedule.withDate) : `${firstTripDay + k}일차`));
@@ -289,7 +337,7 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; playLeg: numb
       <div className="panel-body">
       <CityGuide city={city} data={cityData} dispatch={dispatch} onSelect={props.onSelect} />
       {city.stops.length === 0 ? (
-        <div className="empty"><p>{cityData ? '아직 세부 경유지가 없습니다. 추천 루트를 불러오거나 장소를 검색해 보세요.' : '아직 세부 경유지가 없습니다.'}</p></div>
+        <div className="empty"><p>{cityData !== null ? '아직 세부 경유지가 없습니다. 추천 루트를 불러오거나 장소를 검색해 보세요.' : '아직 세부 경유지가 없습니다.'}</p></div>
       ) : (
         <>
         {count === 1 && head(0)}
@@ -326,7 +374,14 @@ export function CitySidebar(props: CommonProps & { city: Waypoint; playLeg: numb
       )}
       </div>
       <Undo route={route} dispatch={dispatch} />
-      <Footer status={status} legs={props.legs} count={city.stops.length} playing={props.playing} progress={props.progress} onTogglePlay={props.onTogglePlay}
+      <Footer status={status} legs={props.legs} count={city.stops.length}
+        picker={count > 1 && city.stops.length >= 2 && (
+          <select className="play-day" aria-label="재생할 날" value={props.playDay} onChange={(e) => props.onPlayDay(Number(e.target.value))}>
+            <option value={0}>모든 날</option>
+            {dayLabels.map((l, k) => <option key={k} value={k + 1}>{l}</option>)}
+          </select>
+        )}
+        blocked={props.playDay > 0 && props.playLegs.length === 0 ? `${dayLabels[props.playDay - 1]}에는 장소가 2곳 이상 있어야 그날만 재생할 수 있습니다.` : undefined} playing={props.playing} progress={props.progress} onTogglePlay={props.onTogglePlay}
         onClear={() => dispatch({ type: 'clearStops', parentId: city.id })} minReason="세부 경유지가 2곳 이상이어야 재생할 수 있습니다." />
     </aside>
   );

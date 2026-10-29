@@ -80,6 +80,9 @@ export function Traveler({ legs, stops, playing, positionRef, onProgress, onStat
   const look = useMemo(() => new Vector3(), []);
   const south = useMemo(() => new Vector3(), []);
   const up = useMemo(() => new Vector3(), []);
+  const right = useMemo(() => new Vector3(), []);
+  // 숙소를 둘 쪽. 머무는 도시가 바뀔 때만 바뀐다
+  const [stayside, setStaySide] = useState<-1 | 1>(-1);
 
   const timeline = useMemo(() => buildTimeline(stops, legs), [stops, legs]);
   const last = timeline.at(-1);
@@ -120,6 +123,13 @@ export function Traveler({ legs, stops, playing, positionRef, onProgress, onStat
       o.lookAt(look.copy(p).add(south));
       o.scale.setScalar(0.04);
       phase.current = (local / PLAY.perNight) % 1;
+      // 떠나는(없으면 들어온) 구간이 모형의 오른쪽(+x)으로 나가면 숙소를 왼쪽에, 아니면 오른쪽에 둔다
+      const out = legs[seg.stop]?.points ?? legs[seg.stop - 1]?.points.slice().reverse();
+      if (out && out.length > 1) {
+        right.set(1, 0, 0).applyQuaternion(o.quaternion);
+        const side = look.copy(out[Math.min(4, out.length - 1)]).sub(out[0]).dot(right) > 0 ? -1 : 1;
+        if (side !== stayside) setStaySide(side);
+      }
       stayRef.current = playing ? stops[seg.stop].id : null;
     }
     positionRef.current.copy(o.position);
@@ -145,7 +155,7 @@ export function Traveler({ legs, stops, playing, positionRef, onProgress, onStat
       {seg.kind === 'move' ? (
         <Vehicle mode={legs[seg.leg].mode} />
       ) : stops[seg.stop]?.nights > 0 ? (
-        <StayModel phase={phase} />
+        <StayModel phase={phase} side={stayside} />
       ) : (
         <VisitModel />
       )}
